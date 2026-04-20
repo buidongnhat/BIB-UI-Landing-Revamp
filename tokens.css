@@ -1,0 +1,198 @@
+/* ==========================================================================
+   BIB Landing — Design Tokens (CSS Custom Properties)
+   Companion to theme.json. Use when Gutenberg's auto-generated CSS vars
+   aren't available (classic PHP templates, external embeds, dev tooling).
+
+   Naming mirrors theme.json slugs so switching between
+   `var(--wp--preset--color--canvas)` and `var(--bib-canvas)` is trivial.
+
+   Source of truth: /Users/mac/Desktop/BIB Landing/design-direction-brief.md
+   ========================================================================== */
+
+:root {
+  /* ----- Color: Neutrals ----- */
+  --bib-canvas:        #FAF6F5;
+  --bib-panel:         #DADADA;
+  --bib-ink-primary:   #2D2B2A;
+  --bib-ink-secondary: #413F3E;
+  --bib-ink-muted:     #6B6966;
+  --bib-rule-hairline: #E6E0DC;
+  --bib-white:         #FFFFFF;
+
+  /* ----- Color: Brand ----- */
+  --bib-brand-ink:     #000000;
+  --bib-brand-ink-90:  #1A1A1A;
+  --bib-brand-ink-60:  #666666;
+
+  /* ----- Color: Photo-tier descriptors (not UI fills) ----- */
+  --bib-photo-midnight:     #051436;
+  --bib-photo-sunset-amber: #C97A3A;
+  --bib-photo-teal-ocean:   #2E7A94;
+  --bib-photo-dusty-rose:   #C99A9C;
+  --bib-photo-taupe:        #58534D;
+
+  /* ----- Color: Semantic ----- */
+  --bib-semantic-success: #3A7A3A;
+  --bib-semantic-warning: #B88128;
+  --bib-semantic-error:   #B0352E;
+  --bib-semantic-info:    #2D4878;
+
+  /* ----- Typography: Family ----- */
+  --bib-font-primary: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --bib-font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* ----- Typography: Size (rem-based, 16px root) ----- */
+  --bib-fs-caption:    0.75rem;   /* 12 */
+  --bib-fs-body-sm:    0.875rem;  /* 14 */
+  --bib-fs-body-md:    1rem;      /* 16 */
+  --bib-fs-body-lg:    1.125rem;  /* 18 */
+  --bib-fs-h3:         1.5rem;    /* 24 */
+  --bib-fs-h2:         2rem;      /* 32 */
+  --bib-fs-h1:         2.5rem;    /* 40 */
+  --bib-fs-display-section: clamp(2.5rem, 4vw + 1rem, 3.5rem);  /* 40–56 */
+  --bib-fs-display-hero:    clamp(3rem, 5vw + 1rem, 5rem);      /* 48–80 */
+  --bib-fs-stat-number:     clamp(3.5rem, 5vw + 1rem, 5rem);    /* 56–80 */
+
+  /* ----- Typography: Weight (Cina GEO has 9 weights) ----- */
+  --bib-fw-thin:       100;
+  --bib-fw-extralight: 200;
+  --bib-fw-light:      300;
+  --bib-fw-regular:    400;
+  --bib-fw-medium:     500;
+  --bib-fw-semibold:   600;
+  --bib-fw-bold:       700;
+  --bib-fw-extrabold:  800;
+  --bib-fw-black:      900;
+
+  /* ----- Typography: Line-height ----- */
+  --bib-lh-tight:    1;
+  --bib-lh-display:  1.05;
+  --bib-lh-heading:  1.15;
+  --bib-lh-snug:     1.3;
+  --bib-lh-body:     1.6;
+
+  /* ----- Typography: Tracking ----- */
+  --bib-tr-label-caps: 0.18em;
+  --bib-tr-caption:    0.04em;
+  --bib-tr-heading:   -0.005em;
+  --bib-tr-display:   -0.01em;
+
+  /* ----- Spacing (8pt grid) ----- */
+  --bib-sp-4xs: 0.25rem;  /* 4  */
+  --bib-sp-3xs: 0.5rem;   /* 8  */
+  --bib-sp-2xs: 0.75rem;  /* 12 */
+  --bib-sp-xs:  1rem;     /* 16 */
+  --bib-sp-sm:  1.5rem;   /* 24 */
+  --bib-sp-md:  2rem;     /* 32 */
+  --bib-sp-lg:  3rem;     /* 48 */
+  --bib-sp-xl:  4rem;     /* 64 */
+  --bib-sp-2xl: 5rem;     /* 80 */
+  --bib-sp-3xl: 6rem;     /* 96 */
+  --bib-sp-4xl: 8rem;     /* 128 */
+
+  /* ----- Layout ----- */
+  --bib-layout-content-size: 720px;
+  --bib-layout-wide-size:    1280px;
+  --bib-layout-gutter-desktop: 1.5rem;  /* 24 */
+  --bib-layout-gutter-tablet:  1rem;    /* 16 */
+  --bib-layout-gutter-mobile:  1rem;    /* 16 */
+  --bib-layout-margin-desktop: 5rem;    /* 80 */
+  --bib-layout-margin-tablet:  2rem;    /* 32 */
+  --bib-layout-margin-mobile:  1.25rem; /* 20 */
+
+  /* ----- Breakpoints (for container queries & MQ authoring) ----- */
+  --bib-bp-mobile:  320px;
+  --bib-bp-tablet:  768px;
+  --bib-bp-desktop: 1024px;
+  --bib-bp-wide:    1440px;
+
+  /* ----- Motion (scroll-reveal spec, Section 7) ----- */
+  --bib-motion-duration-fast:    200ms;
+  --bib-motion-duration-default: 400ms;
+  --bib-motion-duration-slow:    600ms;
+  --bib-motion-easing-default:   cubic-bezier(0.22, 0.61, 0.36, 1);
+  --bib-motion-reveal-offset:    16px;
+  --bib-motion-stagger:          80ms;
+
+  /* ----- Elevation / Shadow (minimal — deck has no elevation cues) ----- */
+  --bib-shadow-none:        none;
+  --bib-shadow-scrim-bottom: inset 0 -50% 30% -20% rgba(0, 0, 0, 0.55);
+  --bib-shadow-scrim-full:   linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%);
+  --bib-shadow-focus-ring:   0 0 0 2px var(--bib-canvas), 0 0 0 4px var(--bib-brand-ink);
+  --bib-shadow-hairline-b:   inset 0 -1px 0 0 var(--bib-rule-hairline);
+
+  /* ----- Border radii ----- */
+  --bib-radius-none: 0;
+  --bib-radius-sm:   2px;
+  --bib-radius-md:   4px;
+
+  /* ----- Touch target (WCAG 2.5.5) ----- */
+  --bib-touch-target-min: 44px;
+
+  /* ----- Z-index scale ----- */
+  --bib-z-base:     1;
+  --bib-z-nav:      100;
+  --bib-z-overlay:  200;
+  --bib-z-modal:    300;
+  --bib-z-toast:    400;
+}
+
+/* ==========================================================================
+   Motion — `prefers-reduced-motion` override
+   Mirrors the "required, not optional" rule from Section 7 of the brief.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --bib-motion-duration-fast:    0ms;
+    --bib-motion-duration-default: 0ms;
+    --bib-motion-duration-slow:    0ms;
+    --bib-motion-reveal-offset:    0px;
+    --bib-motion-stagger:          0ms;
+  }
+}
+
+/* ==========================================================================
+   Utility classes (optional — remove if project uses Tailwind/utility framework)
+   ========================================================================== */
+
+/* Section label — the signature letter-spaced top-left caps */
+.bib-label-section {
+  font-family: var(--bib-font-primary);
+  font-size: var(--bib-fs-body-sm);
+  font-weight: var(--bib-fw-regular);
+  line-height: var(--bib-lh-snug);
+  letter-spacing: var(--bib-tr-label-caps);
+  text-transform: uppercase;
+  color: var(--bib-ink-primary);
+}
+
+/* Text-on-photo scrim (mandatory — accessibility) */
+.bib-scrim {
+  position: relative;
+}
+.bib-scrim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bib-shadow-scrim-full);
+  pointer-events: none;
+}
+
+/* Scroll-reveal primitive — pair with IntersectionObserver JS */
+.bib-reveal {
+  opacity: 0;
+  transform: translateY(var(--bib-motion-reveal-offset));
+  transition:
+    opacity var(--bib-motion-duration-default) var(--bib-motion-easing-default),
+    transform var(--bib-motion-duration-default) var(--bib-motion-easing-default);
+}
+.bib-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Focus ring — brand-consistent across all interactive elements */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--bib-shadow-focus-ring);
+}

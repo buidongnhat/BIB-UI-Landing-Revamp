@@ -1,0 +1,589 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "_comment": "BIB Landing — WordPress design tokens. Translated from design-direction-brief.md Sections 3 (color), 4 (typography), 6 (layout), 7 (motion). Target: WordPress 6.6+ block theme. Font files (Cina GEO) require a commercial webfont license from Public Type — drop the WOFF2/WOFF files into /assets/fonts/ and confirm paths below match. Slugs are lowercase-hyphenated per WP convention; each generates a CSS custom property like `--wp--preset--color--canvas`.",
+
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1280px"
+    },
+
+    "color": {
+      "background": true,
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "defaultDuotone": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "link": true,
+      "text": true,
+
+      "palette": [
+        {
+          "slug": "canvas",
+          "name": "Canvas (warm cream)",
+          "color": "#FAF6F5"
+        },
+        {
+          "slug": "panel",
+          "name": "Panel (light neutral)",
+          "color": "#DADADA"
+        },
+        {
+          "slug": "ink-primary",
+          "name": "Ink Primary (warm near-black)",
+          "color": "#2D2B2A"
+        },
+        {
+          "slug": "ink-secondary",
+          "name": "Ink Secondary",
+          "color": "#413F3E"
+        },
+        {
+          "slug": "ink-muted",
+          "name": "Ink Muted",
+          "color": "#6B6966"
+        },
+        {
+          "slug": "rule-hairline",
+          "name": "Rule / Hairline",
+          "color": "#E6E0DC"
+        },
+
+        {
+          "slug": "brand-ink",
+          "name": "Brand Ink (primary)",
+          "color": "#000000"
+        },
+        {
+          "slug": "brand-ink-90",
+          "name": "Brand Ink 90 (hover)",
+          "color": "#1A1A1A"
+        },
+        {
+          "slug": "brand-ink-60",
+          "name": "Brand Ink 60 (disabled)",
+          "color": "#666666"
+        },
+
+        {
+          "slug": "photo-midnight",
+          "name": "Photo Midnight (photo tier only)",
+          "color": "#051436"
+        },
+        {
+          "slug": "photo-sunset-amber",
+          "name": "Photo Sunset Amber (illustrative)",
+          "color": "#C97A3A"
+        },
+        {
+          "slug": "photo-teal-ocean",
+          "name": "Photo Teal Ocean (illustrative)",
+          "color": "#2E7A94"
+        },
+        {
+          "slug": "photo-dusty-rose",
+          "name": "Photo Dusty Rose (avoid in UI)",
+          "color": "#C99A9C"
+        },
+        {
+          "slug": "photo-taupe",
+          "name": "Photo Taupe (panel bg)",
+          "color": "#58534D"
+        },
+
+        {
+          "slug": "semantic-success",
+          "name": "Semantic Success",
+          "color": "#3A7A3A"
+        },
+        {
+          "slug": "semantic-warning",
+          "name": "Semantic Warning",
+          "color": "#B88128"
+        },
+        {
+          "slug": "semantic-error",
+          "name": "Semantic Error",
+          "color": "#B0352E"
+        },
+        {
+          "slug": "semantic-info",
+          "name": "Semantic Info",
+          "color": "#2D4878"
+        },
+
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#FFFFFF"
+        }
+      ]
+    },
+
+    "typography": {
+      "customFontSize": false,
+      "dropCap": false,
+      "fluid": true,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": true,
+      "lineHeight": true,
+      "textDecoration": true,
+      "textTransform": true,
+      "writingMode": false,
+
+      "fontFamilies": [
+        {
+          "slug": "cina-geo",
+          "name": "Cina GEO",
+          "fontFamily": "\"Cina GEO\", \"Helvetica Neue\", Arial, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "100",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Thin.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "100",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-ThinItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "200",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-ExtraLight.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "200",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-ExtraLightItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "300",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Light.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "300",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-LightItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Regular.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "400",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Italic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "500",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Medium.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "500",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-MediumItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "600",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-SemiBold.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "600",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-SemiBoldItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Bold.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "700",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-BoldItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "800",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-ExtraBold.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "800",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-ExtraBoldItalic.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "normal",
+              "fontWeight": "900",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-Black.woff2"]
+            },
+            {
+              "fontFamily": "Cina GEO",
+              "fontStyle": "italic",
+              "fontWeight": "900",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/CinaGEO-BlackItalic.woff2"]
+            }
+          ]
+        },
+        {
+          "slug": "system",
+          "name": "System (fallback)",
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif"
+        }
+      ],
+
+      "fontSizes": [
+        {
+          "slug": "caption",
+          "name": "Caption (12)",
+          "size": "0.75rem",
+          "fluid": false
+        },
+        {
+          "slug": "body-sm",
+          "name": "Body Small (14)",
+          "size": "0.875rem",
+          "fluid": false
+        },
+        {
+          "slug": "body-md",
+          "name": "Body (16)",
+          "size": "1rem",
+          "fluid": false
+        },
+        {
+          "slug": "body-lg",
+          "name": "Body Large (18)",
+          "size": "1.125rem",
+          "fluid": false
+        },
+        {
+          "slug": "heading-h3",
+          "name": "Heading H3 (24)",
+          "size": "1.5rem",
+          "fluid": {
+            "min": "1.25rem",
+            "max": "1.5rem"
+          }
+        },
+        {
+          "slug": "heading-h2",
+          "name": "Heading H2 (32)",
+          "size": "2rem",
+          "fluid": {
+            "min": "1.5rem",
+            "max": "2rem"
+          }
+        },
+        {
+          "slug": "heading-h1",
+          "name": "Heading H1 (40)",
+          "size": "2.5rem",
+          "fluid": {
+            "min": "1.875rem",
+            "max": "2.5rem"
+          }
+        },
+        {
+          "slug": "display-section",
+          "name": "Display Section (40–56)",
+          "size": "3.5rem",
+          "fluid": {
+            "min": "2.5rem",
+            "max": "3.5rem"
+          }
+        },
+        {
+          "slug": "display-hero",
+          "name": "Display Hero (64–80)",
+          "size": "5rem",
+          "fluid": {
+            "min": "3rem",
+            "max": "5rem"
+          }
+        },
+        {
+          "slug": "stat-number",
+          "name": "Stat Number (56–80)",
+          "size": "5rem",
+          "fluid": {
+            "min": "3.5rem",
+            "max": "5rem"
+          }
+        }
+      ]
+    },
+
+    "spacing": {
+      "customSpacingSize": false,
+      "padding": true,
+      "margin": true,
+      "blockGap": true,
+      "units": ["px", "em", "rem", "vh", "vw", "%"],
+      "spacingScale": {
+        "_comment": "Disabled in favor of explicit 8pt grid below"
+      },
+      "spacingSizes": [
+        { "slug": "4xs", "name": "4XS (4)",   "size": "0.25rem" },
+        { "slug": "3xs", "name": "3XS (8)",   "size": "0.5rem" },
+        { "slug": "2xs", "name": "2XS (12)",  "size": "0.75rem" },
+        { "slug": "xs",  "name": "XS (16)",   "size": "1rem" },
+        { "slug": "sm",  "name": "SM (24)",   "size": "1.5rem" },
+        { "slug": "md",  "name": "MD (32)",   "size": "2rem" },
+        { "slug": "lg",  "name": "LG (48)",   "size": "3rem" },
+        { "slug": "xl",  "name": "XL (64)",   "size": "4rem" },
+        { "slug": "2xl", "name": "2XL (80)",  "size": "5rem" },
+        { "slug": "3xl", "name": "3XL (96)",  "size": "6rem" },
+        { "slug": "4xl", "name": "4XL (128)", "size": "8rem" }
+      ]
+    },
+
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+
+    "shadow": {
+      "defaultPresets": false,
+      "presets": [
+        {
+          "slug": "none",
+          "name": "None",
+          "shadow": "none"
+        },
+        {
+          "slug": "scrim",
+          "name": "Scrim (text-over-photo)",
+          "shadow": "0 0 0 9999px rgba(0,0,0,0.0), inset 0 -50% 30% -20% rgba(0,0,0,0.55)"
+        },
+        {
+          "slug": "focus-ring",
+          "name": "Focus Ring",
+          "shadow": "0 0 0 2px #FAF6F5, 0 0 0 4px #000000"
+        },
+        {
+          "slug": "hairline-bottom",
+          "name": "Hairline Bottom",
+          "shadow": "inset 0 -1px 0 0 #E6E0DC"
+        }
+      ]
+    },
+
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": true
+        }
+      }
+    }
+  },
+
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--canvas)",
+      "text": "var(--wp--preset--color--ink-primary)"
+    },
+
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--cina-geo)",
+      "fontSize": "var(--wp--preset--font-size--body-md)",
+      "fontWeight": "400",
+      "lineHeight": "1.6"
+    },
+
+    "spacing": {
+      "blockGap": "var(--wp--preset--spacing--sm)",
+      "padding": {
+        "top": "0",
+        "right": "var(--wp--preset--spacing--xs)",
+        "bottom": "0",
+        "left": "var(--wp--preset--spacing--xs)"
+      }
+    },
+
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var(--wp--preset--color--brand-ink)"
+        },
+        "typography": {
+          "textDecoration": "underline"
+        },
+        ":hover": {
+          "color": {
+            "text": "var(--wp--preset--color--brand-ink-90)"
+          }
+        },
+        ":focus": {
+          "color": {
+            "text": "var(--wp--preset--color--brand-ink)"
+          }
+        }
+      },
+
+      "h1": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--heading-h1)",
+          "fontWeight": "600",
+          "lineHeight": "1.15",
+          "letterSpacing": "-0.005em"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--ink-primary)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--heading-h2)",
+          "fontWeight": "600",
+          "lineHeight": "1.2"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--ink-primary)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--heading-h3)",
+          "fontWeight": "500",
+          "lineHeight": "1.3"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--ink-primary)"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--body-lg)",
+          "fontWeight": "500",
+          "lineHeight": "1.4",
+          "textTransform": "uppercase",
+          "letterSpacing": "0.18em"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--ink-primary)"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var(--wp--preset--color--brand-ink)",
+          "text": "var(--wp--preset--color--white)"
+        },
+        "typography": {
+          "fontWeight": "500",
+          "letterSpacing": "0.04em"
+        },
+        "border": {
+          "radius": "0px"
+        },
+        "spacing": {
+          "padding": {
+            "top": "0.875rem",
+            "right": "1.5rem",
+            "bottom": "0.875rem",
+            "left": "1.5rem"
+          }
+        },
+        ":hover": {
+          "color": {
+            "background": "var(--wp--preset--color--brand-ink-90)"
+          }
+        },
+        ":focus": {
+          "color": {
+            "background": "var(--wp--preset--color--brand-ink)"
+          }
+        }
+      }
+    },
+
+    "blocks": {
+      "core/paragraph": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--body-md)",
+          "lineHeight": "1.6"
+        }
+      },
+      "core/heading": {
+        "typography": {
+          "fontWeight": "600"
+        }
+      },
+      "core/post-title": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--display-section)",
+          "fontWeight": "500",
+          "lineHeight": "1.1",
+          "textTransform": "uppercase",
+          "letterSpacing": "-0.005em"
+        }
+      },
+      "core/quote": {
+        "typography": {
+          "fontStyle": "italic",
+          "fontSize": "var(--wp--preset--font-size--body-lg)"
+        },
+        "color": {
+          "background": "var(--wp--preset--color--panel)"
+        }
+      },
+      "core/separator": {
+        "color": {
+          "background": "var(--wp--preset--color--rule-hairline)"
+        }
+      }
+    }
+  },
+
+  "customTemplates": [],
+  "templateParts": []
+}
