@@ -1,0 +1,1235 @@
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-SemiBold.eot");
+    src: local("../../../font/Cina/CinaGEO-SemiBold"), local("CinaGEO-SemiBold"), url("../../../font/Cina/CinaGEO-SemiBold.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-SemiBold.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-SemiBold.woff") format("woff"), url("../../../font/Cina/CinaGEO-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-ExtraBold.eot");
+    src: local("../../../font/Cina/CinaGEO-ExtraBold"), local("CinaGEO-ExtraBold"), url("../../../font/Cina/CinaGEO-ExtraBold.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-ExtraBold.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-ExtraBold.woff") format("woff"), url("../../../font/Cina/CinaGEO-ExtraBold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Regular.eot");
+    src: local("../../../font/Cina/CinaGEO-Regular"), local("CinaGEO-Regular"), url("../../../font/Cina/CinaGEO-Regular.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Regular.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Regular.woff") format("woff"), url("../../../font/Cina/CinaGEO-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Black.eot");
+    src: local("../../../font/Cina/CinaGEO-Black"), local("CinaGEO-Black"), url("../../../font/Cina/CinaGEO-Black.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Black.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Black.woff") format("woff"), url("../../../font/Cina/CinaGEO-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Medium.eot");
+    src: local("../../../font/Cina/Cina-GEO-Medium"), local("CinaGEO-Medium"), url("../../../font/Cina/CinaGEO-Medium.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Medium.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Medium.woff") format("woff"), url("../../../font/Cina/CinaGEO-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Light.eot");
+    src: local("../../../font/Cina/CinaGEO-Light"), local("CinaGEO-Light"), url("../../../font/Cina/CinaGEO-Light.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Light.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Light.woff") format("woff"), url("../../../font/Cina/CinaGEO-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-ExtraLight.eot");
+    src: local("../../../font/Cina/CinaGEO-ExtraLight"), local("CinaGEO-ExtraLight"), url("../../../font/Cina/CinaGEO-ExtraLight.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-ExtraLight.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-ExtraLight.woff") format("woff"), url("../../../font/Cina/CinaGEO-ExtraLight.ttf") format("truetype");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Bold.eot");
+    src: local("../../../font/Cina/CinaGEO-Bold"), local("CinaGEO-Bold"), url("../../../font/Cina/CinaGEO-Bold.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Bold.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Bold.woff") format("woff"), url("../../../font/Cina/CinaGEO-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Thin.eot");
+    src: local("../../../font/Cina/CinaGEO-Thin"), local("CinaGEO-Thin"), url("../../../font/Cina/CinaGEO-Thin.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Thin.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Thin.woff") format("woff"), url("../../../font/Cina/CinaGEO-Thin.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans.eot");
+    src: url("../../../font/GillSans/GillSans.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans.woff2") format("woff2"), url("../../../font/GillSans/GillSans.woff") format("woff"), url("../../../font/GillSans/GillSans.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-MediumItalic.eot");
+    src: url("../../../font/GillSans/GillSans-MediumItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-MediumItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-MediumItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-MediumItalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Medium.eot");
+    src: url("../../../font/GillSans/GillSans-Medium.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Medium.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Medium.woff") format("woff"), url("../../../font/GillSans/GillSans-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Bold.eot");
+    src: url("../../../font/GillSans/GillSans-Bold.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Bold.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Bold.woff") format("woff"), url("../../../font/GillSans/GillSans-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Heavy.eot");
+    src: url("../../../font/GillSans/GillSans-Heavy.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Heavy.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Heavy.woff") format("woff"), url("../../../font/GillSans/GillSans-Heavy.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-HeavyItalic.eot");
+    src: url("../../../font/GillSans/GillSans-HeavyItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-HeavyItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-HeavyItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-HeavyItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-BoldItalic.eot");
+    src: url("../../../font/GillSans/GillSans-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-BoldItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-BoldItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-CondensedRegular.eot");
+    src: url("../../../font/GillSans/GillSans-CondensedRegular.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-CondensedRegular.woff2") format("woff2"), url("../../../font/GillSans/GillSans-CondensedRegular.woff") format("woff"), url("../../../font/GillSans/GillSans-CondensedRegular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-CondensedBold.eot");
+    src: url("../../../font/GillSans/GillSans-CondensedBold.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-CondensedBold.woff2") format("woff2"), url("../../../font/GillSans/GillSans-CondensedBold.woff") format("woff"), url("../../../font/GillSans/GillSans-CondensedBold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Italic.eot");
+    src: url("../../../font/GillSans/GillSans-Italic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Italic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Italic.woff") format("woff"), url("../../../font/GillSans/GillSans-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-LightItalic.eot");
+    src: url("../../../font/GillSans/GillSans-LightItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-LightItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-LightItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-LightItalic.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Light.eot");
+    src: url("../../../font/GillSans/GillSans-Light.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Light.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Light.woff") format("woff"), url("../../../font/GillSans/GillSans-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+#about-us-page .group-banner-area {
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area {
+        min-height: 0
+    }
+}
+
+#about-us-page .group-banner-area .banner-area {
+    background: linear-gradient(rgba(55, 123, 140, 0.8), rgba(55, 123, 140, 0.99));
+    background-repeat: no-repeat;
+    background-position: right;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 319rem 0 253rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area {
+        min-height: 0;
+        gap: 20rem;
+        padding: 150rem 44rem 32rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area {
+        flex-direction: column;
+        gap: 29rem;
+        padding: 195rem 16rem 30rem 20rem
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area {
+    width: 580rem;
+    padding: 226rem 0 191rem 0
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area {
+        padding: 0;
+        width: 573rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area {
+        padding: 0;
+        width: 354rem
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-title-area h2 {
+    font-weight: 300;
+    font-size: 100rem;
+    color: #fff
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-title-area h2 {
+        font-size: 40rem
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-title-area h2 .text-color {
+    color: #d1aeac
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area {
+    margin-top: 20rem;
+    display: flex;
+    gap: 122rem;
+    border-bottom: 1rem solid rgba(255, 255, 255, .336);
+    padding-bottom: 30rem
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area {
+        gap: 0;
+        justify-content: space-between
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area .box-sub-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 45rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area .box-sub-title-area h2 {
+        font-size: 40rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area .box-sub-title-area h2 {
+        font-size: 32rem
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area .box-sub-title-area p {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 28rem;
+    color: #fff
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area .box-sub-title-area p {
+        font-size: 28rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-sub-title-area .box-sub-title-area p {
+        font-size: 20rem
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-descripton-area {
+    margin-top: 40rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-descripton-area {
+        background: linear-gradient(rgba(55, 123, 140, 0.31), rgba(55, 123, 140, 0.38))
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-left-area .group-descripton-area span {
+    font-weight: 300;
+    font-size: 26rem;
+    color: #fff
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-descripton-area span {
+        font-size: 26rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-left-area .group-descripton-area span {
+        font-size: 18rem
+    }
+}
+
+#about-us-page .group-banner-area .banner-area .box-right-area {
+    padding: 113rem 0 10rem 0;
+    width: 686rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-banner-area .banner-area .box-right-area {
+        padding: 0 0 0 0;
+        width: 400rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-banner-area .banner-area .box-right-area {
+        padding: 0;
+        width: 358rem
+    }
+}
+
+#about-us-page .group-our-vision-area {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom
+}
+
+#about-us-page .group-our-vision-area .our-vision-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 115rem;
+    padding: 160rem 255rem 171rem 160rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area {
+        padding: 84rem 45rem 120rem 45rem;
+        gap: 84rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area {
+        flex-direction: column;
+        padding: 64rem 18rem 73rem 18rem;
+        gap: 40rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 60rem;
+    color: #377b8c
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-title-area h2 {
+        font-size: 35rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-description-area {
+    margin-top: 27rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-description-area {
+        margin-top: 16rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-description-area {
+        margin-top: 16rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-description-area span {
+    line-height: 160%;
+    letter-spacing: .2rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #272e35
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-description-area span {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-content-area .box-description-area span {
+        font-size: 18rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-image-area {
+    width: 650rem;
+    margin-top: 83rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-image-area {
+        margin-top: 70rem;
+        width: 424rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area .box-image-area {
+        margin-top: 30rem;
+        width: 355rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right {
+        display: flex;
+        flex-direction: column-reverse
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-title-area {
+    margin-top: 94rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-title-area {
+        margin-top: 67rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-title-area {
+        margin-top: 10rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 60rem;
+    color: #377b8c
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-title-area h2 {
+        font-size: 35rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-description-area {
+    margin-top: 27rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-description-area {
+        margin-top: 16rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-description-area {
+        margin-top: 16rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-description-area span {
+    line-height: 160%;
+    letter-spacing: .2rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #272e35
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-description-area span {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-content-area .box-description-area span {
+        font-size: 18rem
+    }
+}
+
+#about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-image-area {
+    width: 650rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-image-area {
+        width: 424rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-our-vision-area .our-vision-area .group-content-area-right .box-image-area {
+        width: 355rem;
+        margin-top: 30rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area {
+        position: relative
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area {
+    padding: 150rem 560rem 0 560rem;
+    text-align: center
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area {
+        padding: 88rem 270rem 0 270rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area {
+        padding: 14rem 25rem 0 25rem
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 60rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area h2 {
+        font-size: 35rem
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-title-area .title-color {
+    color: #377b8c
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 94rem 255rem 80rem 255rem;
+    text-align: center
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area {
+        padding: 60rem 44rem 97rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area {
+        padding: 44rem 16rem 45rem 16rem;
+        justify-content: center
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area {
+    width: 650rem;
+    border-bottom: 1rem solid #e1e1e1;
+    padding: 25rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area {
+        width: 431rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area {
+        width: 360rem
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .text {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 45rem;
+    color: #555f6d
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .text {
+        font-size: 45rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .text {
+        font-size: 24rem
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .description123 {
+    font-weight: 300;
+    font-size: 26rem;
+    text-align: center;
+    transition: all 300ms ease-in-out;
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    width: 650rem;
+    margin-top: 10rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .description123 {
+        width: 431rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .description123 {
+        width: 360rem;
+        font-size: 20rem
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:hover .text {
+    color: #377b8c
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:hover .description123 {
+    transition: all 500ms ease-in-out;
+    max-height: 100rem;
+    width: 650rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:hover .description123 {
+        width: 431rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:hover .description123 {
+        width: 360rem
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area .span-display {
+    display: block
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:last-child {
+    width: 100%
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(1) {
+    border-top: 1rem solid #e1e1e1
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(2) {
+    border-top: 1rem solid #e1e1e1
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(n+5) {
+        border-bottom: none;
+        padding: 0;
+        transition: all 500ms ease-in-out;
+        overflow: hidden;
+        display: block
+    }
+
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(n+5) .text {
+        display: none
+    }
+
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(n+5) .description123 {
+        margin: 0
+    }
+
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(n+5).load-more {
+        border-bottom: 1rem solid #e1e1e1;
+        padding: 25rem 0
+    }
+
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-content-area .box-values-area:nth-child(n+5).load-more .text {
+        display: block
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .mobile-load-more {
+    position: absolute;
+    bottom: 80rem;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12rem;
+    width: 100%;
+    padding-top: 80rem;
+    background: linear-gradient(360deg, rgb(255, 252, 247) 0%, rgb(255, 252, 247) 25%, rgba(255, 252, 247, 0.5858718487) 73%, rgba(255, 252, 247, 0) 81%)
+}
+
+@media only screen and (min-width: 1025px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .mobile-load-more {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .mobile-load-more {
+        display: none
+    }
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .mobile-load-more .icon-load-more {
+    width: 50rem
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .mobile-load-more .text {
+    font-weight: 300;
+    font-size: 20rem;
+    color: #377b8c
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-last-title-area {
+    text-align: center
+}
+
+#about-us-page .group-best-in-brands-area .best-in-brands-area .group-last-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 60rem;
+    color: #377b8c
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-last-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-best-in-brands-area .best-in-brands-area .group-last-title-area h2 {
+        font-size: 40rem
+    }
+}
+
+#about-us-page .group-initiatives-area {
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-title-area {
+    text-align: center;
+    padding: 30rem 350rem 100rem 350rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-title-area {
+        padding: 12rem 124rem 76rem 124rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-title-area {
+        padding: 8rem 16rem 40rem 16rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 60rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-title-area h2 {
+        font-size: 35rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-sub-title-area {
+    margin-top: 30rem
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-sub-title-area p {
+    line-height: 160%;
+    letter-spacing: .2rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #fff
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-sub-title-area p {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-title-area .box-sub-title-area p {
+        font-size: 18rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area {
+    padding: 0 255rem 148rem 255rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area {
+        padding: 0 44rem 100rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area {
+        padding: 0 16rem 92rem 16rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area {
+        flex-direction: column
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-image {
+    width: 454rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-image {
+        width: 296rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-image {
+        width: 358rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content {
+    width: 838rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content {
+        width: 560rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content {
+        width: 358rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-title {
+        margin-top: 40rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-title h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 36rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-title h2 {
+        font-size: 32rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-title h2 {
+        font-size: 24rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-description {
+    margin-top: 28rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-description {
+        margin-top: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-description {
+        margin-top: 16rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-description p {
+    line-height: 160%;
+    letter-spacing: .2rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #fff;
+    text-align: justify
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-description p {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-area .box-content .box-content-description p {
+        font-size: 18rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 94rem
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area {
+        flex-direction: column-reverse;
+        margin-top: 44rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-image {
+    width: 693rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-image {
+        width: 456rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-image {
+        width: 358rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content {
+    width: 594rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content {
+        width: 400rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content {
+        width: 358rem;
+        margin-top: 40rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-title h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 36rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-title h2 {
+        font-size: 32rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-title h2 {
+        font-size: 24rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-description {
+    margin-top: 28rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-description {
+        margin-top: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-description {
+        margin-top: 16rem
+    }
+}
+
+#about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-description p {
+    line-height: 160%;
+    letter-spacing: .2rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #fff;
+    text-align: justify
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-description p {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-initiatives-area .initiatives-area .group-content-area .box-content-bottom-area .box-content .box-content-description p {
+        font-size: 18rem
+    }
+}
+
+#about-us-page .group-talents-at-area .talents-at-area {
+    padding: 187rem 255rem 115rem 255rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-talents-at-area .talents-at-area {
+        padding: 88rem 44rem 75rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-talents-at-area .talents-at-area {
+        padding: 60rem 16rem 33rem 16rem
+    }
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-talents-at-area .talents-at-area .group-title-area {
+        flex-direction: column;
+        gap: 20rem
+    }
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-title-area h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 60rem;
+    color: #377b8c
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-title-area h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-title-area h2 {
+        font-size: 35rem
+    }
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-title-area .text-color {
+    color: #d1aeac
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-control-slider-area {
+    display: flex;
+    align-items: end
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-control-slider-area .group-control-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 32rem;
+    margin-bottom: 10rem
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-control-slider-area .group-control-area .control-slider {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 54rem;
+    height: 54rem;
+    padding: 5rem;
+    border-radius: 50%;
+    background-color: #caabaa
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-control-slider-area .group-control-area .control-slider {
+        width: 40rem;
+        height: 40rem
+    }
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-title-area .box-control-slider-area .group-control-area .control-slider img {
+    width: 15rem
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-slider-area .box-image-area {
+    width: 1408rem;
+    margin-top: 45rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #about-us-page .group-talents-at-area .talents-at-area .group-slider-area .box-image-area {
+        width: 936rem;
+        margin-top: 32rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #about-us-page .group-talents-at-area .talents-at-area .group-slider-area .box-image-area {
+        width: 358rem;
+        margin-top: 20rem
+    }
+}
+
+#about-us-page .group-talents-at-area .talents-at-area .group-slider-area .owl-dots {
+    display: none
+}
+
+/*# sourceMappingURL=about-us-page.css.map */
