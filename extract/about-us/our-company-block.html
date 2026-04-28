@@ -1,0 +1,257 @@
+<!-- ===== Section / Our Company (Figma node 103:502, About us page) ===== -->
+<style>
+    .bib-our-company,
+    .bib-our-company *,
+    .bib-our-company *::before,
+    .bib-our-company *::after {
+        box-sizing: border-box;
+    }
+
+    .bib-our-company {
+        position: relative;
+        width: 100%;
+        min-height: 828px;
+        display: flex;
+        align-items: flex-end;
+        padding: 0 48px 40px;
+        background: #051436;
+        /* photo/midnight base */
+        color: #fff;
+        overflow: hidden;
+        isolation: isolate;
+        font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Photo at 72% opacity (Figma fill spec) */
+    .bib-our-company__bg {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.72;
+    }
+
+    /* Diagonal scrim — Figma 189.66deg, transparent → 35% @ 54.78% → 88% @ 90.81% */
+    .bib-our-company::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(189.66deg,
+                rgba(0, 0, 0, 0) 11.42%,
+                rgba(0, 0, 0, 0.35) 54.78%,
+                rgba(0, 0, 0, 0.88) 90.81%);
+        pointer-events: none;
+    }
+
+    .bib-our-company__col {
+        position: relative;
+        flex: 1 0 0;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 24px;
+        min-width: 0;
+    }
+
+    .bib-our-company__header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .bib-our-company__eyebrow {
+        margin: 0;
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 400;
+        color: #C97A3A;
+        /* photo/sunset-amber */
+        white-space: nowrap;
+    }
+
+    .bib-our-company__title {
+        margin: 0;
+        width: 592px;
+        max-width: 100%;
+        font-weight: 300;
+        /* Cina GEO Light */
+        font-size: 80px;
+        line-height: 96px;
+        letter-spacing: -1px;
+        color: #fff;
+    }
+
+    .bib-our-company__lede {
+        width: 592px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 400;
+        color: #fff;
+    }
+
+    .bib-our-company__lede p {
+        margin: 0;
+    }
+
+    /* Stats Row */
+    .bib-our-company__stats {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding-top: 24px;
+        margin: 0;
+    }
+
+    .bib-our-company__stat {
+        flex: 1 0 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        color: #fff;
+        overflow: hidden;
+    }
+
+    .bib-our-company__stat dt {
+        margin: 0;
+        font-weight: 600;
+        /* Cina GEO SemiBold */
+        font-size: 40px;
+        line-height: 48px;
+        letter-spacing: -0.5px;
+        white-space: nowrap;
+    }
+
+    .bib-our-company__stat dd {
+        margin: 0;
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .bib-our-company__divider {
+        width: 1px;
+        height: 64px;
+        background: rgba(255, 255, 255, 0.24);
+        flex-shrink: 0;
+    }
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+        .bib-our-company {
+            min-height: 720px;
+            padding: 0 32px 32px;
+        }
+
+        .bib-our-company__title {
+            font-size: 56px;
+            line-height: 64px;
+            width: auto;
+        }
+
+        .bib-our-company__stats {
+            flex-wrap: wrap;
+            gap: 16px 24px;
+        }
+
+        .bib-our-company__divider {
+            display: none;
+        }
+
+        .bib-our-company__stat {
+            flex: 1 1 calc(50% - 12px);
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+        .bib-our-company {
+            min-height: 640px;
+            padding: 0 20px 24px;
+        }
+
+        .bib-our-company__title {
+            font-size: 40px;
+            line-height: 48px;
+        }
+
+        .bib-our-company__lede,
+        .bib-our-company__title {
+            width: 100%;
+        }
+
+        .bib-our-company__stat {
+            flex: 1 1 100%;
+        }
+
+        .bib-our-company__stat dt {
+            font-size: 32px;
+            line-height: 40px;
+        }
+    }
+</style>
+
+<section class="bib-our-company" aria-labelledby="our-company-title">
+    <img class="bib-our-company__bg" src="img/section-our-company.png" alt="" aria-hidden="true">
+
+    <div class="bib-our-company__col">
+        <div class="bib-our-company__header">
+            <p class="bib-our-company__eyebrow">About us</p>
+            <h1 id="our-company-title" class="bib-our-company__title">OUR COMPANY</h1>
+        </div>
+
+        <div class="bib-our-company__lede">
+            <p>Today Bestinbrands is the leading omni-channel distributor in Bangladesh, and has a workforce of over 400
+                employees.</p>
+            <p>We are partnering with more than 100 brands and ensure that brands are imported, distributed, and
+                marketed efficiently.</p>
+        </div>
+
+        <dl class="bib-our-company__stats" aria-label="Company at a glance">
+            <div class="bib-our-company__stat">
+                <dt>25+</dt>
+                <dd>Years of expertise</dd>
+            </div>
+            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+            <div class="bib-our-company__stat">
+                <dt>400+</dt>
+                <dd>Employees</dd>
+            </div>
+            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+            <div class="bib-our-company__stat">
+                <dt>120+</dt>
+                <dd>Brands</dd>
+            </div>
+            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+            <div class="bib-our-company__stat">
+                <dt>Core Categories</dt>
+                <dd>Fragrances, Makeup, Skin Care, Home, Toys, F&amp;B, and Sport</dd>
+            </div>
+            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+            <div class="bib-our-company__stat">
+                <dt>Offices In</dt>
+                <dd>Bangladesh, Singapore, Dubai</dd>
+            </div>
+        </dl>
+    </div>
+</section>
+<!-- ===== /Section / Our Company ===== -->

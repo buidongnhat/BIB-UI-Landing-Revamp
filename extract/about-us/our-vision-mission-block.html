@@ -1,0 +1,154 @@
+<!-- ===== Section / Our Vision & Mission (Figma node 103:560) ===== -->
+            <style>
+                .bib-vm,
+                .bib-vm *,
+                .bib-vm *::before,
+                .bib-vm *::after { box-sizing: border-box; }
+
+                .bib-vm {
+                    width: 100%;
+                    background: #fff;
+                    display: grid;
+                    grid-template-rows: 1fr 1fr;
+                    grid-template-columns: 1fr;
+                    font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                }
+
+                .bib-vm__row {
+                    position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    isolation: isolate;
+                    background: #051436; /* photo/midnight base */
+                    color: #fff;
+                    display: flex;
+                    align-items: center;
+                }
+
+                /* Photo fill — Figma per-row crop */
+                .bib-vm__bg {
+                    position: absolute;
+                    inset: 0;
+                    z-index: -2;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                .bib-vm__row--vision .bib-vm__bg {
+                    /* Figma: h:132.86%, top:-16.43%, w:115.77%, left:0.05% */
+                    width: 115.77%;
+                    height: 132.86%;
+                    top: -16.43%;
+                    left: 0.05%;
+                    inset: auto;
+                    object-fit: cover;
+                }
+                .bib-vm__row--mission .bib-vm__bg {
+                    /* Figma: h:106.81%, top:-3.41%, w:100.03% */
+                    width: 100.03%;
+                    height: 106.81%;
+                    top: -3.41%;
+                    left: 0;
+                    inset: auto;
+                    object-fit: cover;
+                }
+
+                /* Directional gradient scrims (image legibility on the text side) */
+                .bib-vm__row::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: -1;
+                    pointer-events: none;
+                }
+                .bib-vm__row--vision::before {
+                    /* Vision: text on left → dark on left, fades right */
+                    background: linear-gradient(to right, #000 0%, rgba(5,20,54,0) 100%);
+                }
+                .bib-vm__row--mission::before {
+                    /* Mission: text on right → dark on right (88.94% stop), fades left */
+                    background: linear-gradient(to right, rgba(5,20,54,0) 0%, #000 88.94%);
+                }
+
+                /* Content-wrapper — max 1440 like nav + hero */
+                .bib-vm__wrapper {
+                    position: relative;
+                    width: 100%;
+                    max-width: 1440px;
+                    margin: 0 auto;
+                    padding: 0 48px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    align-items: center;
+                    height: 100%;
+                }
+
+                .bib-vm__col {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    gap: 10px;
+                    height: 100%;
+                }
+                .bib-vm__col--right { grid-column: 2; }
+
+                .bib-vm__title {
+                    margin: 0;
+                    width: 100%;
+                    font-weight: 600;        /* Cina GEO SemiBold */
+                    font-size: 40px;
+                    line-height: 48px;
+                    letter-spacing: -0.5px;
+                    color: #fff;
+                }
+                .bib-vm__body {
+                    margin: 0;
+                    width: 100%;
+                    font-weight: 400;        /* Cina GEO Regular */
+                    font-size: 18px;
+                    line-height: 24px;
+                    color: #FAF6F5;          /* neutral/canvas */
+                }
+
+                /* Tablet */
+                @media (max-width: 1024px) {
+                    .bib-vm__wrapper { padding: 0 32px; grid-template-columns: 1fr; }
+                    .bib-vm__col--right { grid-column: 1; }
+                    .bib-vm__row--vision::before {
+                        background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(5,20,54,0.45) 100%);
+                    }
+                    .bib-vm__row--mission::before {
+                        background: linear-gradient(to right, rgba(5,20,54,0.45) 0%, rgba(0,0,0,0.85) 100%);
+                    }
+                }
+                /* Mobile */
+                @media (max-width: 640px) {
+                    .bib-vm__wrapper { padding: 0 20px; }
+                    .bib-vm__title { font-size: 32px; line-height: 40px; }
+                    .bib-vm__body  { font-size: 16px; line-height: 22px; }
+                }
+            </style>
+
+            <section class="bib-vm" aria-label="Our vision and mission">
+                <div class="bib-vm__row bib-vm__row--vision">
+                    <img class="bib-vm__bg" src="img/section-our-vision.png" alt="" aria-hidden="true">
+                    <div class="bib-vm__wrapper">
+                        <div class="bib-vm__col">
+                            <h2 class="bib-vm__title">OUR VISION</h2>
+                            <p class="bib-vm__body">Be the leading authorized distributor in Bangladesh through strong and sustainable partnerships with global brands.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bib-vm__row bib-vm__row--mission">
+                    <img class="bib-vm__bg" src="img/section-our-mission.png" alt="" aria-hidden="true">
+                    <div class="bib-vm__wrapper">
+                        <div class="bib-vm__col bib-vm__col--right">
+                            <h2 class="bib-vm__title">OUR MISSION</h2>
+                            <p class="bib-vm__body">To connect Bangladeshi consumers to international brands by constantly diversifying and curating authentic products.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- ===== /Section / Our Vision & Mission ===== -->

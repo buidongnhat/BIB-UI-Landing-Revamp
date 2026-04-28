@@ -72,10 +72,8 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
             padding: 0 !important;
         }
     </style>
-    <link rel='stylesheet' id='wp-block-library-css'
-        href='css/wp-block-library.min.css' media='all' />
-    <link rel='stylesheet' id='classic-theme-styles-css'
-        href='css/classic-themes.min.css' media='all' />
+    <link rel='stylesheet' id='wp-block-library-css' href='css/wp-block-library.min.css' media='all' />
+    <link rel='stylesheet' id='classic-theme-styles-css' href='css/classic-themes.min.css' media='all' />
     <style id='global-styles-inline-css'>
         body {
             --wp--preset--color--black: #000000;
@@ -414,24 +412,12 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
             line-height: 1.6;
         }
     </style>
-    <link rel='stylesheet' id='bib-website-master-css'
-        href='css/master.css'
-        media='all' />
-    <link rel='stylesheet' id='bib-website-header-css-css'
-        href='css/header.css'
-        media='all' />
-    <link rel='stylesheet' id='bib-website-footer-css-css'
-        href='css/footer.css'
-        media='all' />
-    <link rel='stylesheet' id='bib-website-owl-carousel-css'
-        href='css/owl.carousel.min.css'
-        media='all' />
-    <link rel='stylesheet' id='bib-website-owl-carousel-theme-css'
-        href='css/owl.theme.default.min.css'
-        media='all' />
-    <link rel='stylesheet' id='bib-website-aos-animate-css-css'
-        href='css/aos.css'
-        media='all' />
+    <link rel='stylesheet' id='bib-website-master-css' href='css/master.css' media='all' />
+    <link rel='stylesheet' id='bib-website-header-css-css' href='css/header.css' media='all' />
+    <link rel='stylesheet' id='bib-website-footer-css-css' href='css/footer.css' media='all' />
+    <link rel='stylesheet' id='bib-website-owl-carousel-css' href='css/owl.carousel.min.css' media='all' />
+    <link rel='stylesheet' id='bib-website-owl-carousel-theme-css' href='css/owl.theme.default.min.css' media='all' />
+    <link rel='stylesheet' id='bib-website-aos-animate-css-css' href='css/aos.css' media='all' />
     <script data-wpmeteor-after="REORDER" type="javascript/blocked" data-wpmeteor-type="text/javascript"
         data-wpmeteor-src='https://bestinbrands.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.4'
         id='jquery-core-js'></script>
@@ -597,165 +583,1500 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
     </svg>
     <div id="page" class="site">
 
+        <!-- BIB Navbar (Figma node 66:2 — Style=Solid, Device=Default) -->
+        <style>
+            .bib-nav,
+            .bib-nav *,
+            .bib-nav *::before,
+            .bib-nav *::after {
+                box-sizing: border-box;
+            }
+
+            /* Fixed nav — pinned to viewport, follows the user as they scroll */
+            #masthead.site-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+            }
+
+            /* Push page content down so it doesn't sit under the fixed nav */
+            #about-us-page {
+                padding-top: 72px;
+            }
+
+            #about-us-page>section,
+            .bib-our-company {
+                min-height: calc(100vh - 72px);
+                height: calc(100vh - 72px);
+            }
+
+            .bib-nav {
+                position: relative;
+                z-index: 1000;
+                width: 100%;
+                height: 72px;
+                background: #000;
+                font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                color: #fff;
+            }
+
+            /* Inner content-wrapper — caps navbar contents at 1440 (Figma frame width) */
+            .bib-nav__wrapper {
+                max-width: 1440px;
+                height: 100%;
+                margin: 0 auto;
+                padding: 0 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .bib-nav__logo {
+                display: inline-flex;
+                align-items: center;
+                width: 30px;
+                height: 36px;
+                color: #fff;
+                flex-shrink: 0;
+            }
+
+            .bib-nav__logo svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+
+            .bib-nav__links {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 72px;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                gap: 0;
+            }
+
+            .bib-nav__links li {
+                margin: 0;
+                padding: 0;
+            }
+
+            .bib-nav__link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 20px;
+                border-radius: 4px;
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 400;
+                color: rgba(255, 255, 255, 0.65);
+                text-decoration: none;
+                white-space: nowrap;
+                transition: color 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                    background-color 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+            }
+
+            .bib-nav__link:hover {
+                color: #fff;
+            }
+
+            .bib-nav__link.is-active {
+                background: rgba(255, 255, 255, 0.14);
+                color: #fff;
+            }
+
+            .bib-nav__cta {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 24px;
+                border-radius: 4px;
+                background: #FAF6F5;
+                color: #000;
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 500;
+                letter-spacing: 0;
+                text-decoration: none;
+                white-space: nowrap;
+                flex-shrink: 0;
+                transition: background-color 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+            }
+
+            .bib-nav__cta:hover {
+                background: #fff;
+            }
+
+            .bib-nav__burger {
+                display: none;
+                width: 24px;
+                height: 24px;
+                background: transparent;
+                border: 0;
+                padding: 0;
+                cursor: pointer;
+                color: #fff;
+            }
+
+            .bib-nav__burger svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+
+            /* Mobile (Figma: Style=Solid, Device=Mobile — node 75:23) */
+            @media (max-width: 1024px) {
+                .bib-nav__wrapper {
+                    padding: 0 20px;
+                }
+
+                .bib-nav__links {
+                    display: none;
+                }
+
+                .bib-nav__burger {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        </style>
+
         <header id="masthead" class="site-header">
+            <nav class="bib-nav" aria-label="Primary">
+                <div class="bib-nav__wrapper">
+                    <a class="bib-nav__logo" href="/home/" aria-label="BestinBrands home">
+                        <svg viewBox="0 0 83 99" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            aria-hidden="true">
+                            <image
+                                href="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-logo.svg"
+                                width="83" height="99" />
+                        </svg>
+                    </a>
 
-            <!-- BIB Website Header   -->
-            <div class="pages-home">
-                <div class="add-box-shadown ">
+                    <ul class="bib-nav__links">
+                        <li><a class="bib-nav__link" href="/home/">Home</a></li>
+                        <li><a class="bib-nav__link is-active" href="/about-us/" aria-current="page">About Us</a></li>
+                        <li><a class="bib-nav__link" href="/market/">Market</a></li>
+                        <li><a class="bib-nav__link" href="https://bestinbrands.com/brands/">Brands</a></li>
+                        <li><a class="bib-nav__link" href="https://bestinbrands.com/expertise/">Expertise</a></li>
+                        <li><a class="bib-nav__link" href="https://bestinbrands.com/retail/">Retail</a></li>
+                    </ul>
 
-                </div>
-                <header class="header ">
-                    <div class="box">
-                        <div class="logo-container">
-                            <a class="logo " href="https://bestinbrands.com/">
-                                <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-logo.svg"
-                                    alt="logo" width="20" height="20" loading="lazy">
-                            </a>
-                        </div>
-                        <ul>
-                            <li class="  ">
-                                <a href="https://bestinbrands.com/">Home</a>
-                            </li>
-                            <li class="header-menu-active  ">
-                                <a href="https://bestinbrands.com/about-us/">About Us</a>
-                            </li>
-                            <li class="  ">
-                                <a href="https://bestinbrands.com/market/">Market</a>
-                            </li>
-                            <li class="  ">
-                                <a href="https://bestinbrands.com/brands/">Brands</a>
-                            </li>
-                            <li class="  ">
-                                <a href="https://bestinbrands.com/expertise/">Expertise</a>
-                            </li>
-                            <li class="  ">
-                                <a href="https://bestinbrands.com/retail/">Retail</a>
-                            </li>
-                            <li class=" contact-page-border ">
-                                <a href="https://bestinbrands.com/contact/">Contact</a>
-                            </li>
-                        </ul>
-                        <div class="header-icon-menu-area ">
-                            <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-menu.svg"
-                                alt="icon menu" loading="lazy" width="50" height="50">
-                        </div>
-                    </div>
-                </header>
-                <div class="group-header-menu-area " id="toggle-animate">
-                    <div class="header-menu-area ">
-                        <ul>
-                            <li>
-                                <h3>MENU</h3>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/">Home</a>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/about-us/">About Us</a>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/market/">Market</a>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/brands/">Brands</a>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/expertise/">Expertise</a>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/retail/">Retail</a>
-                            </li>
-                            <li class="menu-active">
-                                <a href="https://bestinbrands.com/contact/">Contact</a>
-                            </li>
-                        </ul>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <a class="bib-nav__cta" href="https://bestinbrands.com/contact/">Contact</a>
+                        <button class="bib-nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" aria-hidden="true">
+                                <line x1="3" y1="7" x2="21" y2="7" />
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="17" x2="21" y2="17" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
-
-                <div class="menu-background-over-all"></div>
-            </div>
-            <!-- BIB Website Header   -->
-
+            </nav>
         </header><!-- #masthead -->
-        <link rel="stylesheet"
-            href="css/about-us-page.css">
+        <link rel="stylesheet" href="css/about-us-page.css">
 
+        <style>
+            /* Each top-level section fills the viewport (minus fixed-nav 72px).
+               If its content exceeds that height, the section scrolls internally;
+               JS only advances to the next section when internal scroll hits a boundary. */
+            #about-us-page>section,
+            .bib-our-company {
+                min-height: calc(100vh - 72px);
+                height: calc(100vh - 72px);
+                max-height: calc(100vh - 72px);
+                scroll-margin-top: 72px;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+            }
+
+            /* Modern browsers: use dynamic viewport height for accuracy */
+            @supports (height: 100dvh) {
+
+                #about-us-page>section,
+                .bib-our-company {
+                    min-height: calc(100dvh - 72px);
+                    height: calc(100dvh - 72px);
+                    max-height: calc(100dvh - 72px);
+                }
+            }
+
+            #about-us-page>section>section {
+                min-height: 100%;
+                height: 100%;
+            }
+
+            /* ---------- Section-by-section: JS-driven full-page snap + slide-in ---------- */
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            html.bib-snap-locked,
+            html.bib-snap-locked body {
+                overflow: hidden;
+                height: 100%;
+            }
+
+            #about-us-page>section {
+                /* Container level transitions removed to prevent 32px layout gaps. 
+                   Internal elements handle their own reveal animations. */
+                opacity: 1;
+                transform: none;
+            }
+
+            /* First section is ALWAYS visible on load — no animation delay */
+            #about-us-page>section:first-child {
+                opacity: 1;
+                transform: none;
+            }
+
+            #about-us-page>section.is-in {
+                opacity: 1;
+                transform: none;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                #about-us-page>section {
+                    opacity: 1;
+                    transform: none;
+                    transition: none;
+                }
+            }
+        </style>
+        <script>
+            (function () {
+                // Force scroll to top on reload to prevent stale scroll position
+                if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+                window.scrollTo(0, 0);
+
+                const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+                document.addEventListener('DOMContentLoaded', init);
+
+                function init() {
+                    const sections = [...document.querySelectorAll('#about-us-page > section')];
+                    if (!sections.length) return;
+
+                    // First section is always revealed (CSS ensures it, but also set the class)
+                    sections[0].classList.add('is-in');
+
+                    // Reveal other sections as they enter
+                    if ('IntersectionObserver' in window && !reduced) {
+                        const io = new IntersectionObserver((entries) => {
+                            entries.forEach(e => {
+                                if (e.isIntersecting) {
+                                    e.target.classList.add('is-in');
+                                } else {
+                                    e.target.classList.remove('is-in');
+                                }
+                            });
+                        }, { threshold: 0.15 });
+                        sections.forEach(s => io.observe(s));
+                    } else {
+                        sections.forEach(s => s.classList.add('is-in'));
+                    }
+
+                    if (reduced) return;
+
+                    // Take over scrolling: one wheel-tick / swipe / arrow = jump one section.
+                    const NAV_OFFSET = 72;
+                    const LOCK_MS = 1100;
+                    let current = 0;
+                    let locked = false;
+                    let touchStartY = null;
+
+                    function sectionTop(i) {
+                        const rect = sections[i].getBoundingClientRect();
+                        return rect.top + window.pageYOffset - NAV_OFFSET;
+                    }
+
+                    function go(delta) {
+                        if (locked) return;
+                        const next = Math.max(0, Math.min(sections.length - 1, current + delta));
+                        if (next === current) return;
+                        locked = true;
+                        current = next;
+                        sections[current].classList.add('is-in');
+                        // Reset incoming section's internal scroll so it always starts at top
+                        sections[current].scrollTop = 0;
+                        window.scrollTo({ top: sectionTop(current), behavior: 'smooth' });
+                        setTimeout(() => { locked = false; }, LOCK_MS);
+                    }
+
+                    // Section's content overflows when scrollHeight > clientHeight
+                    function atTop(sec) { return sec.scrollTop <= 0; }
+                    function atBottom(sec) { return sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 1; }
+
+                    /* Two-phase boundary gate:
+                       Phase 1 — scroll hits section top/bottom → STOP. All further
+                                 scroll events in the same direction are swallowed for
+                                 COOLDOWN ms. This is the "hard stop" the user feels.
+                       Phase 2 — after the cooldown expires the gate is "ready". The
+                                 next scroll input in the same direction commits the
+                                 section jump.
+                       If the user scrolls in the opposite direction or stops scrolling
+                       for EXPIRE ms, everything resets. */
+                    const COOLDOWN = 800;   // ms — how long the boundary absorbs scrolls
+                    const EXPIRE = 2000;  // ms — gate resets if user stops scrolling
+
+                    let gateDir = 0;      // direction that triggered the gate
+                    let gateReady = false;   // true after cooldown elapsed
+                    let gateCooldownId = null;
+                    let gateExpireId = null;
+
+                    function resetGate() {
+                        gateDir = 0;
+                        gateReady = false;
+                        clearTimeout(gateCooldownId);
+                        clearTimeout(gateExpireId);
+                    }
+
+                    function hitBoundary(dir) {
+                        // Different direction — restart
+                        if (gateDir !== dir) {
+                            resetGate();
+                            gateDir = dir;
+                            // Start cooldown — gate becomes "ready" after COOLDOWN ms
+                            gateCooldownId = setTimeout(() => { gateReady = true; }, COOLDOWN);
+                            // Expire timer — if nothing happens for too long, reset
+                            gateExpireId = setTimeout(resetGate, EXPIRE);
+                            return false;
+                        }
+                        // Same direction — refresh the expire timer
+                        clearTimeout(gateExpireId);
+                        gateExpireId = setTimeout(resetGate, EXPIRE);
+
+                        if (gateReady) {
+                            // Cooldown has passed and user scrolled again — commit!
+                            resetGate();
+                            return true;
+                        }
+                        // Still in cooldown — absorb the event
+                        return false;
+                    }
+
+                    // Wheel — let the active section scroll internally; at the boundary,
+                    // require a pause then a fresh scroll to advance.
+                    window.addEventListener('wheel', (e) => {
+                        if (Math.abs(e.deltaY) < 8) return;
+                        const sec = sections[current];
+                        const goingDown = e.deltaY > 0;
+                        const dir = goingDown ? 1 : -1;
+                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
+                        if (overflows) {
+                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
+                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
+                        }
+                        e.preventDefault();
+                        if (hitBoundary(dir)) {
+                            go(dir);
+                        }
+                    }, { passive: false });
+
+                    // Keys
+                    window.addEventListener('keydown', (e) => {
+                        const next = ['ArrowDown', 'PageDown', ' '];
+                        const prev = ['ArrowUp', 'PageUp'];
+                        if (next.includes(e.key)) { e.preventDefault(); go(1); }
+                        else if (prev.includes(e.key)) { e.preventDefault(); go(-1); }
+                        else if (e.key === 'Home') { e.preventDefault(); go(-current); }
+                        else if (e.key === 'End') { e.preventDefault(); go(sections.length - 1 - current); }
+                    });
+
+                    // Touch — same two-phase gate logic as wheel
+                    window.addEventListener('touchstart', (e) => {
+                        touchStartY = e.touches[0].clientY;
+                    }, { passive: true });
+                    window.addEventListener('touchend', (e) => {
+                        if (touchStartY === null) return;
+                        const dy = touchStartY - e.changedTouches[0].clientY;
+                        touchStartY = null;
+                        if (Math.abs(dy) <= 40) return;
+                        const sec = sections[current];
+                        const goingDown = dy > 0;
+                        const dir = goingDown ? 1 : -1;
+                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
+                        if (overflows) {
+                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
+                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
+                        }
+                        if (hitBoundary(dir)) { go(dir); }
+                    });
+
+                    // Keep `current` in sync if anchor links jump scroll
+                    window.addEventListener('scroll', () => {
+                        if (locked) return;
+                        const y = window.pageYOffset + NAV_OFFSET + 1;
+                        let nearest = 0, best = Infinity;
+                        sections.forEach((s, i) => {
+                            const dist = Math.abs(s.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET - y + NAV_OFFSET);
+                            if (dist < best) { best = dist; nearest = i; }
+                        });
+                        current = nearest;
+                    }, { passive: true });
+                }
+            })();
+        </script>
         <section id="about-us-page">
-            <!---------- Banner Section --------->
-            <!-- ------------------------------------------------------------------- -->
-            <section class="group-banner-area"
-                style="background-image: url(https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-background-banner.png);">
-                <section class="banner-area">
-                    <div class="box-left-area">
-                        <div class="group-title-area">
-                            <h2>
-                                <span class="text-color">OUR</span> <br>
-                                <span>COMPANY</span>
-                            </h2>
+            <!-- ===== Section / Our Company (Figma node 103:502, About us page) ===== -->
+            <style>
+                .bib-our-company,
+                .bib-our-company *,
+                .bib-our-company *::before,
+                .bib-our-company *::after {
+                    box-sizing: border-box;
+                }
+
+                .bib-our-company {
+                    position: relative;
+                    width: 100%;
+                    min-height: 828px;
+                    display: flex;
+                    align-items: flex-end;
+                    padding: 0 0 72px;
+                    background: #051436;
+                    /* photo/midnight base */
+                    color: #fff;
+                    overflow: hidden;
+                    isolation: isolate;
+                    font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                }
+
+                /* Content-wrapper — caps hero content at 1440 like the navbar */
+                .bib-our-company__wrapper {
+                    position: relative;
+                    width: 100%;
+                    max-width: 1440px;
+                    margin: 0 auto;
+                    padding: 0 48px;
+                    display: flex;
+                    align-items: flex-end;
+                    align-self: stretch;
+                }
+
+                /* Photo at 72% opacity (Figma fill spec) */
+                .bib-our-company__bg {
+                    position: absolute;
+                    inset: 0;
+                    z-index: -2;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    opacity: 0.72;
+                }
+
+                /* Diagonal scrim — Figma 189.66deg, transparent → 35% @ 54.78% → 88% @ 90.81% */
+                .bib-our-company::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: -1;
+                    background: linear-gradient(189.66deg,
+                            rgba(0, 0, 0, 0) 11.42%,
+                            rgba(0, 0, 0, 0.35) 54.78%,
+                            rgba(0, 0, 0, 0.88) 90.81%);
+                    pointer-events: none;
+                }
+
+                .bib-our-company__col {
+                    position: relative;
+                    flex: 1 0 0;
+                    align-self: stretch;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    align-items: flex-start;
+                    gap: 24px;
+                    min-width: 0;
+                }
+
+                .bib-our-company__header {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 12px;
+                }
+
+                .bib-our-company__eyebrow {
+                    margin: 0;
+                    font-size: 16px;
+                    line-height: 26px;
+                    font-weight: 400;
+                    color: #C97A3A;
+                    /* photo/sunset-amber */
+                    white-space: nowrap;
+                }
+
+                .bib-our-company__title {
+                    margin: 0;
+                    width: 592px;
+                    max-width: 100%;
+                    font-weight: 300;
+                    /* Cina GEO Light */
+                    font-size: 80px;
+                    line-height: 96px;
+                    letter-spacing: -1px;
+                    color: #fff;
+                }
+
+                .bib-our-company__lede {
+                    width: 592px;
+                    max-width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    font-size: 16px;
+                    line-height: 26px;
+                    font-weight: 400;
+                    color: #fff;
+                }
+
+                .bib-our-company__lede p {
+                    margin: 0;
+                }
+
+                /* Stats Row */
+                .bib-our-company__stats {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 24px;
+                    padding-top: 24px;
+                    margin: 0;
+                }
+
+                .bib-our-company__stat {
+                    flex: 1 0 0;
+                    min-width: 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 6px;
+                    color: #fff;
+                    overflow: hidden;
+                }
+
+                .bib-our-company__stat dt {
+                    margin: 0;
+                    font-weight: 600;
+                    /* Cina GEO SemiBold */
+                    font-size: 40px;
+                    line-height: 48px;
+                    letter-spacing: -0.5px;
+                    white-space: nowrap;
+                }
+
+                .bib-our-company__stat dd {
+                    margin: 0;
+                    font-size: 13px;
+                    line-height: 18px;
+                    font-weight: 400;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .bib-our-company__divider {
+                    width: 1px;
+                    height: 64px;
+                    background: rgba(255, 255, 255, 0.24);
+                    flex-shrink: 0;
+                }
+
+                /* Hug variant: container fits its content, dd wraps naturally */
+                .bib-our-company__stat--hug {
+                    flex: 0 0 auto;
+                    overflow: visible;
+                }
+
+                .bib-our-company__stat--hug dd {
+                    white-space: normal;
+                    overflow: visible;
+                    text-overflow: clip;
+                }
+
+                /* Tablet */
+                @media (max-width: 1024px) {
+                    .bib-our-company {
+                        min-height: 720px;
+                        padding: 0 0 32px;
+                    }
+
+                    .bib-our-company__wrapper {
+                        padding: 0 32px;
+                    }
+
+                    .bib-our-company__title {
+                        font-size: 56px;
+                        line-height: 64px;
+                        width: auto;
+                    }
+
+                    .bib-our-company__stats {
+                        flex-wrap: wrap;
+                        gap: 16px 24px;
+                    }
+
+                    .bib-our-company__divider {
+                        display: none;
+                    }
+
+                    .bib-our-company__stat {
+                        flex: 1 1 calc(50% - 12px);
+                    }
+                }
+
+                /* Mobile */
+                @media (max-width: 640px) {
+                    .bib-our-company {
+                        min-height: 640px;
+                        padding: 0 0 24px;
+                    }
+
+                    .bib-our-company__wrapper {
+                        padding: 0 20px;
+                    }
+
+                    .bib-our-company__title {
+                        font-size: 40px;
+                        line-height: 48px;
+                    }
+
+                    .bib-our-company__lede,
+                    .bib-our-company__title {
+                        width: 100%;
+                    }
+
+                    .bib-our-company__stat {
+                        flex: 1 1 100%;
+                    }
+
+                    .bib-our-company__stat dt {
+                        font-size: 32px;
+                        line-height: 40px;
+                    }
+                }
+
+                /* ---- Hero sequence: JS sets these inline, CSS just defines transitions ---- */
+                @media (prefers-reduced-motion: no-preference) {
+                    .bib-our-company__bg {
+                        transition: opacity 900ms cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+
+                    .bib-oc-rev {
+                        transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                            transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+                }
+            </style>
+
+            <section class="bib-our-company" aria-labelledby="our-company-title">
+                <img class="bib-our-company__bg" src="img/section-our-company.png" alt="" aria-hidden="true">
+
+                <div class="bib-our-company__wrapper">
+                    <div class="bib-our-company__col">
+                        <div class="bib-our-company__header">
+                            <p class="bib-our-company__eyebrow">About us</p>
+                            <h1 id="our-company-title" class="bib-our-company__title">OUR COMPANY</h1>
                         </div>
-                        <div class="group-sub-title-area">
-                            <div class="box-sub-title-area">
-                                <h2 class="">26 years</h2>
-                                <p>of expertise</p>
-                            </div>
-                            <div class="box-sub-title-area">
-                                <h2 class="">400+</h2>
-                                <p>Employees</p>
-                            </div>
+
+                        <div class="bib-our-company__lede">
+                            <p>Today Bestinbrands is the leading omni-channel distributor in Bangladesh, and has a
+                                workforce of over 400 employees.</p>
+                            <p>We are partnering with more than 100 brands and ensure that brands are imported,
+                                distributed, and marketed efficiently.</p>
                         </div>
-                        <div class="group-descripton-area">
-                            <span>
-                                Today Bestinbrands is the leading omni-channel distributor in Bangladesh, and has a
-                                workforce of over 400 employees. We are partnering with more than 100 brands and ensure
-                                that brands are imported, distributed, and marketed efficiently.   </span>
+
+                        <dl class="bib-our-company__stats" aria-label="Company at a glance">
+                            <div class="bib-our-company__stat">
+                                <dt>25+</dt>
+                                <dd>Years of expertise</dd>
+                            </div>
+                            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+                            <div class="bib-our-company__stat">
+                                <dt>400+</dt>
+                                <dd>Employees</dd>
+                            </div>
+                            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+                            <div class="bib-our-company__stat">
+                                <dt>120+</dt>
+                                <dd>Brands</dd>
+                            </div>
+                            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+                            <div class="bib-our-company__stat bib-our-company__stat--hug">
+                                <dt>Core Categories</dt>
+                                <dd>Fragrances, Makeup, Skin Care, Home, Toys, F&amp;B, and Sport</dd>
+                            </div>
+                            <span class="bib-our-company__divider" aria-hidden="true"></span>
+
+                            <div class="bib-our-company__stat">
+                                <dt>Offices In</dt>
+                                <dd>Bangladesh, Singapore, Dubai</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+            <script>
+                (function () {
+                    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    var section = document.querySelector('.bib-our-company');
+                    if (!section || reduced) return;
+
+                    var bg = section.querySelector('.bib-our-company__bg');
+                    var header = section.querySelector('.bib-our-company__header');
+                    var lede = section.querySelector('.bib-our-company__lede');
+                    var stats = Array.from(section.querySelectorAll('.bib-our-company__stat'));
+                    var divs = Array.from(section.querySelectorAll('.bib-our-company__divider'));
+                    var revEls = [header, lede].concat(stats).concat(divs);
+                    var timers = [];
+
+                    revEls.forEach(function (el) { el.classList.add('bib-oc-rev'); });
+
+                    function reset() {
+                        timers.forEach(clearTimeout);
+                        timers = [];
+                        bg.style.transition = 'none';
+                        revEls.forEach(function (el) { el.style.transition = 'none'; });
+                        bg.style.opacity = '0';
+                        revEls.forEach(function (el) {
+                            el.style.opacity = '0';
+                            el.style.transform = 'translateY(14px)';
+                        });
+                    }
+
+                    function show(el, delay, dur) {
+                        var t = setTimeout(function () {
+                            if (el === bg) {
+                                el.style.transition = 'opacity ' + dur + 'ms cubic-bezier(0.4,0,0.2,1)';
+                                el.style.opacity = '0.72';
+                            } else {
+                                el.style.transition = 'opacity ' + dur + 'ms cubic-bezier(0.4,0,0.2,1), transform ' + dur + 'ms cubic-bezier(0.4,0,0.2,1)';
+                                el.style.opacity = '1';
+                                el.style.transform = 'translateY(0)';
+                            }
+                        }, delay);
+                        timers.push(t);
+                    }
+
+                    function playHero() {
+                        reset();
+                        /* double rAF ensures hidden state is painted before animating */
+                        requestAnimationFrame(function () {
+                            requestAnimationFrame(function () {
+                                show(bg, 0, 900);
+                                show(header, 380, 600);
+                                show(lede, 680, 600);
+                                var t = 980;
+                                stats.forEach(function (stat, i) {
+                                    show(stat, t, 500);
+                                    if (divs[i]) show(divs[i], t + 60, 400);
+                                    t += 150;
+                                });
+                            });
+                        });
+                    }
+
+                    /* Keep observer alive — replay every time section re-enters */
+                    var wasIn = section.classList.contains('is-in');
+                    if (wasIn) playHero();
+
+                    new MutationObserver(function () {
+                        var isIn = section.classList.contains('is-in');
+                        if (isIn && !wasIn) { wasIn = true; playHero(); }
+                        if (!isIn && wasIn) { wasIn = false; reset(); }
+                    }).observe(section, { attributes: true, attributeFilter: ['class'] });
+                })();
+            </script>
+            <!-- ===== /Section / Our Company ===== -->
+            <!-- ===== Section / Our Vision & Mission (Figma node 103:560) ===== -->
+            <style>
+                .bib-vm,
+                .bib-vm *,
+                .bib-vm *::before,
+                .bib-vm *::after {
+                    box-sizing: border-box;
+                }
+
+                .bib-vm {
+                    width: 100%;
+                    background: #fff;
+                    display: grid;
+                    grid-template-rows: 1fr 1fr;
+                    grid-template-columns: 1fr;
+                    font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                }
+
+                .bib-vm__row {
+                    position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    isolation: isolate;
+                    background: #051436;
+                    /* photo/midnight base */
+                    color: #fff;
+                    display: flex;
+                    align-items: center;
+                }
+
+                /* Photo fill — Figma per-row crop */
+                .bib-vm__bg {
+                    position: absolute;
+                    inset: 0;
+                    z-index: -2;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .bib-vm__row--vision .bib-vm__bg {
+                    /* Figma: h:132.86%, top:-16.43%, w:115.77%, left:0.05% */
+                    width: 115.77%;
+                    height: 132.86%;
+                    top: -16.43%;
+                    left: 0.05%;
+                    inset: auto;
+                    object-fit: cover;
+                }
+
+                .bib-vm__row--mission .bib-vm__bg {
+                    /* Updated asset — full-bleed cover (Figma object-cover size-full layer) */
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                /* Directional gradient scrims (image legibility on the text side) */
+                .bib-vm__row::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: -1;
+                    pointer-events: none;
+                }
+
+                .bib-vm__row--vision::before {
+                    /* Vision: text on left → dark on left, fades right */
+                    background: linear-gradient(to right, #000 0%, rgba(5, 20, 54, 0) 100%);
+                }
+
+                .bib-vm__row--mission::before {
+                    /* Mission: text on right → dark on right (88.94% stop), fades left */
+                    background: linear-gradient(to right, rgba(5, 20, 54, 0) 0%, #000 88.94%);
+                }
+
+                /* Content-wrapper — max 1440 like nav + hero */
+                .bib-vm__wrapper {
+                    position: relative;
+                    width: 100%;
+                    max-width: 1440px;
+                    margin: 0 auto;
+                    padding: 0 48px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    align-items: center;
+                    height: 100%;
+                }
+
+                .bib-vm__col {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    gap: 10px;
+                    height: 100%;
+                }
+
+                .bib-vm__col--right {
+                    grid-column: 2;
+                }
+
+                .bib-vm__title {
+                    margin: 0;
+                    width: 100%;
+                    font-weight: 600;
+                    /* Cina GEO SemiBold */
+                    font-size: 40px;
+                    line-height: 48px;
+                    letter-spacing: -0.5px;
+                    color: #fff;
+                }
+
+                .bib-vm__body {
+                    margin: 0;
+                    width: 100%;
+                    font-weight: 400;
+                    /* Cina GEO Regular */
+                    font-size: 18px;
+                    line-height: 24px;
+                    color: #FAF6F5;
+                    /* neutral/canvas */
+                }
+
+                /* ---- Animations ---- */
+                .bib-vm__row--vision .bib-vm__bg {
+                    transform: translateX(-100%);
+                    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+                }
+
+                .bib-vm__row--vision.is-visible .bib-vm__bg {
+                    transform: translateX(0);
+                }
+
+                .bib-vm__row--mission .bib-vm__bg {
+                    transform: translateX(100%);
+                    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+                }
+
+                .bib-vm__row--mission.is-visible .bib-vm__bg {
+                    transform: translateX(0);
+                }
+
+                .bib-vm__col {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 1s ease, transform 1s ease;
+                    transition-delay: 1.2s;
+                }
+
+                .bib-vm__row.is-visible .bib-vm__col {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                /* Tablet */
+                @media (max-width: 1024px) {
+                    .bib-vm__wrapper {
+                        padding: 0 32px;
+                        grid-template-columns: 1fr;
+                    }
+
+                    .bib-vm__col--right {
+                        grid-column: 1;
+                    }
+
+                    .bib-vm__row--vision::before {
+                        background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(5, 20, 54, 0.45) 100%);
+                    }
+
+                    .bib-vm__row--mission::before {
+                        background: linear-gradient(to right, rgba(5, 20, 54, 0.45) 0%, rgba(0, 0, 0, 0.85) 100%);
+                    }
+                }
+
+                /* Mobile */
+                @media (max-width: 640px) {
+                    .bib-vm__wrapper {
+                        padding: 0 20px;
+                    }
+
+                    .bib-vm__title {
+                        font-size: 32px;
+                        line-height: 40px;
+                    }
+
+                    .bib-vm__body {
+                        font-size: 16px;
+                        line-height: 22px;
+                    }
+                }
+            </style>
+
+            <section class="bib-vm" aria-label="Our vision and mission">
+                <div class="bib-vm__row bib-vm__row--vision">
+                    <img class="bib-vm__bg" src="img/section-our-vision.png" alt="" aria-hidden="true">
+                    <div class="bib-vm__wrapper">
+                        <div class="bib-vm__col">
+                            <h2 class="bib-vm__title">OUR VISION</h2>
+                            <p class="bib-vm__body">Be the leading authorized distributor in Bangladesh through strong
+                                and sustainable partnerships with global brands.</p>
                         </div>
                     </div>
-                    <div class="box-right-area">
-                        <img src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-banner-image.png">
-                    </div>
-                </section>
-            </section> <!---------- Banner Section --------->
-            <!---------- Our Vision Section --------->
-            <section class="group-our-vision-area"
-                style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/about-us-background-our-vision.png);">
-                <section class="our-vision-area">
-                    <div class="group-content-area">
-                        <div class="box-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    OUR VISION </h2>
-                            </div>
-                            <div class="box-description-area">
-                                <span>
-                                    Be the leading authorized distributor in Bangladesh through strong and sustainable
-                                    partnerships with global brands.
-                                </span>
-                            </div>
-                        </div>
-                        <div class="box-image-area">
-                            <img src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-our-vision-1.png"
-                                alt="">
+                </div>
+
+                <div class="bib-vm__row bib-vm__row--mission">
+                    <img class="bib-vm__bg" src="img/section-our-mission.png" alt="" aria-hidden="true">
+                    <div class="bib-vm__wrapper">
+                        <div class="bib-vm__col bib-vm__col--right">
+                            <h2 class="bib-vm__title">OUR MISSION</h2>
+                            <p class="bib-vm__body">To connect Bangladeshi consumers to international brands by
+                                constantly diversifying and curating authentic products.</p>
                         </div>
                     </div>
-                    <div class="group-content-area-right">
-                        <div class="box-image-area">
-                            <img src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-our-vision-2.png"
-                                alt="">
+                </div>
+            </section>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const vmObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                            } else {
+                                entry.target.classList.remove('is-visible');
+                            }
+                        });
+                    }, { threshold: 0.3 });
+
+                    document.querySelectorAll('.bib-vm__row').forEach(row => {
+                        vmObserver.observe(row);
+                    });
+                });
+            </script>
+            <!-- ===== /Section / Our Vision & Mission ===== -->
+            <!-- ===== Section / Our Value (Figma node 106:604) ===== -->
+            <style>
+                .bib-value,
+                .bib-value *,
+                .bib-value *::before,
+                .bib-value *::after {
+                    box-sizing: border-box;
+                }
+
+                .bib-value {
+                    width: 100%;
+                    background: #fff;
+                    font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                }
+
+                .bib-value__wrapper {
+                    width: 100%;
+                    max-width: 1440px;
+                    margin: 0 auto;
+                }
+
+                /* Header (Figma 106:609 — 1440×200, 2-col, padding 0 48) */
+                .bib-value__head {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    align-items: center;
+                    height: 200px;
+                    padding: 0 48px;
+                }
+
+                .bib-value__head-col {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    max-width: 672px;
+                }
+
+                .bib-value__title {
+                    margin: 0;
+                    font-weight: 600;
+                    /* Cina GEO SemiBold */
+                    font-size: 40px;
+                    line-height: 48px;
+                    letter-spacing: -0.5px;
+                    color: #000;
+                    /* brand/ink */
+                }
+
+                .bib-value__lede {
+                    margin: 0;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 20px;
+                    color: #2D2B2A;
+                    /* neutral/ink-primary */
+                }
+
+                /* Bento (Figma 106:624 — 2 cols, gaps 4×4, padding 0 48) */
+                .bib-value__bento {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 211.667px auto;
+                    gap: 4px;
+                    padding: 0 48px;
+                }
+
+                .bib-value__col {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    min-width: 0;
+                }
+
+                .bib-value__tile {
+                    position: relative;
+                    overflow: hidden;
+                    isolation: isolate;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                }
+
+                .bib-value__tile-img {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    z-index: -2;
+                }
+
+                /* Two flat 20% layers ≈ 40% darken — matches Figma fill spec */
+                .bib-value__tile::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: -1;
+                    background:
+                        linear-gradient(90deg, rgba(36, 33, 31, 0.2), rgba(36, 33, 31, 0.2)),
+                        linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+                    pointer-events: none;
+                }
+
+                .bib-value__tile-label {
+                    margin: 0;
+                    font-weight: 500;
+                    /* Cina GEO Medium */
+                    font-size: 24px;
+                    line-height: 28px;
+                    letter-spacing: 2.4px;
+                    /* H3 spec: 10% */
+                    text-transform: uppercase;
+                    text-align: center;
+                    color: #fff;
+                    transition: transform 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                .bib-value__tile-desc {
+                    margin: 0;
+                    font-weight: 400;
+                    /* Cina GEO Regular */
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: rgba(255, 255, 255, 0.85);
+                    text-align: center;
+                    max-width: 320px;
+                    max-height: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    transition:
+                        max-height 500ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                        opacity 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                /* Hover interaction — image scales, label shifts up, description reveals */
+                .bib-value__tile:hover .bib-value__tile-img {
+                    transform: scale(1.05);
+                    transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                .bib-value__tile .bib-value__tile-img {
+                    transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                .bib-value__tile:hover .bib-value__tile-label {
+                    transform: translateY(-8px);
+                }
+
+                .bib-value__tile:hover .bib-value__tile-desc {
+                    max-height: 120px;
+                    opacity: 1;
+                }
+
+                /* Stronger scrim on hover for text readability */
+                .bib-value__tile:hover::before {
+                    background:
+                        linear-gradient(90deg, rgba(36, 33, 31, 0.35), rgba(36, 33, 31, 0.35)),
+                        linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+                }
+
+                /* Center label + desc as a group */
+                .bib-value__tile-content {
+                    position: relative;
+                    z-index: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 0 24px;
+                }
+
+                /* Row 1 tiles auto-size from grid row (211.667px); nested col tiles use Figma heights */
+                .bib-value__tile--emp {
+                    height: 753px;
+                }
+
+                .bib-value__tile--team {
+                    height: 211.667px;
+                }
+
+                .bib-value__tile--eth {
+                    height: 403px;
+                }
+
+                .bib-value__tile--resp {
+                    height: 562px;
+                }
+
+                /* Tablet */
+                @media (max-width: 1024px) {
+                    .bib-value__head {
+                        grid-template-columns: 1fr;
+                        height: auto;
+                        padding: 32px;
+                    }
+
+                    .bib-value__bento {
+                        padding: 0 32px;
+                        grid-template-rows: 180px auto;
+                    }
+
+                    .bib-value__tile--emp {
+                        height: 540px;
+                    }
+
+                    .bib-value__tile--team {
+                        height: 180px;
+                    }
+
+                    .bib-value__tile--eth {
+                        height: 320px;
+                    }
+
+                    .bib-value__tile--resp {
+                        height: 400px;
+                    }
+                }
+
+                /* Mobile */
+                @media (max-width: 640px) {
+                    .bib-value__head {
+                        padding: 24px 20px;
+                    }
+
+                    .bib-value__title {
+                        font-size: 32px;
+                        line-height: 40px;
+                    }
+
+                    .bib-value__bento {
+                        grid-template-columns: 1fr;
+                        padding: 0 20px;
+                        grid-template-rows: auto;
+                    }
+
+                    .bib-value__tile {
+                        height: 220px;
+                    }
+
+                    .bib-value__tile--emp {
+                        height: 360px;
+                    }
+
+                    .bib-value__tile--team {
+                        height: 220px;
+                    }
+
+                    .bib-value__tile--eth {
+                        height: 260px;
+                    }
+
+                    .bib-value__tile--resp {
+                        height: 300px;
+                    }
+
+                    .bib-value__tile-label {
+                        font-size: 20px;
+                        line-height: 24px;
+                        letter-spacing: 2px;
+                    }
+
+                    /* Always show descriptions on touch (no hover) */
+                    .bib-value__tile-desc {
+                        max-height: 120px;
+                        opacity: 1;
+                        font-size: 13px;
+                        line-height: 18px;
+                    }
+                }
+
+                /* ---- Scroll-reveal entrance animations ---- */
+                .bib-value__head {
+                    opacity: 0;
+                    transform: translateY(32px);
+                    transition:
+                        opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                        transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                .bib-value__head.is-revealed {
+                    opacity: 1;
+                    transform: none;
+                }
+
+                /* Tile entrance — default hidden state */
+                .bib-value__tile[data-reveal] {
+                    opacity: 0;
+                    transition:
+                        opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                        transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                /* Direction-specific offsets */
+                .bib-value__tile[data-reveal="left"] {
+                    transform: translateX(-80px);
+                }
+
+                .bib-value__tile[data-reveal="right"] {
+                    transform: translateX(80px);
+                }
+
+                .bib-value__tile[data-reveal="top"] {
+                    transform: translateY(-80px);
+                }
+
+                .bib-value__tile[data-reveal="bottom"] {
+                    transform: translateY(80px);
+                }
+
+                /* Revealed state — all directions resolve to the same place */
+                .bib-value__tile[data-reveal].is-revealed {
+                    opacity: 1;
+                    transform: none;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+
+                    .bib-value__head,
+                    .bib-value__tile[data-reveal] {
+                        opacity: 1;
+                        transform: none;
+                        transition: none;
+                    }
+                }
+            </style>
+
+            <section class="bib-value" aria-labelledby="our-value-title">
+                <div class="bib-value__wrapper">
+                    <header class="bib-value__head">
+                        <div class="bib-value__head-col">
+                            <h2 id="our-value-title" class="bib-value__title">OUR VALUE</h2>
+                            <p class="bib-value__lede">Be the leading authorized distributor in Bangladesh through
+                                strong and sustainable partnerships with global brands.</p>
                         </div>
-                        <div class="box-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    OUR MISSION </h2>
+                    </header>
+
+                    <div class="bib-value__bento">
+                        <!-- Row 1 -->
+                        <div class="bib-value__tile" data-reveal="left" data-reveal-delay="100">
+                            <img class="bib-value__tile-img" src="img/value-authenticity.png" alt="" aria-hidden="true">
+                            <div class="bib-value__tile-content">
+                                <p class="bib-value__tile-label">AUTHENTICITY</p>
+                                <p class="bib-value__tile-desc">We believe in being real when it comes to our product
+                                    and our relationship with stakeholders and customers.</p>
                             </div>
-                            <div class="box-description-area">
-                                <span>
-                                    To connect Bangladeshi consumers to international brands by constantly diversifying
-                                    and curating authentic products.  </span>
+                        </div>
+                        <div class="bib-value__tile" data-reveal="right" data-reveal-delay="250">
+                            <img class="bib-value__tile-img" src="img/value-diversity.png" alt="" aria-hidden="true">
+                            <div class="bib-value__tile-content">
+                                <p class="bib-value__tile-label">DIVERSITY</p>
+                                <p class="bib-value__tile-desc">We celebrate multiculturality, diversity, uniqueness,
+                                    and inclusion.</p>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: left column -->
+                        <div class="bib-value__col">
+                            <div class="bib-value__tile bib-value__tile--emp" data-reveal="bottom"
+                                data-reveal-delay="400">
+                                <img class="bib-value__tile-img" src="img/value-empowerment.png" alt=""
+                                    aria-hidden="true">
+                                <div class="bib-value__tile-content">
+                                    <p class="bib-value__tile-label">EMPOWERMENT</p>
+                                    <p class="bib-value__tile-desc">We want our employees to feel empowered by
+                                        continuously supporting their professional and personal growth.</p>
+                                </div>
+                            </div>
+                            <div class="bib-value__tile bib-value__tile--team" data-reveal="left"
+                                data-reveal-delay="800">
+                                <img class="bib-value__tile-img" src="img/value-team-spirit.png" alt=""
+                                    aria-hidden="true">
+                                <div class="bib-value__tile-content">
+                                    <p class="bib-value__tile-label">TEAM SPIRIT</p>
+                                    <p class="bib-value__tile-desc">We foster collaboration and unity, working together
+                                        to achieve shared goals and celebrate collective success.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 2: right column -->
+                        <div class="bib-value__col">
+                            <div class="bib-value__tile bib-value__tile--eth" data-reveal="right"
+                                data-reveal-delay="550">
+                                <img class="bib-value__tile-img" src="img/value-ethicality.png" alt=""
+                                    aria-hidden="true">
+                                <div class="bib-value__tile-content">
+                                    <p class="bib-value__tile-label">ETHICALITY</p>
+                                    <p class="bib-value__tile-desc">We want to build trust, equity, and advocacy for
+                                        fair access to resources and opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="bib-value__tile bib-value__tile--resp" data-reveal="top"
+                                data-reveal-delay="700">
+                                <img class="bib-value__tile-img" src="img/value-respect.png" alt="" aria-hidden="true">
+                                <div class="bib-value__tile-content">
+                                    <p class="bib-value__tile-label">RESPECT</p>
+                                    <p class="bib-value__tile-desc">We care about building a respectful working
+                                        environment where the voices of our employees are heard and supported.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
-            </section> <!---------- Our Vision Section --------->
+                </div>
+            </section>
+            <!-- Our Value scroll-reveal observer -->
+            <script>
+                (function () {
+                    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+                    // Reveal the header when section enters viewport
+                    const valueSection = document.querySelector('.bib-value');
+                    if (!valueSection) return;
+
+                    const header = valueSection.querySelector('.bib-value__head');
+                    const tiles = valueSection.querySelectorAll('.bib-value__tile[data-reveal]');
+                    let timeouts = [];
+
+                    const io = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                // Header fades in first
+                                if (header) header.classList.add('is-revealed');
+                                // Tiles animate with staggered delays
+                                tiles.forEach(tile => {
+                                    const delay = parseInt(tile.dataset.revealDelay || '0', 10);
+                                    timeouts.push(setTimeout(() => tile.classList.add('is-revealed'), delay));
+                                });
+                            } else {
+                                if (header) header.classList.remove('is-revealed');
+                                timeouts.forEach(clearTimeout);
+                                timeouts = [];
+                                tiles.forEach(tile => tile.classList.remove('is-revealed'));
+                            }
+                        });
+                    }, { threshold: 0.15 });
+
+                    io.observe(valueSection);
+                })();
+            </script>
+            <!-- ===== /Section / Our Value ===== -->
             <!---------- Best In Brands Section --------->
             <!-- ------------------------------------------------------------------- -->
             <section class="group-best-in-brands-area">
@@ -991,11 +2312,11 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                             </div>
                             <div class="box-content-area">
                                 <div class="group-menu-area">
-                                    <a class="col-6" href="https://bestinbrands.com/">Home</a>
+                                    <a class="col-6" href="/home/">Home</a>
 
-                                    <a class="col-6" href="https://bestinbrands.com/about-us/">About Us</a>
+                                    <a class="col-6" href="/about-us/">About Us</a>
 
-                                    <a class="col-6" href="https://bestinbrands.com/market/">Market</a>
+                                    <a class="col-6" href="/market/">Market</a>
 
                                     <a class="col-6" href="https://bestinbrands.com/brands/">Brands</a>
 
