@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/extract/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/home/",
+      "permanent": false
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": true
+}
