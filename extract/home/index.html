@@ -764,6 +764,214 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
         </header><!-- #masthead -->
         <link rel="stylesheet" href="css/home-page.css">
 
+        <style>
+            /* Each top-level section fills the viewport.
+               If its content exceeds that height, the section scrolls internally;
+               JS only advances to the next section when internal scroll hits a boundary. */
+            #home-page>section {
+                min-height: 100vh;
+                height: 100vh;
+                max-height: 100vh;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                box-sizing: border-box;
+            }
+
+            /* Modern browsers: use dynamic viewport height for accuracy */
+            @supports (height: 100dvh) {
+                #home-page>section {
+                    min-height: 100dvh;
+                    height: 100dvh;
+                    max-height: 100dvh;
+                }
+            }
+
+            /* ---------- Section-by-section: JS-driven full-page snap + slide-in ---------- */
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            html.bib-snap-locked,
+            html.bib-snap-locked body {
+                overflow: hidden;
+                height: 100%;
+            }
+
+            #home-page>section {
+                opacity: 1;
+                transform: none;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                #home-page>section {
+                    opacity: 1;
+                    transform: none;
+                    transition: none;
+                }
+            }
+        </style>
+        <script>
+            (function () {
+                // Force scroll to top on reload to prevent stale scroll position
+                if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+                window.scrollTo(0, 0);
+
+                const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+                document.addEventListener('DOMContentLoaded', init);
+
+                function init() {
+                    const sections = [...document.querySelectorAll('#home-page > section')];
+                    if (!sections.length) return;
+
+                    sections[0].classList.add('is-in');
+
+                    if ('IntersectionObserver' in window && !reduced) {
+                        const io = new IntersectionObserver((entries) => {
+                            entries.forEach(e => {
+                                if (e.isIntersecting) {
+                                    e.target.classList.add('is-in');
+                                } else {
+                                    e.target.classList.remove('is-in');
+                                }
+                            });
+                        }, { threshold: 0.15 });
+                        sections.forEach(s => io.observe(s));
+                    } else {
+                        sections.forEach(s => s.classList.add('is-in'));
+                    }
+
+                    if (reduced) return;
+
+                    // Take over scrolling: one wheel-tick / swipe / arrow = jump one section.
+                    const NAV_OFFSET = 0;
+                    const LOCK_MS = 1100;
+                    let current = 0;
+                    let locked = false;
+                    let touchStartY = null;
+
+                    function sectionTop(i) {
+                        const rect = sections[i].getBoundingClientRect();
+                        return rect.top + window.pageYOffset - NAV_OFFSET;
+                    }
+
+                    function go(delta) {
+                        if (locked) return;
+                        const next = Math.max(0, Math.min(sections.length - 1, current + delta));
+                        if (next === current) return;
+                        locked = true;
+                        current = next;
+                        sections[current].classList.add('is-in');
+                        if (delta > 0) {
+                            sections[current].scrollTop = 0;
+                        } else {
+                            sections[current].scrollTop = sections[current].scrollHeight - sections[current].clientHeight;
+                        }
+                        window.scrollTo({ top: sectionTop(current), behavior: 'smooth' });
+                        setTimeout(() => { locked = false; }, LOCK_MS);
+                    }
+
+                    function atTop(sec) { return sec.scrollTop <= 0; }
+                    function atBottom(sec) { return Math.ceil(sec.scrollTop + sec.clientHeight) >= sec.scrollHeight - 1; }
+
+                    const COOLDOWN = 800;
+                    const EXPIRE = 2000;
+
+                    let gateDir = 0;
+                    let gateReady = false;
+                    let gateCooldownId = null;
+                    let gateExpireId = null;
+
+                    function resetGate() {
+                        gateDir = 0;
+                        gateReady = false;
+                        clearTimeout(gateCooldownId);
+                        clearTimeout(gateExpireId);
+                    }
+
+                    function hitBoundary(dir) {
+                        if (gateDir !== dir) {
+                            resetGate();
+                            gateDir = dir;
+                            gateCooldownId = setTimeout(() => { gateReady = true; }, COOLDOWN);
+                            gateExpireId = setTimeout(resetGate, EXPIRE);
+                            return false;
+                        }
+                        clearTimeout(gateExpireId);
+                        gateExpireId = setTimeout(resetGate, EXPIRE);
+
+                        if (gateReady) {
+                            resetGate();
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    window.addEventListener('wheel', (e) => {
+                        if (Math.abs(e.deltaY) < 8) return;
+                        const sec = sections[current];
+                        const goingDown = e.deltaY > 0;
+                        const dir = goingDown ? 1 : -1;
+                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
+                        if (overflows) {
+                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
+                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
+                            e.preventDefault();
+                            if (hitBoundary(dir)) {
+                                go(dir);
+                            }
+                        } else {
+                            e.preventDefault();
+                            resetGate();
+                            go(dir);
+                        }
+                    }, { passive: false });
+
+                    window.addEventListener('keydown', (e) => {
+                        const next = ['ArrowDown', 'PageDown', ' '];
+                        const prev = ['ArrowUp', 'PageUp'];
+                        if (next.includes(e.key)) { e.preventDefault(); go(1); }
+                        else if (prev.includes(e.key)) { e.preventDefault(); go(-1); }
+                        else if (e.key === 'Home') { e.preventDefault(); go(-current); }
+                        else if (e.key === 'End') { e.preventDefault(); go(sections.length - 1 - current); }
+                    });
+
+                    window.addEventListener('touchstart', (e) => {
+                        touchStartY = e.touches[0].clientY;
+                    }, { passive: true });
+                    window.addEventListener('touchend', (e) => {
+                        if (touchStartY === null) return;
+                        const dy = touchStartY - e.changedTouches[0].clientY;
+                        touchStartY = null;
+                        if (Math.abs(dy) <= 40) return;
+                        const sec = sections[current];
+                        const goingDown = dy > 0;
+                        const dir = goingDown ? 1 : -1;
+                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
+                        if (overflows) {
+                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
+                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
+                            if (hitBoundary(dir)) { go(dir); }
+                        } else {
+                            resetGate();
+                            go(dir);
+                        }
+                    });
+
+                    window.addEventListener('scroll', () => {
+                        if (locked) return;
+                        const y = window.pageYOffset + NAV_OFFSET + 1;
+                        let nearest = 0, best = Infinity;
+                        sections.forEach((s, i) => {
+                            const dist = Math.abs(s.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET - y + NAV_OFFSET);
+                            if (dist < best) { best = dist; nearest = i; }
+                        });
+                        current = nearest;
+                    }, { passive: true });
+                }
+            })();
+        </script>
+
         <section id="home-page">
             <!-- ===== Hero Banner (Figma node 82:3 — OPT A — Image Heavy, 1440×900) ===== -->
             <style>
@@ -933,11 +1141,21 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                 /* Stats band — anchored to bottom */
                 .bib-hero__stats {
+                    width: 100vw;
+                    box-sizing: border-box;
+                    margin-left: calc(-50vw + 50%);
+                    background: rgba(0, 0, 0, 0.40);
+                }
+
+                .bib-hero__stats-wrapper {
                     display: flex;
                     align-items: flex-end;
                     justify-content: space-between;
+                    width: 100%;
+                    max-width: 1440px;
+                    margin: 0 auto;
                     padding: 32px 48px;
-                    background: rgba(0, 0, 0, 0.40);
+                    box-sizing: border-box;
                 }
 
                 .bib-hero__stat {
@@ -975,6 +1193,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                 @media (max-width: 1024px) {
                     .bib-hero__wrapper {
                         padding: 0 32px;
+                        justify-content: center;
                     }
 
                     .bib-hero__title {
@@ -1002,6 +1221,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                     .bib-hero__content {
                         padding-bottom: 32px;
+                        width: 100%;
                     }
 
                     .bib-hero__eyebrow {
@@ -1025,7 +1245,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         font-size: 14px;
                     }
 
-                    .bib-hero__stats {
+                    .bib-hero__stats-wrapper {
                         flex-direction: column;
                         align-items: center;
                         gap: 24px;
@@ -1066,17 +1286,19 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     </div>
 
                     <div class="bib-hero__stats">
-                        <div class="bib-hero__stat">
-                            <p class="bib-hero__stat-number">25+</p>
-                            <p class="bib-hero__stat-label">Years in Bangladesh</p>
-                        </div>
-                        <div class="bib-hero__stat">
-                            <p class="bib-hero__stat-number">400+</p>
-                            <p class="bib-hero__stat-label">SKUs Distributed</p>
-                        </div>
-                        <div class="bib-hero__stat">
-                            <p class="bib-hero__stat-number">120+</p>
-                            <p class="bib-hero__stat-label">Retail Partners</p>
+                        <div class="bib-hero__stats-wrapper">
+                            <div class="bib-hero__stat">
+                                <p class="bib-hero__stat-number">25+</p>
+                                <p class="bib-hero__stat-label">Years in Bangladesh</p>
+                            </div>
+                            <div class="bib-hero__stat">
+                                <p class="bib-hero__stat-number">400+</p>
+                                <p class="bib-hero__stat-label">SKUs Distributed</p>
+                            </div>
+                            <div class="bib-hero__stat">
+                                <p class="bib-hero__stat-number">120+</p>
+                                <p class="bib-hero__stat-label">Retail Partners</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1146,8 +1368,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         });
                     }
 
-                    var io = new IntersectionObserver(function(entries) {
-                        entries.forEach(function(entry) {
+                    var io = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
                             if (entry.isIntersecting) {
                                 playHero();
                             } else {
@@ -1155,205 +1377,524 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                             }
                         });
                     }, { threshold: 0.15 });
-                    
+
                     io.observe(section);
                 })();
             </script>
             <!-- ===== /Hero Banner ===== -->
 
-            <!---------- Category Section --------->
-            <section class="group-category-product-area">
-                <section class="category-product-area category-product-area-desktop"
-                    style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/background-homepage-1.webp)">
-                    <div class="box-title-area category_animate_title">
-                        <h2>
-                            <span class="first-text">product</span>
-                            <span class="second-text">category</span>
-                        </h2>
-                    </div>
-                    <div class="box-category-areas">
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=perfume" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/daiga-ellaby-WPtNrTctpL4-unsplash-scaled.jpg"
-                                                alt="PERFUME" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>PERFUME</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=skincare" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/karolina-grabowska-xzoyyDHJU3E-unsplash-scaled.jpg"
-                                                alt="SKINCARE" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>SKINCARE</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=makeup" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/ashley-piszek-crSkE1CKQL0-unsplash-scaled.jpg"
-                                                alt="MAKEUP" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>MAKEUP</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=home" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/candle.png"
-                                                alt="HOME" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>HOME</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=stationery" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/natalia-blauth-zxGdBoxfZgg-unsplash.jpg"
-                                                alt="STATIONERY" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>STATIONERY</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=toys" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/toys.webp"
-                                                alt="TOYS" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>TOYS</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=fb" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/karolina-kolodziejczak-Mzh95zPmOIM-unsplash.jpg"
-                                                alt="F&B" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>F&B</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://bestinbrands.com/brands/?category=sport" class="box-image">
-                                        <div class="group-image-area">
-                                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/sport.jpg"
-                                                alt="SPORT" loading="lazy" width="10" height="10">
-                                        </div>
-                                        <div class="group-text-area">
-                                            <span>SPORT</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+            <!---------- Category Section — DNA-aligned: cream canvas, editorial bento, evidence-led --------->
+            <style>
+                /* === bib-categories — Product Categories, brand DNA-aligned === */
+                .bib-categories {
+                    background: #000;
+                    /* Brand/Ink token */
+                    color: #FAF6F5;
+                    /* Neutral/Canvas on ink */
+                    padding: 120px 0 120px;
+                    overflow: hidden;
+                    font-family: 'Cina GEO', sans-serif;
+                }
+
+                .bib-categories__wrapper {
+                    max-width: 1440px;
+                    margin: 0 auto;
+                    padding: 0 48px;
+                    box-sizing: border-box;
+                }
+
+                /* Header — eyebrow + title left, lede right */
+                .bib-categories__header {
+                    display: grid;
+                    grid-template-columns: 1.5fr 1fr;
+                    gap: 64px;
+                    align-items: end;
+                    padding-bottom: 64px;
+                }
+
+                .bib-categories__head-left {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 32px;
+                }
+
+                .bib-categories__eyebrow {
+                    font-family: 'Cina GEO', sans-serif;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.18em;
+                    text-transform: uppercase;
+                    color: #C97A3A;
+                    margin: 0;
+                }
+
+                .bib-categories__title {
+                    font-family: 'Cina GEO', sans-serif;
+                    font-weight: 500;
+                    font-size: 56px;
+                    line-height: 64px;
+                    letter-spacing: -1px;
+                    color: #FAF6F5;
+                    /* Neutral/Canvas */
+                    margin: 0;
+                }
+
+                .bib-categories__lede {
+                    font-family: 'Cina GEO', sans-serif;
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: #DADADA;
+                    /* Neutral/Panel */
+                    margin: 0;
+                    padding-bottom: 8px;
+                    max-width: 440px;
+                }
+
+                /* Grid */
+                .bib-categories__grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, minmax(0, 1fr));
+                    gap: 4px;
+                }
+
+                /* Tile */
+                .bib-categories__tile {
+                    position: relative;
+                    aspect-ratio: 4 / 5;
+                    overflow: hidden;
+                    text-decoration: none;
+                    color: #fff;
+                    display: block;
+                    background: #051436;
+                    isolation: isolate;
+                }
+
+                .bib-categories__tile-img {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                    z-index: 0;
+                }
+
+                .bib-categories__tile-scrim {
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(180deg,
+                            rgba(0, 0, 0, 0.10) 0%,
+                            rgba(0, 0, 0, 0.35) 55%,
+                            rgba(0, 0, 0, 0.70) 100%);
+                    transition: background 500ms ease;
+                    z-index: 1;
+                }
+
+                .bib-categories__tile-content {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    padding: 28px 24px 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    z-index: 2;
+                }
+
+                .bib-categories__tile-label {
+                    font-family: 'Cina GEO', sans-serif;
+                    font-weight: 500;
+                    font-size: 24px;
+                    line-height: 28px;
+                    letter-spacing: 0.10em;
+                    text-transform: uppercase;
+                    color: #fff;
+                    margin: 0;
+                    transform: translateY(0);
+                    transition: transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                .bib-categories__tile-meta {
+                    font-family: 'Cina GEO', sans-serif;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: rgba(255, 255, 255, 0.85);
+                    margin: 0;
+                    max-height: 0;
+                    opacity: 0;
+                    overflow: hidden;
+                    transition: max-height 500ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                        opacity 400ms ease 100ms;
+                }
+
+                /* Arrow indicator (appears on hover) */
+                .bib-categories__tile-arrow {
+                    position: absolute;
+                    top: 24px;
+                    right: 24px;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid rgba(255, 255, 255, 0.35);
+                    border-radius: 999px;
+                    color: #fff;
+                    background: transparent;
+                    opacity: 0;
+                    transform: translate(-8px, 8px);
+                    transition: opacity 350ms ease,
+                        transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                        background 300ms ease,
+                        border-color 300ms ease,
+                        color 300ms ease;
+                    z-index: 2;
+                }
+
+                .bib-categories__tile-arrow svg {
+                    width: 14px;
+                    height: 14px;
+                    display: block;
+                }
+
+                /* Hover state */
+                @media (hover: hover) {
+                    .bib-categories__tile:hover .bib-categories__tile-img {
+                        transform: scale(1.06);
+                    }
+
+                    .bib-categories__tile:hover .bib-categories__tile-scrim {
+                        background: linear-gradient(180deg,
+                                rgba(0, 0, 0, 0.20) 0%,
+                                rgba(0, 0, 0, 0.55) 50%,
+                                rgba(0, 0, 0, 0.85) 100%);
+                    }
+
+                    .bib-categories__tile:hover .bib-categories__tile-label {
+                        transform: translateY(-4px);
+                    }
+
+                    .bib-categories__tile:hover .bib-categories__tile-meta {
+                        max-height: 60px;
+                        opacity: 1;
+                    }
+
+                    .bib-categories__tile:hover .bib-categories__tile-arrow {
+                        opacity: 1;
+                        transform: translate(0, 0);
+                        background: #FAF6F5;
+                        border-color: #FAF6F5;
+                        color: #051436;
+                    }
+
+                    .bib-categories__tile:focus-visible .bib-categories__tile-arrow {
+                        opacity: 1;
+                        transform: translate(0, 0);
+                    }
+                }
+
+                /* Tablet */
+                @media (max-width: 1024px) {
+                    .bib-categories {
+                        padding: 80px 0;
+                    }
+
+                    .bib-categories__header {
+                        grid-template-columns: 1fr;
+                        align-items: start;
+                        gap: 24px;
+                        padding-bottom: 48px;
+                    }
+
+                    .bib-categories__title {
+                        font-size: 44px;
+                        line-height: 52px;
+                    }
+
+                    .bib-categories__grid {
+                        grid-template-columns: repeat(3, minmax(0, 1fr));
+                    }
+                }
+
+                /* Mobile — meta always visible (no hover on touch) */
+                @media (max-width: 640px) {
+                    .bib-categories__wrapper {
+                        padding: 0 24px;
+                    }
+
+                    .bib-categories__title {
+                        font-size: 36px;
+                        line-height: 44px;
+                    }
+
+                    .bib-categories__grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                    }
+
+                    .bib-categories__tile-meta {
+                        max-height: 60px;
+                        opacity: 1;
+                    }
+
+                    .bib-categories__tile-arrow {
+                        width: 32px;
+                        height: 32px;
+                        top: 16px;
+                        right: 16px;
+                    }
+                }
+
+                /* Scroll-reveal — staggered entrance */
+                @media (prefers-reduced-motion: no-preference) {
+
+                    .bib-categories[data-reveal] .bib-categories__eyebrow,
+                    .bib-categories[data-reveal] .bib-categories__title,
+                    .bib-categories[data-reveal] .bib-categories__lede {
+                        opacity: 0;
+                        transform: translateY(24px);
+                        transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                            transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__title {
+                        transition-delay: 100ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__lede {
+                        transition-delay: 200ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile {
+                        opacity: 0;
+                        transform: translateY(40px);
+                        transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                            transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(1) {
+                        transition-delay: 320ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(2) {
+                        transition-delay: 400ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(3) {
+                        transition-delay: 480ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(4) {
+                        transition-delay: 560ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(5) {
+                        transition-delay: 640ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(6) {
+                        transition-delay: 720ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(7) {
+                        transition-delay: 800ms;
+                    }
+
+                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(8) {
+                        transition-delay: 880ms;
+                    }
+
+                    .bib-categories.is-in[data-reveal] .bib-categories__eyebrow,
+                    .bib-categories.is-in[data-reveal] .bib-categories__title,
+                    .bib-categories.is-in[data-reveal] .bib-categories__lede,
+                    .bib-categories.is-in[data-reveal] .bib-categories__tile {
+                        opacity: 1;
+                        transform: none;
+                    }
+                }
+            </style>
+
+            <section class="bib-categories" data-reveal aria-labelledby="bib-categories-title">
+                <div class="bib-categories__wrapper">
+
+                    <header class="bib-categories__header">
+                        <div class="bib-categories__head-left">
+                            <p class="bib-categories__eyebrow">What we distribute</p>
+                            <h2 class="bib-categories__title" id="bib-categories-title">Product<br>categories</h2>
                         </div>
-                    </div>
-                </section>
-                <section class="category-product-area category-product-area-responsive"
-                    style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/background-homepage-1.webp)">
-                    <div class="box-title-area">
-                        <h2>
-                            <span class="first-text">product</span>
-                            <span class="second-text">category</span>
-                        </h2>
-                    </div>
-                    <div class="box-category-areas owl-carousel owl-theme">
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=perfume">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/daiga-ellaby-WPtNrTctpL4-unsplash-scaled.jpg"
-                                    alt="PERFUME" loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>PERFUME</span>
-                            </div>
-                        </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=skincare">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/karolina-grabowska-xzoyyDHJU3E-unsplash-scaled.jpg"
-                                    alt="SKINCARE" loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>SKINCARE</span>
+                        <p class="bib-categories__lede">
+                            Eight specialized verticals. Curated brand partnerships, national distribution &mdash;
+                            backed by 23 years of operational depth in the Bangladesh market.
+                        </p>
+                    </header>
+
+                    <div class="bib-categories__grid">
+
+                        <a href="https://bestinbrands.com/brands/?category=perfume" class="bib-categories__tile"
+                            aria-label="Perfume — niche and designer fragrance houses">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/daiga-ellaby-WPtNrTctpL4-unsplash-scaled.jpg"
+                                alt="" loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Perfume</h3>
+                                <p class="bib-categories__tile-meta">Niche & designer fragrance houses</p>
                             </div>
                         </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=makeup">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/ashley-piszek-crSkE1CKQL0-unsplash-scaled.jpg"
-                                    alt="MAKEUP" loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>MAKEUP</span>
-                            </div>
-                        </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=home">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/candle.png" alt="HOME"
-                                    loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>HOME</span>
-                            </div>
-                        </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=stationery">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/natalia-blauth-zxGdBoxfZgg-unsplash.jpg"
-                                    alt="STATIONERY" loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>STATIONERY</span>
+
+                        <a href="https://bestinbrands.com/brands/?category=skincare" class="bib-categories__tile"
+                            aria-label="Skincare — clinical and K-beauty">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/karolina-grabowska-xzoyyDHJU3E-unsplash-scaled.jpg"
+                                alt="" loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Skincare</h3>
+                                <p class="bib-categories__tile-meta">Clinical, dermocosmetic & K-beauty</p>
                             </div>
                         </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=toys">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/toys.webp" alt="TOYS"
-                                    loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>TOYS</span>
-                            </div>
-                        </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=fb">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/karolina-kolodziejczak-Mzh95zPmOIM-unsplash.jpg"
-                                    alt="F&B" loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>F&B</span>
-                            </div>
-                        </a>
-                        <a class="box-image" href="https://bestinbrands.com/brands/?category=sport">
-                            <div class="group-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2025/05/sport.jpg" alt="SPORT"
-                                    loading="lazy" width="10" height="10">
-                            </div>
-                            <div class="group-text-area">
-                                <span>SPORT</span>
+
+                        <a href="https://bestinbrands.com/brands/?category=makeup" class="bib-categories__tile"
+                            aria-label="Makeup — color cosmetics and tools">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/ashley-piszek-crSkE1CKQL0-unsplash-scaled.jpg"
+                                alt="" loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Makeup</h3>
+                                <p class="bib-categories__tile-meta">Color cosmetics & professional tools</p>
                             </div>
                         </a>
-                    </div>
-                    <div class="owl-dots">
+
+                        <a href="https://bestinbrands.com/brands/?category=home" class="bib-categories__tile"
+                            aria-label="Home — candles and home fragrance">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/candle.png" alt=""
+                                loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Home</h3>
+                                <p class="bib-categories__tile-meta">Candles, diffusers & home fragrance</p>
+                            </div>
+                        </a>
+
+                        <a href="https://bestinbrands.com/brands/?category=stationery" class="bib-categories__tile"
+                            aria-label="Stationery — premium writing and paper">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/natalia-blauth-zxGdBoxfZgg-unsplash.jpg"
+                                alt="" loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Stationery</h3>
+                                <p class="bib-categories__tile-meta">Premium writing instruments & paper</p>
+                            </div>
+                        </a>
+
+                        <a href="https://bestinbrands.com/brands/?category=toys" class="bib-categories__tile"
+                            aria-label="Toys — educational and lifestyle">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/toys.webp" alt=""
+                                loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Toys</h3>
+                                <p class="bib-categories__tile-meta">Educational & lifestyle play</p>
+                            </div>
+                        </a>
+
+                        <a href="https://bestinbrands.com/brands/?category=fb" class="bib-categories__tile"
+                            aria-label="F and B — confectionery and beverage">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/karolina-kolodziejczak-Mzh95zPmOIM-unsplash.jpg"
+                                alt="" loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">F&amp;B</h3>
+                                <p class="bib-categories__tile-meta">Confectionery & beverage labels</p>
+                            </div>
+                        </a>
+
+                        <a href="https://bestinbrands.com/brands/?category=sport" class="bib-categories__tile"
+                            aria-label="Sport — performance and lifestyle">
+                            <img src="https://bestinbrands.com/wp-content/uploads/2025/05/sport.jpg" alt=""
+                                loading="lazy" class="bib-categories__tile-img">
+                            <div class="bib-categories__tile-scrim" aria-hidden="true"></div>
+                            <span class="bib-categories__tile-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 11L11 3M11 3H5M11 3v6" />
+                                </svg>
+                            </span>
+                            <div class="bib-categories__tile-content">
+                                <h3 class="bib-categories__tile-label">Sport</h3>
+                                <p class="bib-categories__tile-meta">Performance & lifestyle gear</p>
+                            </div>
+                        </a>
 
                     </div>
-                </section>
+                </div>
+            </section>
 
-            </section> <!---------- Category Section --------->
+            <script>
+                (function () {
+                    var section = document.querySelector('.bib-categories[data-reveal]');
+                    if (!section) return;
+                    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    if (reduced) {
+                        section.classList.add('is-in');
+                        return;
+                    }
+                    var io = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                section.classList.add('is-in');
+                            } else {
+                                section.classList.remove('is-in');
+                            }
+                        });
+                    }, { threshold: 0.18 });
+                    io.observe(section);
+                })();
+            </script>
+            <!---------- /Category Section --------->
 
             <!---------- About Us Section --------->
             <!-- ---------------------------------------------------------------------------------------------- -->
@@ -1542,237 +2083,343 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             </section> <!---------- Our Strengths Section --------->
             <!---------- Get In Touch Section --------->
 
-            <section class="group-get-in-touch-area"
-                style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/homepage-bg-get-in-touch-4.webp);">
-                <section class="get-in-touch-area">
-                    <div class="group-title-area">
-                        <h2>
-                            GET IN TOUCH<br>
-                            <span>with US</span>
-                        </h2>
-                    </div>
-                    <div class="group-image-area">
-                        <div class="box-image-first">
-                            <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-1.png"
-                                alt="img get in touch" loading="lazy">
+            <section class="bib-footer-wrapper">
+                <section class="group-get-in-touch-area"
+                    style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/homepage-bg-get-in-touch-4.webp);">
+                    <section class="get-in-touch-area">
+                        <div class="group-title-area">
+                            <h2>
+                                GET IN TOUCH<br>
+                                <span>with US</span>
+                            </h2>
                         </div>
-                        <div class="box-image-second">
-                            <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-2.png"
-                                alt="img get in touch" loading="lazy">
-                        </div>
-                        <div class="box-image-third">
-                            <div class="image-third-area">
-                                <img class="img-background"
-                                    src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-6.png"
+                        <div class="group-image-area">
+                            <div class="box-image-first">
+                                <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-1.png"
                                     alt="img get in touch" loading="lazy">
-                                <div class="line-border"></div>
-                                <div class="group-content-area">
-                                    <div class="box-title-area">
-                                        <h2>PARTNER WITH US</h2>
+                            </div>
+                            <div class="box-image-second">
+                                <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-2.png"
+                                    alt="img get in touch" loading="lazy">
+                            </div>
+                            <div class="box-image-third">
+                                <div class="image-third-area">
+                                    <img class="img-background"
+                                        src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-6.png"
+                                        alt="img get in touch" loading="lazy">
+                                    <div class="line-border"></div>
+                                    <div class="group-content-area">
+                                        <div class="box-title-area">
+                                            <h2>PARTNER WITH US</h2>
+                                        </div>
+                                        <a class="box-button-area transform-scale"
+                                            href="https://bestinbrands.com/contact/">
+                                            <img class="bg"
+                                                src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
+                                                alt="icon arrow" width="10" height="10" loading="lazy" />
+                                            <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
+                                                alt="img get in touch" loading="lazy">
+                                            <span>CLICK HERE</span>
+                                        </a>
                                     </div>
-                                    <a class="box-button-area transform-scale" href="https://bestinbrands.com/contact/">
-                                        <img class="bg"
-                                            src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
-                                            alt="icon arrow" width="10" height="10" loading="lazy" />
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
-                                            alt="img get in touch" loading="lazy">
-                                        <span>CLICK HERE</span>
-                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box-image-fourth">
-                            <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-4.png"
-                                alt="img get in touch" loading="lazy">
-                        </div>
-                        <div class="box-image-fifth">
-                            <div class="image-fifth-area">
-                                <img class="img-background"
-                                    src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-5.jpg"
+                            <div class="box-image-fourth">
+                                <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-4.png"
                                     alt="img get in touch" loading="lazy">
-                                <div class="line-border"></div>
-                                <div class="group-content-area">
-                                    <div class="box-title-area">
-                                        <h2>JOIN OUR TEAM</h2>
+                            </div>
+                            <div class="box-image-fifth">
+                                <div class="image-fifth-area">
+                                    <img class="img-background"
+                                        src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-5.jpg"
+                                        alt="img get in touch" loading="lazy">
+                                    <div class="line-border"></div>
+                                    <div class="group-content-area">
+                                        <div class="box-title-area">
+                                            <h2>JOIN OUR TEAM</h2>
+                                        </div>
+                                        <a class="box-button-area transform-scale"
+                                            href="https://bestinbrands.com/contact/">
+                                            <img class="bg"
+                                                src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
+                                                alt="icon arrow" width="10" height="10" loading="lazy" />
+                                            <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
+                                                alt="img get in touch" loading="lazy">
+                                            <span>CLICK HERE </span>
+                                        </a>
                                     </div>
-                                    <a class="box-button-area transform-scale" href="https://bestinbrands.com/contact/">
-                                        <img class="bg"
-                                            src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
-                                            alt="icon arrow" width="10" height="10" loading="lazy" />
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
-                                            alt="img get in touch" loading="lazy">
-                                        <span>CLICK HERE </span>
-                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box-image-sixth">
-                            <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-3.jpg"
-                                alt="img get in touch" loading="lazy" width="100" height="40">
-                        </div>
-                    </div>
-                    <div class="group-text-moblie">
-                        <div class="box-text-mobile">
-                            <div class="box-title">
-                                <h2 class="title">
-                                    PARTNER WITH US </h2>
-                            </div>
-                            <a class="box-button">
-                                <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-arrow-2.svg"
+                            <div class="box-image-sixth">
+                                <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-get-in-touch-3.jpg"
                                     alt="img get in touch" loading="lazy" width="100" height="40">
-                                <span class="text-button">CLICK HERE</span>
-                            </a>
-                        </div>
-                        <div class="box-text-mobile">
-                            <div class="box-title">
-                                <h2 class="title">
-                                    JOIN OUR TEAM </h2>
                             </div>
-                            <a class="box-button">
-                                <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-arrow-2.svg"
-                                    alt="img get in touch" loading="lazy">
-                                <span class="text-button">CLICK HERE </span>
-                            </a>
                         </div>
-                    </div>
-                </section>
-            </section> <!---------- Get In Touch Section --------->
-        </section>
-
-
-        <div id="footer">
-
-            <!-- BIB Website Footer -->
-            <div class="back-to-top-button">
-                <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-arrow-up.svg"
-                    alt="icon back to top" width="10" height="10" loading="lazy">
-            </div>
-            <div class="footer-area">
-                <div class="group-box-top-areas">
-                    <div class="box-top-area  container-footer">
-                        <div class="group-box-top-area">
-                            <div class="group-logo-container">
-                                <a class="logo " href="">
-                                    <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-logo.svg"
-                                        alt="logo" width="10" height="10" loading="lazy" />
-                                    <span class="fw-100">BESTINBRANDS</span>
+                        <div class="group-text-moblie">
+                            <div class="box-text-mobile">
+                                <div class="box-title">
+                                    <h2 class="title">
+                                        PARTNER WITH US </h2>
+                                </div>
+                                <a class="box-button">
+                                    <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-arrow-2.svg"
+                                        alt="img get in touch" loading="lazy" width="100" height="40">
+                                    <span class="text-button">CLICK HERE</span>
                                 </a>
                             </div>
-                            <div class="group-button-container">
-                                <a class="logo transform-scale" href="https://bestinbrands.com/contact/">
-                                    <img class="bg"
-                                        src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
-                                        alt="icon arrow" width="10" height="10" loading="lazy" />
-                                    <img class="arrow"
-                                        src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
-                                        alt="icon arrow" width="10" height="10" loading="lazy" />
-                                    <span>CONTACT</span>
+                            <div class="box-text-mobile">
+                                <div class="box-title">
+                                    <h2 class="title">
+                                        JOIN OUR TEAM </h2>
+                                </div>
+                                <a class="box-button">
+                                    <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-arrow-2.svg"
+                                        alt="img get in touch" loading="lazy">
+                                    <span class="text-button">CLICK HERE </span>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="group-box-bot-areas">
-                    <div class="box-bot-area  container-footer">
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    BANGLADESH HQ
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <span>Green Grandeur - 58E - R19 - 5th floor - Kamal Ataturk Avenue - Banani, 1213.
-                                    Dhaka - Bangladesh</span>
-                            </div>
+                    </section>
+                </section> <!---------- Get In Touch Section --------->
+
+                <style>
+                    /* === bib-footer — Figma node 150:103 "Section / Footer" === */
+                    .bib-footer {
+                        background: #000;
+                        width: 100%;
+                        font-family: 'Cina GEO', sans-serif;
+                        font-style: normal;
+                    }
+
+                    .bib-footer__wrapper {
+                        max-width: 1440px;
+                        margin: 0 auto;
+                        padding: 0 48px;
+                        box-sizing: border-box;
+                    }
+
+                    .bib-footer__logo-row {
+                        padding: 24px 0;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .bib-footer__logo-link {
+                        display: block;
+                        height: 66px;
+                        flex-shrink: 0;
+                    }
+
+                    .bib-footer__logo-link img {
+                        display: block;
+                        height: 100%;
+                        width: auto;
+                    }
+
+                    .bib-footer__divider {
+                        height: 1px;
+                        background: #2d2b2a;
+                    }
+
+                    .bib-footer__cols {
+                        display: flex;
+                        gap: 46px;
+                        align-items: flex-start;
+                        padding: 32px 0;
+                        overflow: hidden;
+                    }
+
+                    .bib-footer__col {
+                        flex: 1 0 0;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 30px;
+                        align-items: flex-start;
+                        min-width: 0;
+                    }
+
+                    .bib-footer__col-heading {
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 24px;
+                        letter-spacing: 0.18em;
+                        color: #fff;
+                        text-transform: uppercase;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    .bib-footer__col-body {
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #dadada;
+                        margin: 0;
+                    }
+
+                    .bib-footer__sitemap {
+                        display: grid;
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 16px;
+                        width: 100%;
+                        flex: 1 0 0;
+                        align-self: stretch;
+                    }
+
+                    .bib-footer__sitemap-link {
+                        font-family: 'Cina GEO', sans-serif;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #faf6f5;
+                        text-decoration: none;
+                        display: block;
+                        letter-spacing: 0;
+                        transition: color 200ms ease;
+                    }
+
+                    .bib-footer__sitemap-link:hover {
+                        color: #fff;
+                    }
+
+                    .bib-footer__socials {
+                        display: flex;
+                        gap: 16px;
+                        align-items: flex-start;
+                        flex: 1 0 0;
+                        align-self: stretch;
+                    }
+
+                    .bib-footer__social-link {
+                        display: block;
+                        width: 40px;
+                        height: 40px;
+                        flex-shrink: 0;
+                        transition: opacity 200ms ease;
+                    }
+
+                    .bib-footer__social-link:hover {
+                        opacity: 0.8;
+                    }
+
+                    .bib-footer__social-link img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .bib-footer__copyright-row {
+                        padding: 24px 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        overflow: hidden;
+                    }
+
+                    .bib-footer__copyright {
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: #dadada;
+                        white-space: nowrap;
+                        letter-spacing: 0;
+                    }
+
+                    @media (max-width: 768px) {
+                        .bib-footer__wrapper {
+                            padding: 0 24px;
+                        }
+
+                        .bib-footer__cols {
+                            flex-direction: column;
+                            gap: 32px;
+                        }
+
+                        .bib-footer__col {
+                            flex: none;
+                            width: 100%;
+                        }
+
+                        .bib-footer__logo-link {
+                            height: 44px;
+                        }
+                    }
+                </style>
+
+                <footer class="bib-footer" aria-label="Site footer">
+                    <div class="bib-footer__wrapper">
+                        <div class="bib-footer__logo-row">
+                            <a href="/home/" class="bib-footer__logo-link" aria-label="BestinBrands home">
+                                <img src="../about-us/img/footer-logo.svg" alt="BestinBrands" loading="lazy">
+                            </a>
                         </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    SINGAPORE
-                                </h2>
+                        <div class="bib-footer__divider" role="separator"></div>
+                        <div class="bib-footer__cols">
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Bangladesh HQ</h3>
+                                <p class="bib-footer__col-body">Green Grandeur - 58E - R19 - 5th floor - Kamal Ataturk
+                                    Avenue - Banani, 1213. Dhaka - Bangladesh</p>
                             </div>
-                            <div class="box-content-area">
-                                <span>North Bridge Road, #21-05, High Street Centre, 179094 - Singapore</span>
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Singapore</h3>
+                                <p class="bib-footer__col-body">North Bridge Road, #21-05, High Street Centre, 179094 -
+                                    Singapore</p>
                             </div>
-                        </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    DUBAI
-                                </h2>
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Dubai</h3>
+                                <p class="bib-footer__col-body">Best in Brands Office - unit 113 Sheikh Zayed Road Al
+                                    Quoz Commercial and Office Bldg Dubai, Al Quoz United Arab Emirates</p>
                             </div>
-                            <div class="box-content-area">
-                                <span>
-                                    Best in Brands Office - unit 113
-                                    Sheikh Zayed Road
-                                    Al Quoz Commercial and Office Bldg
-                                    Dubai, Al Quoz
-                                    United Arab Emirates
-                                </span>
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Sitemap</h3>
+                                <nav class="bib-footer__sitemap" aria-label="Footer navigation">
+                                    <a class="bib-footer__sitemap-link" href="/home/">Home</a>
+                                    <a class="bib-footer__sitemap-link" href="/about-us/">About us</a>
+                                    <a class="bib-footer__sitemap-link" href="/market/">Market</a>
+                                    <a class="bib-footer__sitemap-link"
+                                        href="https://bestinbrands.com/brands/">Brands</a>
+                                    <a class="bib-footer__sitemap-link"
+                                        href="https://bestinbrands.com/expertise/">Expertise</a>
+                                    <a class="bib-footer__sitemap-link"
+                                        href="https://bestinbrands.com/retail/">Retail</a>
+                                </nav>
                             </div>
-                        </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    SITEMAP
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <div class="group-menu-area">
-                                    <a class="col-6" href="/home/">Home</a>
-
-                                    <a class="col-6" href="/about-us/">About Us</a>
-
-                                    <a class="col-6" href="/market/">Market</a>
-
-                                    <a class="col-6" href="https://bestinbrands.com/brands/">Brands</a>
-
-                                    <a class="col-6" href="https://bestinbrands.com/expertise/">Expertise</a>
-
-                                    <a class="col-6" href="https://bestinbrands.com/retail/">Retail</a>
-
-
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Follow Us</h3>
+                                <div class="bib-footer__socials">
+                                    <a class="bib-footer__social-link"
+                                        href="https://www.facebook.com/BestinbrandsBangladesh/" aria-label="Facebook"
+                                        target="_blank" rel="noopener">
+                                        <img src="../about-us/img/icon-social-fb.svg" alt="" width="40" height="40"
+                                            loading="lazy">
+                                    </a>
+                                    <a class="bib-footer__social-link"
+                                        href="https://www.linkedin.com/company/bestinbrands/" aria-label="LinkedIn"
+                                        target="_blank" rel="noopener">
+                                        <img src="../about-us/img/icon-social-li.svg" alt="" width="40" height="40"
+                                            loading="lazy">
+                                    </a>
+                                    <a class="bib-footer__social-link" href="https://www.youtube.com/@BestinBrands"
+                                        aria-label="YouTube" target="_blank" rel="noopener">
+                                        <img src="../about-us/img/icon-social-yt.svg" alt="" width="40" height="40"
+                                            loading="lazy">
+                                    </a>
+                                    <a class="bib-footer__social-link" href="https://www.instagram.com/bestinbrands/"
+                                        aria-label="Instagram" target="_blank" rel="noopener">
+                                        <img src="../about-us/img/icon-social-ig.svg" alt="" width="40" height="40"
+                                            loading="lazy">
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    FOLLOW US
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <div class="group-socials-area">
-                                    <a class="socials-area" href="https://www.facebook.com/BestinbrandsBangladesh/">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/Facebook.svg"
-                                            alt="icon-facebook" width="10" height="10" loading="lazy">
-                                    </a>
-                                    <a class="socials-area" href="https://www.linkedin.com/company/bestinbrands/">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/lin.svg"
-                                            alt="icon-linkedin" width="10" height="10" loading="lazy">
-                                    </a>
-                                    <a class="socials-area" href="https://www.youtube.com/@BestinBrands">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/Youtube.svg"
-                                            alt="icon-Youtube" width="10" height="10" loading="lazy">
-                                    </a>
-                                    <a class="socials-area" href="https://www.instagram.com/bestinbrands/">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/Instargram.svg"
-                                            alt="icon-Instargram" width="10" height="10" loading="lazy">
-                                    </a>
-                                </div>
-
-                            </div>
+                        <div class="bib-footer__divider" role="separator"></div>
+                        <div class="bib-footer__copyright-row">
+                            <span class="bib-footer__copyright">2025 Copyright © BestInBrands Pte.Ltd</span>
                         </div>
                     </div>
-                </div>
-                <div class="group-copy-right-areas">
-                    <div class="group-copy-right  container-footer">
-                        <span>2025 Copyright © BestInBrands Pte.Ltd</span>
-                    </div>
-                </div>
-            </div> <!-- BIB Website Footer -->
-
-        </div>
+                </footer>
+            </section> <!-- .bib-footer-wrapper -->
+        </section> <!-- #home-page -->
     </div><!-- #page -->
 
     <script data-wpmeteor-after="REORDER" type="javascript/blocked" data-wpmeteor-type="text/javascript"

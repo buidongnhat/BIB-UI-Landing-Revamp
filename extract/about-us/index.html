@@ -904,8 +904,12 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         locked = true;
                         current = next;
                         sections[current].classList.add('is-in');
-                        // Reset incoming section's internal scroll so it always starts at top
-                        sections[current].scrollTop = 0;
+                        // Set internal scroll based on direction
+                        if (delta > 0) {
+                            sections[current].scrollTop = 0;
+                        } else {
+                            sections[current].scrollTop = sections[current].scrollHeight - sections[current].clientHeight;
+                        }
                         window.scrollTo({ top: sectionTop(current), behavior: 'smooth' });
                         setTimeout(() => { locked = false; }, LOCK_MS);
                     }
@@ -973,9 +977,13 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         if (overflows) {
                             if (goingDown && !atBottom(sec)) { resetGate(); return; }
                             if (!goingDown && !atTop(sec)) { resetGate(); return; }
-                        }
-                        e.preventDefault();
-                        if (hitBoundary(dir)) {
+                            e.preventDefault();
+                            if (hitBoundary(dir)) {
+                                go(dir);
+                            }
+                        } else {
+                            e.preventDefault();
+                            resetGate();
                             go(dir);
                         }
                     }, { passive: false });
@@ -1006,8 +1014,11 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         if (overflows) {
                             if (goingDown && !atBottom(sec)) { resetGate(); return; }
                             if (!goingDown && !atTop(sec)) { resetGate(); return; }
+                            if (hitBoundary(dir)) { go(dir); }
+                        } else {
+                            resetGate();
+                            go(dir);
                         }
-                        if (hitBoundary(dir)) { go(dir); }
                     });
 
                     // Keep `current` in sync if anchor links jump scroll
@@ -1518,8 +1529,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     width: 100%;
                     font-weight: 400;
                     /* Cina GEO Regular */
-                    font-size: 18px;
-                    line-height: 24px;
+                    font-size: 20px;
+                    line-height: 28px;
                     color: #FAF6F5;
                     /* neutral/canvas */
                 }
@@ -1759,8 +1770,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     margin: 0;
                     font-weight: 400;
                     /* Cina GEO Regular */
-                    font-size: 14px;
-                    line-height: 20px;
+                    font-size: 18px;
+                    line-height: 24px;
                     color: rgba(255, 255, 255, 0.85);
                     text-align: center;
                     max-width: 320px;
@@ -2137,175 +2148,324 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             </section> <!---------- Initiatives Section --------->
             <!---------- Talent At Section --------->
             <!-- ------------------------------------------------------------------- -->
-            <section class="group-talents-at-area"
-                style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/about-us-background-talents-at.png);">
-                <section class="talents-at-area">
-                    <div class="group-title-area">
-                        <div class="box-title-area">
-                            <h2 class="text-color">TALENTS AT</h2> <br>
-                            <h2>BESTINBRANDS</h2>
-                        </div>
-                        <div class="box-control-slider-area">
-                            <div class="group-control-area">
-                                <div class="control-slider button-prev">
-                                    <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-prev.svg"
-                                        alt="">
-                                </div>
-                                <div class="control-slider button-next">
-                                    <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-next.svg"
-                                        alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group-slider-area talents-at-owl-carousel owl-carousel owl-theme">
-                        <div class="box-image-area">
-                            <img
-                                src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-talents-at-bestinbrands-image-1.png">
-                        </div>
-                        <div class="box-image-area">
-                            <img
-                                src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-talents-at-bestinbrands-image-2.png">
-                        </div>
-                    </div>
-                </section>
-            </section> <!---------- Talent At Section --------->
-        </section>
-
-
-        <div id="footer">
-
-            <!-- BIB Website Footer -->
-            <div class="back-to-top-button">
-                <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-arrow-up.svg"
-                    alt="icon back to top" width="10" height="10" loading="lazy">
-            </div>
-            <div class="footer-area">
-                <div class="group-box-top-areas">
-                    <div class="box-top-area  container-footer">
-                        <div class="group-box-top-area">
-                            <div class="group-logo-container">
-                                <a class="logo " href="">
-                                    <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-logo.svg"
-                                        alt="logo" width="10" height="10" loading="lazy" />
-                                    <span class="fw-100">BESTINBRANDS</span>
-                                </a>
-                            </div>
-                            <div class="group-button-container">
-                                <a class="logo transform-scale" href="https://bestinbrands.com/contact/">
-                                    <img class="bg"
-                                        src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
-                                        alt="icon arrow" width="10" height="10" loading="lazy" />
-                                    <img class="arrow"
-                                        src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
-                                        alt="icon arrow" width="10" height="10" loading="lazy" />
-                                    <span>CONTACT</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="group-box-bot-areas">
-                    <div class="box-bot-area  container-footer">
-                        <div class="group-content-area">
+            <section class="bib-footer-wrapper">
+                <section class="group-talents-at-area"
+                    style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/about-us-background-talents-at.png);">
+                    <section class="talents-at-area">
+                        <div class="group-title-area">
                             <div class="box-title-area">
-                                <h2>
-                                    BANGLADESH HQ
-                                </h2>
+                                <h2 class="text-color">TALENTS AT</h2> <br>
+                                <h2>BESTINBRANDS</h2>
                             </div>
-                            <div class="box-content-area">
-                                <span>Green Grandeur - 58E - R19 - 5th floor - Kamal Ataturk Avenue - Banani, 1213.
-                                    Dhaka - Bangladesh</span>
-                            </div>
-                        </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    SINGAPORE
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <span>North Bridge Road, #21-05, High Street Centre, 179094 - Singapore</span>
-                            </div>
-                        </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    DUBAI
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <span>
-                                    Best in Brands Office - unit 113
-                                    Sheikh Zayed Road
-                                    Al Quoz Commercial and Office Bldg
-                                    Dubai, Al Quoz
-                                    United Arab Emirates
-                                </span>
-                            </div>
-                        </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    SITEMAP
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <div class="group-menu-area">
-                                    <a class="col-6" href="/home/">Home</a>
-
-                                    <a class="col-6" href="/about-us/">About Us</a>
-
-                                    <a class="col-6" href="/market/">Market</a>
-
-                                    <a class="col-6" href="https://bestinbrands.com/brands/">Brands</a>
-
-                                    <a class="col-6" href="https://bestinbrands.com/expertise/">Expertise</a>
-
-                                    <a class="col-6" href="https://bestinbrands.com/retail/">Retail</a>
-
-
+                            <div class="box-control-slider-area">
+                                <div class="group-control-area">
+                                    <div class="control-slider button-prev">
+                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-prev.svg"
+                                            alt="">
+                                    </div>
+                                    <div class="control-slider button-next">
+                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/icon-next.svg"
+                                            alt="">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="group-content-area">
-                            <div class="box-title-area">
-                                <h2>
-                                    FOLLOW US
-                                </h2>
+                        <div class="group-slider-area talents-at-owl-carousel owl-carousel owl-theme">
+                            <div class="box-image-area">
+                                <img
+                                    src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-talents-at-bestinbrands-image-1.png">
                             </div>
-                            <div class="box-content-area">
-                                <div class="group-socials-area">
-                                    <a class="socials-area" href="https://www.facebook.com/BestinbrandsBangladesh/">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/Facebook.svg"
-                                            alt="icon-facebook" width="10" height="10" loading="lazy">
-                                    </a>
-                                    <a class="socials-area" href="https://www.linkedin.com/company/bestinbrands/">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/lin.svg"
-                                            alt="icon-linkedin" width="10" height="10" loading="lazy">
-                                    </a>
-                                    <a class="socials-area" href="https://www.youtube.com/@BestinBrands">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/Youtube.svg"
-                                            alt="icon-Youtube" width="10" height="10" loading="lazy">
-                                    </a>
-                                    <a class="socials-area" href="https://www.instagram.com/bestinbrands/">
-                                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/Instargram.svg"
-                                            alt="icon-Instargram" width="10" height="10" loading="lazy">
-                                    </a>
-                                </div>
-
+                            <div class="box-image-area">
+                                <img
+                                    src="https://bestinbrands.com/wp-content/uploads/2023/09/about-us-page-talents-at-bestinbrands-image-2.png">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="group-copy-right-areas">
-                    <div class="group-copy-right  container-footer">
-                        <span>2025 Copyright © BestInBrands Pte.Ltd</span>
-                    </div>
-                </div>
-            </div> <!-- BIB Website Footer -->
+                    </section>
+                </section> <!---------- Talent At Section --------->
 
-        </div>
+                <style>
+                    /* === bib-footer — Figma node 150:103 "Section / Footer" === */
+                    /* Talents fills first screen; footer scrolls in below within same section */
+                    .bib-footer-wrapper .group-talents-at-area {
+                        min-height: calc(100vh - 72px);
+                        height: auto !important;
+                        background-size: cover;
+                        background-position: center;
+                    }
+
+                    @supports (height: 100dvh) {
+                        .bib-footer-wrapper .group-talents-at-area {
+                            min-height: calc(100dvh - 72px);
+                        }
+                    }
+
+                    .bib-footer {
+                        background: #000;
+                        width: 100%;
+                        font-family: 'Cina GEO', sans-serif;
+                        font-style: normal;
+                    }
+
+                    .bib-footer__wrapper {
+                        max-width: 1440px;
+                        margin: 0 auto;
+                        padding: 0 48px;
+                        box-sizing: border-box;
+                    }
+
+                    /* Logo row — Figma: 2-col grid, grid-rows[99px], py-24 */
+                    .bib-footer__logo-row {
+                        padding: 24px 0;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .bib-footer__logo-link {
+                        display: block;
+                        height: 66px;
+                        flex-shrink: 0;
+                    }
+
+                    .bib-footer__logo-link img {
+                        display: block;
+                        height: 100%;
+                        width: auto;
+                    }
+
+                    /* Dividers — Figma: 1px, #2d2b2a */
+                    .bib-footer__divider {
+                        height: 1px;
+                        background: #2d2b2a;
+                    }
+
+                    /* Content row — Figma: flex, gap-46, items-center, py-32, overflow-clip */
+                    .bib-footer__cols {
+                        display: flex;
+                        gap: 46px;
+                        align-items: flex-start;
+                        padding: 32px 0;
+                        overflow: hidden;
+                    }
+
+                    /* Column — Figma: flex-[1_0_0], flex-col, gap-30, items-start, min-w-0 */
+                    .bib-footer__col {
+                        flex: 1 0 0;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 30px;
+                        align-items: flex-start;
+                        min-width: 0;
+                    }
+
+                    /* Column heading — Figma: Heading/H4, Medium 18px, 24lh, 18% ls, white */
+                    .bib-footer__col-heading {
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 24px;
+                        letter-spacing: 0.18em;
+                        color: #fff;
+                        text-transform: uppercase;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    /* Column body — Figma: Body/MD, Regular 16px, 20lh, #dadada */
+                    .bib-footer__col-body {
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #dadada;
+                        margin: 0;
+                    }
+
+                    /* Sitemap grid — Figma: 2-col, gap-16, flex-[1_0_0] */
+                    .bib-footer__sitemap {
+                        display: grid;
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 16px;
+                        width: 100%;
+                        flex: 1 0 0;
+                        align-self: stretch;
+                    }
+
+                    /* Sitemap links — Figma: Regular 16px, 20lh, #faf6f5, 0 letter-spacing */
+                    .bib-footer__sitemap-link {
+                        font-family: 'Cina GEO', sans-serif;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #faf6f5;
+                        text-decoration: none;
+                        display: block;
+                        letter-spacing: 0;
+                        transition: color 200ms ease;
+                    }
+
+                    .bib-footer__sitemap-link:hover {
+                        color: #fff;
+                    }
+
+                    /* Social icons row — Figma: flex, gap-16, items-start, flex-[1_0_0] */
+                    .bib-footer__socials {
+                        display: flex;
+                        gap: 16px;
+                        align-items: flex-start;
+                        flex: 1 0 0;
+                        align-self: stretch;
+                    }
+
+                    /* Each icon — Figma: 40×40px */
+                    .bib-footer__social-link {
+                        display: block;
+                        width: 40px;
+                        height: 40px;
+                        flex-shrink: 0;
+                        transition: opacity 200ms ease;
+                    }
+
+                    .bib-footer__social-link:hover {
+                        opacity: 0.8;
+                    }
+
+                    .bib-footer__social-link img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    /* Copyright row — Figma: flex, items-center, justify-center, py-24, overflow-clip */
+                    .bib-footer__copyright-row {
+                        padding: 24px 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        overflow: hidden;
+                    }
+
+                    /* Copyright — Figma: Label/Caption, Regular 12px, 16lh, #dadada, nowrap */
+                    .bib-footer__copyright {
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: #dadada;
+                        white-space: nowrap;
+                        letter-spacing: 0;
+                    }
+
+                    /* Mobile */
+                    @media (max-width: 768px) {
+                        .bib-footer__wrapper {
+                            padding: 0 24px;
+                        }
+
+                        .bib-footer__cols {
+                            flex-direction: column;
+                            gap: 32px;
+                        }
+
+                        .bib-footer__col {
+                            flex: none;
+                            width: 100%;
+                        }
+
+                        .bib-footer__logo-link {
+                            height: 44px;
+                        }
+                    }
+                </style>
+
+                <footer class="bib-footer" aria-label="Site footer">
+                    <div class="bib-footer__wrapper">
+
+                        <!-- Logo row -->
+                        <div class="bib-footer__logo-row">
+                            <a href="/home/" class="bib-footer__logo-link" aria-label="BestinBrands home">
+                                <img src="img/footer-logo.svg" alt="BestinBrands" loading="lazy">
+                            </a>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="bib-footer__divider" role="separator"></div>
+
+                        <!-- 5-column content row -->
+                        <div class="bib-footer__cols">
+
+                            <!-- Bangladesh HQ -->
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Bangladesh HQ</h3>
+                                <p class="bib-footer__col-body">Green Grandeur - 58E - R19 - 5th floor - Kamal Ataturk
+                                    Avenue - Banani, 1213. Dhaka - Bangladesh</p>
+                            </div>
+
+                            <!-- Singapore -->
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Singapore</h3>
+                                <p class="bib-footer__col-body">North Bridge Road, #21-05, High Street Centre, 179094 -
+                                    Singapore</p>
+                            </div>
+
+                            <!-- Dubai -->
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Dubai</h3>
+                                <p class="bib-footer__col-body">Best in Brands Office - unit 113 Sheikh Zayed Road Al
+                                    Quoz Commercial and Office Bldg Dubai, Al Quoz United Arab Emirates</p>
+                            </div>
+
+                            <!-- Sitemap -->
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Sitemap</h3>
+                                <nav class="bib-footer__sitemap" aria-label="Footer navigation">
+                                    <a class="bib-footer__sitemap-link" href="/home/">Home</a>
+                                    <a class="bib-footer__sitemap-link" href="/about-us/">About us</a>
+                                    <a class="bib-footer__sitemap-link" href="/market/">Market</a>
+                                    <a class="bib-footer__sitemap-link"
+                                        href="https://bestinbrands.com/brands/">Brands</a>
+                                    <a class="bib-footer__sitemap-link"
+                                        href="https://bestinbrands.com/expertise/">Expertise</a>
+                                    <a class="bib-footer__sitemap-link"
+                                        href="https://bestinbrands.com/retail/">Retail</a>
+                                </nav>
+                            </div>
+
+                            <!-- Follow Us -->
+                            <div class="bib-footer__col">
+                                <h3 class="bib-footer__col-heading">Follow Us</h3>
+                                <div class="bib-footer__socials">
+                                    <a class="bib-footer__social-link"
+                                        href="https://www.facebook.com/BestinbrandsBangladesh/" aria-label="Facebook"
+                                        target="_blank" rel="noopener">
+                                        <img src="img/icon-social-fb.svg" alt="" width="40" height="40" loading="lazy">
+                                    </a>
+                                    <a class="bib-footer__social-link"
+                                        href="https://www.linkedin.com/company/bestinbrands/" aria-label="LinkedIn"
+                                        target="_blank" rel="noopener">
+                                        <img src="img/icon-social-li.svg" alt="" width="40" height="40" loading="lazy">
+                                    </a>
+                                    <a class="bib-footer__social-link" href="https://www.youtube.com/@BestinBrands"
+                                        aria-label="YouTube" target="_blank" rel="noopener">
+                                        <img src="img/icon-social-yt.svg" alt="" width="40" height="40" loading="lazy">
+                                    </a>
+                                    <a class="bib-footer__social-link" href="https://www.instagram.com/bestinbrands/"
+                                        aria-label="Instagram" target="_blank" rel="noopener">
+                                        <img src="img/icon-social-ig.svg" alt="" width="40" height="40" loading="lazy">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="bib-footer__divider" role="separator"></div>
+
+                        <!-- Copyright row -->
+                        <div class="bib-footer__copyright-row">
+                            <span class="bib-footer__copyright">2025 Copyright © BestInBrands Pte.Ltd</span>
+                        </div>
+
+                    </div>
+                </footer>
+            </section> <!-- .bib-footer-wrapper -->
+        </section> <!-- #about-us-page -->
     </div><!-- #page -->
 
     <script data-wpmeteor-after="REORDER" type="javascript/blocked" data-wpmeteor-type="text/javascript"

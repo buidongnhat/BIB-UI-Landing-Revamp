@@ -1,1 +1,1733 @@
-@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-SemiBold.eot");src:local("../../../font/Cina/CinaGEO-SemiBold"),local("CinaGEO-SemiBold"),url("../../../font/Cina/CinaGEO-SemiBold.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-SemiBold.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-SemiBold.woff") format("woff"),url("../../../font/Cina/CinaGEO-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-ExtraBold.eot");src:local("../../../font/Cina/CinaGEO-ExtraBold"),local("CinaGEO-ExtraBold"),url("../../../font/Cina/CinaGEO-ExtraBold.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-ExtraBold.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-ExtraBold.woff") format("woff"),url("../../../font/Cina/CinaGEO-ExtraBold.ttf") format("truetype");font-weight:bold;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-Regular.eot");src:local("../../../font/Cina/CinaGEO-Regular"),local("CinaGEO-Regular"),url("../../../font/Cina/CinaGEO-Regular.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-Regular.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-Regular.woff") format("woff"),url("../../../font/Cina/CinaGEO-Regular.ttf") format("truetype");font-weight:normal;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-Black.eot");src:local("../../../font/Cina/CinaGEO-Black"),local("CinaGEO-Black"),url("../../../font/Cina/CinaGEO-Black.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-Black.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-Black.woff") format("woff"),url("../../../font/Cina/CinaGEO-Black.ttf") format("truetype");font-weight:900;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-Medium.eot");src:local("../../../font/Cina/Cina-GEO-Medium"),local("CinaGEO-Medium"),url("../../../font/Cina/CinaGEO-Medium.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-Medium.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-Medium.woff") format("woff"),url("../../../font/Cina/CinaGEO-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-Light.eot");src:local("../../../font/Cina/CinaGEO-Light"),local("CinaGEO-Light"),url("../../../font/Cina/CinaGEO-Light.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-Light.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-Light.woff") format("woff"),url("../../../font/Cina/CinaGEO-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-ExtraLight.eot");src:local("../../../font/Cina/CinaGEO-ExtraLight"),local("CinaGEO-ExtraLight"),url("../../../font/Cina/CinaGEO-ExtraLight.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-ExtraLight.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-ExtraLight.woff") format("woff"),url("../../../font/Cina/CinaGEO-ExtraLight.ttf") format("truetype");font-weight:200;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-Bold.eot");src:local("../../../font/Cina/CinaGEO-Bold"),local("CinaGEO-Bold"),url("../../../font/Cina/CinaGEO-Bold.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-Bold.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-Bold.woff") format("woff"),url("../../../font/Cina/CinaGEO-Bold.ttf") format("truetype");font-weight:bold;font-style:normal;font-display:swap}@font-face{font-family:"Cina GEO";src:url("../../../font/Cina/CinaGEO-Thin.eot");src:local("../../../font/Cina/CinaGEO-Thin"),local("CinaGEO-Thin"),url("../../../font/Cina/CinaGEO-Thin.eot?#iefix") format("embedded-opentype"),url("../../../font/Cina/CinaGEO-Thin.woff2") format("woff2"),url("../../../font/Cina/CinaGEO-Thin.woff") format("woff"),url("../../../font/Cina/CinaGEO-Thin.ttf") format("truetype");font-weight:100;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans.eot");src:url("../../../font/GillSans/GillSans.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans.woff2") format("woff2"),url("../../../font/GillSans/GillSans.woff") format("woff"),url("../../../font/GillSans/GillSans.ttf") format("truetype");font-weight:normal;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-MediumItalic.eot");src:url("../../../font/GillSans/GillSans-MediumItalic.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-MediumItalic.woff2") format("woff2"),url("../../../font/GillSans/GillSans-MediumItalic.woff") format("woff"),url("../../../font/GillSans/GillSans-MediumItalic.ttf") format("truetype");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-Medium.eot");src:url("../../../font/GillSans/GillSans-Medium.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-Medium.woff2") format("woff2"),url("../../../font/GillSans/GillSans-Medium.woff") format("woff"),url("../../../font/GillSans/GillSans-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-Bold.eot");src:url("../../../font/GillSans/GillSans-Bold.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-Bold.woff2") format("woff2"),url("../../../font/GillSans/GillSans-Bold.woff") format("woff"),url("../../../font/GillSans/GillSans-Bold.ttf") format("truetype");font-weight:bold;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-Heavy.eot");src:url("../../../font/GillSans/GillSans-Heavy.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-Heavy.woff2") format("woff2"),url("../../../font/GillSans/GillSans-Heavy.woff") format("woff"),url("../../../font/GillSans/GillSans-Heavy.ttf") format("truetype");font-weight:900;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-HeavyItalic.eot");src:url("../../../font/GillSans/GillSans-HeavyItalic.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-HeavyItalic.woff2") format("woff2"),url("../../../font/GillSans/GillSans-HeavyItalic.woff") format("woff"),url("../../../font/GillSans/GillSans-HeavyItalic.ttf") format("truetype");font-weight:900;font-style:italic;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-BoldItalic.eot");src:url("../../../font/GillSans/GillSans-BoldItalic.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-BoldItalic.woff2") format("woff2"),url("../../../font/GillSans/GillSans-BoldItalic.woff") format("woff"),url("../../../font/GillSans/GillSans-BoldItalic.ttf") format("truetype");font-weight:bold;font-style:italic;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-CondensedRegular.eot");src:url("../../../font/GillSans/GillSans-CondensedRegular.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-CondensedRegular.woff2") format("woff2"),url("../../../font/GillSans/GillSans-CondensedRegular.woff") format("woff"),url("../../../font/GillSans/GillSans-CondensedRegular.ttf") format("truetype");font-weight:normal;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-CondensedBold.eot");src:url("../../../font/GillSans/GillSans-CondensedBold.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-CondensedBold.woff2") format("woff2"),url("../../../font/GillSans/GillSans-CondensedBold.woff") format("woff"),url("../../../font/GillSans/GillSans-CondensedBold.ttf") format("truetype");font-weight:bold;font-style:normal;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-Italic.eot");src:url("../../../font/GillSans/GillSans-Italic.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-Italic.woff2") format("woff2"),url("../../../font/GillSans/GillSans-Italic.woff") format("woff"),url("../../../font/GillSans/GillSans-Italic.ttf") format("truetype");font-weight:normal;font-style:italic;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-LightItalic.eot");src:url("../../../font/GillSans/GillSans-LightItalic.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-LightItalic.woff2") format("woff2"),url("../../../font/GillSans/GillSans-LightItalic.woff") format("woff"),url("../../../font/GillSans/GillSans-LightItalic.ttf") format("truetype");font-weight:300;font-style:italic;font-display:swap}@font-face{font-family:"Gill Sans";src:url("../../../font/GillSans/GillSans-Light.eot");src:url("../../../font/GillSans/GillSans-Light.eot?#iefix") format("embedded-opentype"),url("../../../font/GillSans/GillSans-Light.woff2") format("woff2"),url("../../../font/GillSans/GillSans-Light.woff") format("woff"),url("../../../font/GillSans/GillSans-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}#market-page section.banner{display:flex;justify-content:space-between;gap:157rem;padding-top:197rem;padding-bottom:110rem;background-repeat:no-repeat;background-size:cover;background-position:center}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.banner{padding:223rem 44rem 148rem 44rem;flex-direction:column;gap:20rem}}@media only screen and (max-width: 600px){#market-page section.banner{padding:163rem 16rem 50rem 16rem;flex-direction:column;gap:48rem}}#market-page section.banner .left{display:flex;flex-direction:column;width:700rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.banner .left{width:100%}}@media only screen and (max-width: 600px){#market-page section.banner .left{width:100%}}#market-page section.banner .left .title{color:#d1aeac;font-family:"Cina GEO";font-size:100rem;font-style:normal;font-weight:300;line-height:108rem;letter-spacing:-3rem}@media only screen and (max-width: 600px){#market-page section.banner .left .title{font-size:40rem;line-height:120%;letter-spacing:-1.2rem}}#market-page section.banner .left .title span{color:#377b8c}#market-page section.banner .left .description1{font-size:26rem;font-style:normal;font-weight:300;margin-top:40rem;margin-bottom:40rem;color:#555f6d;line-height:130.769%;text-align:justify}@media only screen and (max-width: 600px){#market-page section.banner .left .description1{font-size:19rem;line-height:130%;margin-top:20rem;margin-bottom:20rem}}#market-page section.banner .left .description2 p{color:#555f6d;font-size:26rem;font-style:normal;font-weight:300;line-height:138.462%;margin-bottom:37rem;text-align:justify}@media only screen and (max-width: 600px){#market-page section.banner .left .description2 p{font-size:19rem;line-height:160%;margin-bottom:0}}#market-page section.banner .left .title2{color:#d1aeac;font-family:"Cina GEO";font-size:40rem;font-style:normal;font-weight:300;text-transform:uppercase;margin-bottom:27rem}#market-page section.banner .left .description3{color:#555f6d;font-family:"Cina GEO";font-size:26rem;font-style:normal;font-weight:400;text-transform:uppercase;margin:0;margin-bottom:25rem}#market-page section.banner .left .description4{color:#555f6d;font-size:26rem;font-style:normal;font-weight:300}#market-page section.banner .right{width:590rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.banner .right{width:936rem}}@media only screen and (max-width: 600px){#market-page section.banner .right{width:348rem}}#market-page section.statistics{min-height:852rem;background-position:center;background-size:cover;background-repeat:no-repeat;display:flex;justify-content:center;align-items:center;width:100%;position:relative}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics{min-height:1176rem}}@media only screen and (max-width: 600px){#market-page section.statistics{min-height:auto;flex-direction:column;justify-content:unset;padding:44rem 0 0 0}}#market-page section.statistics .title{font-family:"Cina GEO";font-size:60rem;font-style:normal;font-weight:400;letter-spacing:.1rem;line-height:68rem;color:#fff;width:313rem;text-align:center}@media only screen and (min-width: 1025px){#market-page section.statistics .title{margin-bottom:80rem}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .title{margin-left:100rem;margin-bottom:50rem}}#market-page section.statistics .title span{color:#d1aeac}@media only screen and (max-width: 600px){#market-page section.statistics .title{font-size:35rem;margin-bottom:30rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area{display:none}}#market-page section.statistics .group-box-area .box{position:absolute;border-radius:50%;border:1rem #fff solid;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:10rem;text-align:center}#market-page section.statistics .group-box-area .box.source{display:none;border-radius:unset;border:none;bottom:10rem;right:20rem;font-weight:300;font-size:20rem;color:#fff}#market-page section.statistics .group-box-area .box.white{background:#fff;color:#377b8c;font-family:"Cina GEO";font-size:30rem;font-style:normal;font-weight:300}@media only screen and (min-width: 1025px){#market-page section.statistics .group-box-area .box.white{width:264rem;height:264rem}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box.white{width:264rem;height:264rem}}#market-page section.statistics .group-box-area .box.white .text{line-height:36rem}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box.white .text{font-size:16rem}}#market-page section.statistics .group-box-area .box.white .number{font-size:40rem;font-weight:400}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box.white .number{font-size:26rem}}#market-page section.statistics .group-box-area .box.white .source{font-size:14rem}#market-page section.statistics .group-box-area .box.trans{color:#fff;font-family:"Cina GEO";font-size:20rem;font-style:normal;font-weight:300}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box.trans .text{font-size:14rem}}#market-page section.statistics .group-box-area .box.trans .number{font-size:26rem;font-weight:400}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box.trans .number{font-size:20rem}}#market-page section.statistics .group-box-area .box1{top:540rem;left:960rem;width:176rem;height:176rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box1{top:828rem;left:378rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box1{top:651rem;left:37rem;width:141rem;height:141rem}}#market-page section.statistics .group-box-area .box2{top:385rem;left:468rem;width:161rem;height:161rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box2{top:450rem;left:98rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box2{top:420rem;left:40rem;width:116rem;height:116rem}}#market-page section.statistics .group-box-area .box3{top:35rem;left:851rem;width:187rem;height:183rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box3{top:83rem;left:426rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box3{top:205rem;left:212rem;width:116rem;height:116rem}}#market-page section.statistics .group-box-area .box4{top:81rem;left:256rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box4{top:-84rem;left:41rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box4{top:211rem;left:35rem;width:145rem;height:145rem}}#market-page section.statistics .group-box-area .box5{top:73rem;left:1400rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box5{top:43rem;left:746rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box5{top:366rem;left:186rem;width:149rem;height:149rem}}#market-page section.statistics .group-box-area .box6{top:650rem;left:614rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box6{top:1044rem;left:85rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box6{top:827rem;left:52rem;width:134rem;height:134rem}}#market-page section.statistics .group-box-area .box7{top:407rem;left:1210rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-area .box7{top:728rem;left:714rem}}@media only screen and (max-width: 600px){#market-page section.statistics .group-box-area .box7{top:692rem;left:203rem;width:155rem;height:155rem}}#market-page section.statistics .group-box-mobile-area{position:relative}@media only screen and (min-width: 1025px){#market-page section.statistics .group-box-mobile-area{display:none}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page section.statistics .group-box-mobile-area{display:none}}#market-page section.statistics .group-box-mobile-area .group-box-mobile{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-evenly;column-gap:45rem;row-gap:40rem;padding:0 25rem 63rem 25rem}#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area{width:146rem;display:flex;flex-direction:column}#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area .box-title{font-family:"Cina GEO";font-weight:300;font-size:16rem;color:#d1aeac}#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area .box-content{margin-top:10rem;font-family:"Cina GEO";font-weight:400;font-size:26rem;color:#fff}#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area:last-child{text-align:center;width:100%}#market-page section.statistics .group-box-mobile-area .box-source{display:none;position:absolute;bottom:10rem;right:10rem;font-weight:300;font-size:18rem;color:#fff}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area{display:flex;flex-direction:row;flex-wrap:nowrap;align-content:center;justify-content:space-between;padding:150rem 200rem 120rem 180rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area{padding:139rem 44rem 100rem 44rem;flex-direction:column;gap:63rem}}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area{padding:52rem 0 42rem 0;flex-direction:column;gap:48rem}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-image-area{width:900rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-image-area{display:none}}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-image-area{display:none}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area{width:560rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area{width:936rem}}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area{width:100%;padding:0 16rem}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-image-area-mobile{margin-top:20rem}@media only screen and (min-width: 1025px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-image-area-mobile{display:none}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-image-area-mobile{width:936rem}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .title{letter-spacing:.1rem;font-family:"Cina GEO";font-weight:400;font-size:60rem;color:#555f6d}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .title{font-size:56rem}}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .title{font-size:35rem}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .sub-title{letter-spacing:.1rem;font-family:"Cina GEO";font-weight:400;font-size:60rem;color:#377b8c}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .sub-title{font-size:56rem}}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .sub-title{font-size:36rem}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-description-area .description-1{font-weight:300;font-size:26rem;color:#333;text-align:justify;margin-top:30rem}@media only screen and (max-width: 600px){#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-description-area .description-1{font-size:18rem}}#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-description-area .description-1 .text-color{color:#377b8c}#market-page .group-economic-area{background-repeat:no-repeat;background-size:cover;background-position:center;padding:130rem 160rem 0 160rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area{padding:96rem 44rem 97rem 44rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area{padding:64rem 16rem 62rem 16rem}}#market-page .group-economic-area .economic-area .box{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .box{gap:65rem;align-items:end}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .box{flex-direction:column;gap:40rem}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .box-2{margin-top:25rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .box-2{margin-top:35rem}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .box-2 .box-title{display:none}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .box-2 .box-title{display:none}}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .box-2 .group-left-area .group-content-area .box-left{width:100%}#market-page .group-economic-area .economic-area .box-2 .group-left-area .group-content-area .box-right .box-image-box-2{width:945rem}}#market-page .group-economic-area .economic-area .group-left-area{display:flex;flex-direction:column;flex-wrap:nowrap;gap:74rem}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-left-area{gap:30rem}}#market-page .group-economic-area .economic-area .group-left-area .box-title h2{font-family:"Cina GEO";font-weight:400;font-size:60rem;color:#d1aeac}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-left-area .box-title h2{font-size:35rem}}#market-page .group-economic-area .economic-area .group-left-area .box-title .text-color{color:#fff}#market-page .group-economic-area .economic-area .group-left-area .group-content-area{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;gap:165rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area{flex-direction:column;gap:74rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area{flex-direction:column;gap:20rem}}#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description{margin-top:31rem;text-align:justify}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description{margin-top:25rem}}#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description span{line-height:29rem;font-weight:300;font-size:26rem;color:#afcad1}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description span{font-size:26rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description span{font-size:18rem}}#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-right .box-image{margin-top:36rem;width:334rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-right .box-image{width:452rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-right .box-image{margin-top:24rem;width:358rem}}#market-page .group-economic-area .economic-area .group-right-area .box-image{margin-top:31rem;width:359rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-area .group-right-area .box-image{width:415rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .group-right-area .box-image{width:358rem}}#market-page .group-economic-area .economic-area .title h2{font-family:"Cina GEO";font-weight:300;font-size:40rem;color:#d1aeac}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .title h2{font-size:30rem}}#market-page .group-economic-area .economic-area .sub-title{margin-top:10rem}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .sub-title{margin:0}}#market-page .group-economic-area .economic-area .sub-title h2{font-family:"Cina GEO";font-weight:300;font-size:26rem;color:#fff}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-area .sub-title h2{font-size:24rem}}#market-page .group-economic-area .economic-section-desktop{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;gap:42rem;align-items:center}#market-page .group-economic-area .economic-section-desktop .control-slide{display:flex;align-content:center;justify-content:center;align-items:center;width:54rem;height:54rem;padding:20rem;border-radius:50%;background-color:#caabaa}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-section-desktop .control-slide{width:40rem;height:40rem}}#market-page .group-economic-area .economic-section-desktop .control-slide img{width:15rem}#market-page .group-economic-area .economic-section-desktop .group-slide{width:1410rem}#market-page .group-economic-area .economic-section-desktop .group-slide .box-slide{width:1410rem;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;gap:120rem}@media only screen and (min-width: 1025px){#market-page .group-economic-area .economic-section-desktop .group-slide .box-slide{padding-left:30rem;padding-right:30rem}}#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2{gap:137rem}#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description{margin-top:31rem;text-align:justify}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description{margin-top:25rem}}#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description span{font-weight:300;font-size:26rem;color:#afcad1;text-align:justify}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description span{font-size:20rem}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description span{font-size:18rem}}#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-right .box-image{width:810rem}#market-page .group-economic-area .economic-section-desktop .group-slide .owl-dots{display:none}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-economic-area .economic-section-desktop{display:none}}@media only screen and (max-width: 600px){#market-page .group-economic-area .economic-section-desktop{display:none}}@media only screen and (min-width: 1025px){#market-page .group-economic-area .economic-section-responsive{display:none}}#market-page .group-expert-view-area .expert-view-area{padding:148rem 255rem 113rem 255rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area{padding:88rem 44rem 80rem 44rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area{padding:60rem 16rem 60rem 16rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area{display:flex;flex-direction:row;flex-wrap:nowrap;gap:50rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area{gap:80rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area{flex-direction:column;gap:36rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title{width:454rem;padding-bottom:30rem;border-bottom:1rem solid #272e35}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title{width:398rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title{width:356rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title h2{font-family:"Cina GEO";font-weight:400;font-size:60rem;color:#d1aeac}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title h2{font-size:60rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title h2{font-size:35rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title .text-color{color:#377b8c}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area{width:693rem;margin-top:48rem;display:flex;flex-direction:column;flex-wrap:nowrap;gap:24rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area{width:350rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area{width:335rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content{cursor:pointer}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content h2{font-weight:300;font-size:26rem;color:#272e35}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content h2{font-size:26rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content h2{font-size:20rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content:hover h2{color:#377b8c}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .active h2{color:#377b8c}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area{display:flex;flex-direction:column;animation-direction:reverse}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-icon{width:74rem}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area{margin-top:27rem;display:none}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .image{width:350rem;height:100rem}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .image{width:100%}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .image img{height:100rem;object-fit:contain}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description{margin-top:25rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description p{line-height:36rem;font-weight:300;font-size:26rem;color:#272e35;text-align:justify}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description p{font-size:20rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description p{font-size:18rem}}#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .active{display:block;animation:fadein 1500ms}@keyframes fadein{from{opacity:0}to{opacity:1}}#market-page .group-expert-view-area .expert-view-area .group-image-area{margin-top:100rem;width:1441rem;max-height:645rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-image-area{width:936rem;margin-top:80rem;max-height:427rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-image-area{width:358rem;margin-top:32rem;max-height:163rem}}#market-page .group-expert-view-area .expert-view-area .group-image-area img{max-height:645rem;object-fit:cover}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-expert-view-area .expert-view-area .group-image-area img{max-height:427rem}}@media only screen and (max-width: 600px){#market-page .group-expert-view-area .expert-view-area .group-image-area img{max-height:163rem}}#market-page .group-population-area .population-area .group-title-area{text-align:center;padding:0 35rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-title-area{padding:0 51rem}}#market-page .group-population-area .population-area .group-title-area h2{line-height:130%;letter-spacing:-1.2rem;font-weight:300;font-size:60rem;color:#d1aeac}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-title-area h2{font-size:35rem}}#market-page .group-population-area .population-area .group-title-area .text-color{color:#377b8c}#market-page .group-population-area .population-area .group-content-area{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;padding:80rem 255rem 110rem 255rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area{flex-direction:column;gap:0;padding:20rem 44rem 40rem 44rem}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area{flex-direction:column;gap:20rem;padding:32rem 16rem 67rem 16rem}}#market-page .group-population-area .population-area .group-content-area .box-left-area{width:750rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-left-area{width:100%}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area{width:343rem}}#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-1{line-height:70rem;font-family:"Cina GEO";font-weight:300;font-size:30rem;color:#272e35}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-1{font-size:24rem;line-height:30rem}}#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-2{line-height:55rem;font-family:"Cina GEO";font-weight:300;font-size:55rem;color:#377b8c}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-2{font-size:30rem;line-height:normal}}#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-3{line-height:55rem;font-family:"Cina GEO";font-weight:300;font-size:55rem;color:#d1aeac}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-3{font-size:30rem;line-height:normal}}#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-4{margin-top:10rem;line-height:34rem;font-weight:300;font-size:40rem;color:#555f6d}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-4{margin-top:0;font-size:21rem}}#market-page .group-population-area .population-area .group-content-area .box-left-area .description{margin-top:20rem;text-align:justify}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area .description{margin-top:25rem}}#market-page .group-population-area .population-area .group-content-area .box-left-area .description span{opacity:.8;font-weight:300;font-size:26rem;color:#272e35}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-left-area .description span{font-size:26rem}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-left-area .description span{font-size:18rem}}#market-page .group-population-area .population-area .group-content-area .box-right-area{width:556rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-right-area{width:100%}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area{width:360rem}}#market-page .group-population-area .population-area .group-content-area .box-right-area .title{margin-top:51rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-right-area .title{margin-top:0}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .title{margin-top:10rem}}#market-page .group-population-area .population-area .group-content-area .box-right-area .title h2{font-family:"Cina GEO";font-weight:400;font-size:143rem;color:#377b8c;line-height:90%}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-right-area .title h2{font-size:130rem}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .title h2{font-size:55rem;line-height:normal}}#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title{margin-top:8rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title{margin-top:5rem}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title{width:343rem;height:34rem;margin:0}}#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title .text-sub-title{font-weight:300;font-size:40rem;color:#555f6d;line-height:103%}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title .text-sub-title{font-size:21rem;line-height:34rem}}#market-page .group-population-area .population-area .group-content-area .box-right-area .description{text-align:justify}#market-page .group-population-area .population-area .group-content-area .box-right-area .description span{opacity:.8;font-weight:300;font-size:26rem;color:#272e35}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .description span{font-size:18rem}}#market-page .group-population-area .population-area .group-content-area .box-right-area .des-1{margin-top:15rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-right-area .des-1{margin-top:10rem}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .des-1{margin-top:25rem}}#market-page .group-population-area .population-area .group-content-area .box-right-area .des-2{margin-top:20rem}@media only screen and (max-width: 1024px)and (min-width: 601px){#market-page .group-population-area .population-area .group-content-area .box-right-area .des-2{margin-top:10rem}}@media only screen and (max-width: 600px){#market-page .group-population-area .population-area .group-content-area .box-right-area .des-2{margin-top:10rem}}/*# sourceMappingURL=market-page.css.map */
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-SemiBold.eot");
+    src: local("../../../font/Cina/CinaGEO-SemiBold"), local("CinaGEO-SemiBold"), url("../../../font/Cina/CinaGEO-SemiBold.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-SemiBold.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-SemiBold.woff") format("woff"), url("../../../font/Cina/CinaGEO-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-ExtraBold.eot");
+    src: local("../../../font/Cina/CinaGEO-ExtraBold"), local("CinaGEO-ExtraBold"), url("../../../font/Cina/CinaGEO-ExtraBold.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-ExtraBold.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-ExtraBold.woff") format("woff"), url("../../../font/Cina/CinaGEO-ExtraBold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Regular.eot");
+    src: local("../../../font/Cina/CinaGEO-Regular"), local("CinaGEO-Regular"), url("../../../font/Cina/CinaGEO-Regular.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Regular.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Regular.woff") format("woff"), url("../../../font/Cina/CinaGEO-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Black.eot");
+    src: local("../../../font/Cina/CinaGEO-Black"), local("CinaGEO-Black"), url("../../../font/Cina/CinaGEO-Black.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Black.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Black.woff") format("woff"), url("../../../font/Cina/CinaGEO-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Medium.eot");
+    src: local("../../../font/Cina/Cina-GEO-Medium"), local("CinaGEO-Medium"), url("../../../font/Cina/CinaGEO-Medium.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Medium.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Medium.woff") format("woff"), url("../../../font/Cina/CinaGEO-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Light.eot");
+    src: local("../../../font/Cina/CinaGEO-Light"), local("CinaGEO-Light"), url("../../../font/Cina/CinaGEO-Light.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Light.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Light.woff") format("woff"), url("../../../font/Cina/CinaGEO-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-ExtraLight.eot");
+    src: local("../../../font/Cina/CinaGEO-ExtraLight"), local("CinaGEO-ExtraLight"), url("../../../font/Cina/CinaGEO-ExtraLight.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-ExtraLight.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-ExtraLight.woff") format("woff"), url("../../../font/Cina/CinaGEO-ExtraLight.ttf") format("truetype");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Bold.eot");
+    src: local("../../../font/Cina/CinaGEO-Bold"), local("CinaGEO-Bold"), url("../../../font/Cina/CinaGEO-Bold.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Bold.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Bold.woff") format("woff"), url("../../../font/Cina/CinaGEO-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Cina GEO";
+    src: url("../../../font/Cina/CinaGEO-Thin.eot");
+    src: local("../../../font/Cina/CinaGEO-Thin"), local("CinaGEO-Thin"), url("../../../font/Cina/CinaGEO-Thin.eot?#iefix") format("embedded-opentype"), url("../../../font/Cina/CinaGEO-Thin.woff2") format("woff2"), url("../../../font/Cina/CinaGEO-Thin.woff") format("woff"), url("../../../font/Cina/CinaGEO-Thin.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans.eot");
+    src: url("../../../font/GillSans/GillSans.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans.woff2") format("woff2"), url("../../../font/GillSans/GillSans.woff") format("woff"), url("../../../font/GillSans/GillSans.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-MediumItalic.eot");
+    src: url("../../../font/GillSans/GillSans-MediumItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-MediumItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-MediumItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-MediumItalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Medium.eot");
+    src: url("../../../font/GillSans/GillSans-Medium.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Medium.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Medium.woff") format("woff"), url("../../../font/GillSans/GillSans-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Bold.eot");
+    src: url("../../../font/GillSans/GillSans-Bold.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Bold.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Bold.woff") format("woff"), url("../../../font/GillSans/GillSans-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Heavy.eot");
+    src: url("../../../font/GillSans/GillSans-Heavy.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Heavy.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Heavy.woff") format("woff"), url("../../../font/GillSans/GillSans-Heavy.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-HeavyItalic.eot");
+    src: url("../../../font/GillSans/GillSans-HeavyItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-HeavyItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-HeavyItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-HeavyItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-BoldItalic.eot");
+    src: url("../../../font/GillSans/GillSans-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-BoldItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-BoldItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-CondensedRegular.eot");
+    src: url("../../../font/GillSans/GillSans-CondensedRegular.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-CondensedRegular.woff2") format("woff2"), url("../../../font/GillSans/GillSans-CondensedRegular.woff") format("woff"), url("../../../font/GillSans/GillSans-CondensedRegular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-CondensedBold.eot");
+    src: url("../../../font/GillSans/GillSans-CondensedBold.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-CondensedBold.woff2") format("woff2"), url("../../../font/GillSans/GillSans-CondensedBold.woff") format("woff"), url("../../../font/GillSans/GillSans-CondensedBold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Italic.eot");
+    src: url("../../../font/GillSans/GillSans-Italic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Italic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Italic.woff") format("woff"), url("../../../font/GillSans/GillSans-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-LightItalic.eot");
+    src: url("../../../font/GillSans/GillSans-LightItalic.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-LightItalic.woff2") format("woff2"), url("../../../font/GillSans/GillSans-LightItalic.woff") format("woff"), url("../../../font/GillSans/GillSans-LightItalic.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Gill Sans";
+    src: url("../../../font/GillSans/GillSans-Light.eot");
+    src: url("../../../font/GillSans/GillSans-Light.eot?#iefix") format("embedded-opentype"), url("../../../font/GillSans/GillSans-Light.woff2") format("woff2"), url("../../../font/GillSans/GillSans-Light.woff") format("woff"), url("../../../font/GillSans/GillSans-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+#market-page section.banner {
+    display: flex;
+    justify-content: space-between;
+    gap: 157rem;
+    padding-top: 197rem;
+    padding-bottom: 110rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.banner {
+        padding: 223rem 44rem 148rem 44rem;
+        flex-direction: column;
+        gap: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.banner {
+        padding: 163rem 16rem 50rem 16rem;
+        flex-direction: column;
+        gap: 48rem
+    }
+}
+
+#market-page section.banner .left {
+    display: flex;
+    flex-direction: column;
+    width: 700rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.banner .left {
+        width: 100%
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.banner .left {
+        width: 100%
+    }
+}
+
+#market-page section.banner .left .title {
+    color: #d1aeac;
+    font-family: "Cina GEO";
+    font-size: 100rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 108rem;
+    letter-spacing: -3rem
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.banner .left .title {
+        font-size: 40rem;
+        line-height: 120%;
+        letter-spacing: -1.2rem
+    }
+}
+
+#market-page section.banner .left .title span {
+    color: #377b8c
+}
+
+#market-page section.banner .left .description1 {
+    font-size: 26rem;
+    font-style: normal;
+    font-weight: 300;
+    margin-top: 40rem;
+    margin-bottom: 40rem;
+    color: #555f6d;
+    line-height: 130.769%;
+    text-align: justify
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.banner .left .description1 {
+        font-size: 19rem;
+        line-height: 130%;
+        margin-top: 20rem;
+        margin-bottom: 20rem
+    }
+}
+
+#market-page section.banner .left .description2 p {
+    color: #555f6d;
+    font-size: 26rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 138.462%;
+    margin-bottom: 37rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.banner .left .description2 p {
+        font-size: 19rem;
+        line-height: 160%;
+        margin-bottom: 0
+    }
+}
+
+#market-page section.banner .left .title2 {
+    color: #d1aeac;
+    font-family: "Cina GEO";
+    font-size: 40rem;
+    font-style: normal;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 27rem
+}
+
+#market-page section.banner .left .description3 {
+    color: #555f6d;
+    font-family: "Cina GEO";
+    font-size: 26rem;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 25rem
+}
+
+#market-page section.banner .left .description4 {
+    color: #555f6d;
+    font-size: 26rem;
+    font-style: normal;
+    font-weight: 300
+}
+
+#market-page section.banner .right {
+    width: 590rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.banner .right {
+        width: 936rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.banner .right {
+        width: 348rem
+    }
+}
+
+#market-page section.statistics {
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics {
+        min-height: 1176rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics {
+        min-height: auto;
+        flex-direction: column;
+        justify-content: unset;
+        padding: 44rem 0 0 0
+    }
+}
+
+#market-page section.statistics .title {
+    font-family: "Cina GEO";
+    font-size: 60rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: .1rem;
+    line-height: 68rem;
+    color: #fff;
+    width: 313rem;
+    text-align: center
+}
+
+@media only screen and (min-width: 1025px) {
+    #market-page section.statistics .title {
+        margin-bottom: 80rem
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .title {
+        margin-left: 100rem;
+        margin-bottom: 50rem
+    }
+}
+
+#market-page section.statistics .title span {
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .title {
+        font-size: 35rem;
+        margin-bottom: 30rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area {
+        display: none
+    }
+}
+
+#market-page section.statistics .group-box-area .box {
+    position: absolute;
+    border-radius: 50%;
+    border: 1rem #fff solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10rem;
+    text-align: center
+}
+
+#market-page section.statistics .group-box-area .box.source {
+    display: none;
+    border-radius: unset;
+    border: none;
+    bottom: 10rem;
+    right: 20rem;
+    font-weight: 300;
+    font-size: 20rem;
+    color: #fff
+}
+
+#market-page section.statistics .group-box-area .box.white {
+    background: #fff;
+    color: #377b8c;
+    font-family: "Cina GEO";
+    font-size: 30rem;
+    font-style: normal;
+    font-weight: 300
+}
+
+@media only screen and (min-width: 1025px) {
+    #market-page section.statistics .group-box-area .box.white {
+        width: 264rem;
+        height: 264rem
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box.white {
+        width: 264rem;
+        height: 264rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box.white .text {
+    line-height: 36rem
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box.white .text {
+        font-size: 16rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box.white .number {
+    font-size: 40rem;
+    font-weight: 400
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box.white .number {
+        font-size: 26rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box.white .source {
+    font-size: 14rem
+}
+
+#market-page section.statistics .group-box-area .box.trans {
+    color: #fff;
+    font-family: "Cina GEO";
+    font-size: 20rem;
+    font-style: normal;
+    font-weight: 300
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box.trans .text {
+        font-size: 14rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box.trans .number {
+    font-size: 26rem;
+    font-weight: 400
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box.trans .number {
+        font-size: 20rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box1 {
+    top: 540rem;
+    left: 960rem;
+    width: 176rem;
+    height: 176rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box1 {
+        top: 828rem;
+        left: 378rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box1 {
+        top: 651rem;
+        left: 37rem;
+        width: 141rem;
+        height: 141rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box2 {
+    top: 385rem;
+    left: 468rem;
+    width: 161rem;
+    height: 161rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box2 {
+        top: 450rem;
+        left: 98rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box2 {
+        top: 420rem;
+        left: 40rem;
+        width: 116rem;
+        height: 116rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box3 {
+    top: 35rem;
+    left: 851rem;
+    width: 187rem;
+    height: 183rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box3 {
+        top: 83rem;
+        left: 426rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box3 {
+        top: 205rem;
+        left: 212rem;
+        width: 116rem;
+        height: 116rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box4 {
+    top: 81rem;
+    left: 256rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box4 {
+        top: -84rem;
+        left: 41rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box4 {
+        top: 211rem;
+        left: 35rem;
+        width: 145rem;
+        height: 145rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box5 {
+    top: 73rem;
+    left: 1400rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box5 {
+        top: 43rem;
+        left: 746rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box5 {
+        top: 366rem;
+        left: 186rem;
+        width: 149rem;
+        height: 149rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box6 {
+    top: 650rem;
+    left: 614rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box6 {
+        top: 1044rem;
+        left: 85rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box6 {
+        top: 827rem;
+        left: 52rem;
+        width: 134rem;
+        height: 134rem
+    }
+}
+
+#market-page section.statistics .group-box-area .box7 {
+    top: 407rem;
+    left: 1210rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-area .box7 {
+        top: 728rem;
+        left: 714rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page section.statistics .group-box-area .box7 {
+        top: 692rem;
+        left: 203rem;
+        width: 155rem;
+        height: 155rem
+    }
+}
+
+#market-page section.statistics .group-box-mobile-area {
+    position: relative
+}
+
+@media only screen and (min-width: 1025px) {
+    #market-page section.statistics .group-box-mobile-area {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page section.statistics .group-box-mobile-area {
+        display: none
+    }
+}
+
+#market-page section.statistics .group-box-mobile-area .group-box-mobile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    column-gap: 45rem;
+    row-gap: 40rem;
+    padding: 0 25rem 63rem 25rem
+}
+
+#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area {
+    width: 146rem;
+    display: flex;
+    flex-direction: column
+}
+
+#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area .box-title {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 16rem;
+    color: #d1aeac
+}
+
+#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area .box-content {
+    margin-top: 10rem;
+    font-family: "Cina GEO";
+    font-weight: 400;
+    font-size: 26rem;
+    color: #fff
+}
+
+#market-page section.statistics .group-box-mobile-area .group-box-mobile .box-content-area:last-child {
+    text-align: center;
+    width: 100%
+}
+
+#market-page section.statistics .group-box-mobile-area .box-source {
+    display: none;
+    position: absolute;
+    bottom: 10rem;
+    right: 10rem;
+    font-weight: 300;
+    font-size: 18rem;
+    color: #fff
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    padding: 150rem 200rem 120rem 180rem;
+    min-height: 100vh;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area {
+        padding: 139rem 44rem 100rem 44rem;
+        flex-direction: column;
+        gap: 63rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area {
+        padding: 52rem 0 42rem 0;
+        flex-direction: column;
+        gap: 48rem
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-image-area {
+    width: 900rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-image-area {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-image-area {
+        display: none
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area {
+    width: 560rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area {
+        width: 936rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area {
+        width: 100%;
+        padding: 0 16rem
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-image-area-mobile {
+    margin-top: 20rem
+}
+
+@media only screen and (min-width: 1025px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-image-area-mobile {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-image-area-mobile {
+        width: 936rem
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .title {
+    letter-spacing: .1rem;
+    font-family: "Cina GEO";
+    font-weight: 400;
+    font-size: 60rem;
+    color: #555f6d
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .title {
+        font-size: 56rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .title {
+        font-size: 35rem
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .sub-title {
+    letter-spacing: .1rem;
+    font-family: "Cina GEO";
+    font-weight: 400;
+    font-size: 60rem;
+    color: #377b8c
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .sub-title {
+        font-size: 56rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-title-area .sub-title {
+        font-size: 36rem
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-description-area .description-1 {
+    font-weight: 300;
+    font-size: 26rem;
+    color: #333;
+    text-align: justify;
+    margin-top: 30rem
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-description-area .description-1 {
+        font-size: 18rem
+    }
+}
+
+#market-page .group-ranked-bangladesh-area .ranked-bangladesh-area .group-content-area .group-description-area .description-1 .text-color {
+    color: #377b8c
+}
+
+#market-page .group-economic-area {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 130rem 160rem 0 160rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area {
+        padding: 96rem 44rem 97rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area {
+        padding: 64rem 16rem 62rem 16rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .box {
+        gap: 65rem;
+        align-items: end
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .box {
+        flex-direction: column;
+        gap: 40rem
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .box-2 {
+        margin-top: 25rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .box-2 {
+        margin-top: 35rem
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .box-2 .box-title {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .box-2 .box-title {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .box-2 .group-left-area .group-content-area .box-left {
+        width: 100%
+    }
+
+    #market-page .group-economic-area .economic-area .box-2 .group-left-area .group-content-area .box-right .box-image-box-2 {
+        width: 945rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-left-area {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 74rem
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-left-area {
+        gap: 30rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-left-area .box-title h2 {
+    font-family: "Cina GEO";
+    font-weight: 400;
+    font-size: 60rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-left-area .box-title h2 {
+        font-size: 35rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-left-area .box-title .text-color {
+    color: #fff
+}
+
+#market-page .group-economic-area .economic-area .group-left-area .group-content-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 165rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area {
+        flex-direction: column;
+        gap: 74rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area {
+        flex-direction: column;
+        gap: 20rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description {
+    margin-top: 31rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description {
+        margin-top: 25rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description span {
+    line-height: 29rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #afcad1
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description span {
+        font-size: 26rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-left .description span {
+        font-size: 18rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-right .box-image {
+    margin-top: 36rem;
+    width: 334rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-right .box-image {
+        width: 452rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-left-area .group-content-area .box-right .box-image {
+        margin-top: 24rem;
+        width: 358rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .group-right-area .box-image {
+    margin-top: 31rem;
+    width: 359rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-area .group-right-area .box-image {
+        width: 415rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .group-right-area .box-image {
+        width: 358rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .title h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 40rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .title h2 {
+        font-size: 30rem
+    }
+}
+
+#market-page .group-economic-area .economic-area .sub-title {
+    margin-top: 10rem
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .sub-title {
+        margin: 0
+    }
+}
+
+#market-page .group-economic-area .economic-area .sub-title h2 {
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 26rem;
+    color: #fff
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-area .sub-title h2 {
+        font-size: 24rem
+    }
+}
+
+#market-page .group-economic-area .economic-section-desktop {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 42rem;
+    align-items: center
+}
+
+#market-page .group-economic-area .economic-section-desktop .control-slide {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 54rem;
+    height: 54rem;
+    padding: 20rem;
+    border-radius: 50%;
+    background-color: #caabaa
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-section-desktop .control-slide {
+        width: 40rem;
+        height: 40rem
+    }
+}
+
+#market-page .group-economic-area .economic-section-desktop .control-slide img {
+    width: 15rem
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide {
+    width: 1410rem
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide .box-slide {
+    width: 1410rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 120rem
+}
+
+@media only screen and (min-width: 1025px) {
+    #market-page .group-economic-area .economic-section-desktop .group-slide .box-slide {
+        padding-left: 30rem;
+        padding-right: 30rem
+    }
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 {
+    gap: 137rem
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description {
+    margin-top: 31rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description {
+        margin-top: 25rem
+    }
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description span {
+    font-weight: 300;
+    font-size: 26rem;
+    color: #afcad1;
+    text-align: justify
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description span {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-left .description span {
+        font-size: 18rem
+    }
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide .slide-2 .box-right .box-image {
+    width: 810rem
+}
+
+#market-page .group-economic-area .economic-section-desktop .group-slide .owl-dots {
+    display: none
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-economic-area .economic-section-desktop {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-economic-area .economic-section-desktop {
+        display: none
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    #market-page .group-economic-area .economic-section-responsive {
+        display: none
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area {
+    padding: 148rem 255rem 113rem 255rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area {
+        padding: 88rem 44rem 80rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area {
+        padding: 60rem 16rem 60rem 16rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 50rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area {
+        gap: 80rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area {
+        flex-direction: column;
+        gap: 36rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title {
+    width: 454rem;
+    padding-bottom: 30rem;
+    border-bottom: 1rem solid #272e35
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title {
+        width: 398rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title {
+        width: 356rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title h2 {
+    font-family: "Cina GEO";
+    font-weight: 400;
+    font-size: 60rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title h2 {
+        font-size: 60rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title h2 {
+        font-size: 35rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .title .text-color {
+    color: #377b8c
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area {
+    width: 693rem;
+    margin-top: 48rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 24rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area {
+        width: 350rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area {
+        width: 335rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content {
+    cursor: pointer
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content h2 {
+    font-weight: 300;
+    font-size: 26rem;
+    color: #272e35
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content h2 {
+        font-size: 26rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content h2 {
+        font-size: 20rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .tab-content:hover h2 {
+    color: #377b8c
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-left-area .group-tab-area .active h2 {
+    color: #377b8c
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area {
+    display: flex;
+    flex-direction: column;
+    animation-direction: reverse
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-icon {
+    width: 74rem
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area {
+    margin-top: 27rem;
+    display: none
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .image {
+    width: 350rem;
+    height: 100rem
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .image {
+        width: 100%
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .image img {
+    height: 100rem;
+    object-fit: contain
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description {
+        margin-top: 25rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description p {
+    line-height: 36rem;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #272e35;
+    text-align: justify
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description p {
+        font-size: 20rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .box-content-area .description p {
+        font-size: 18rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-content-area .box-right-area .active {
+    display: block;
+    animation: fadein 1500ms
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-image-area {
+    margin-top: 100rem;
+    width: 1441rem;
+    max-height: 645rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-image-area {
+        width: 936rem;
+        margin-top: 80rem;
+        max-height: 427rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-image-area {
+        width: 358rem;
+        margin-top: 32rem;
+        max-height: 163rem
+    }
+}
+
+#market-page .group-expert-view-area .expert-view-area .group-image-area img {
+    max-height: 645rem;
+    object-fit: cover
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-expert-view-area .expert-view-area .group-image-area img {
+        max-height: 427rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-expert-view-area .expert-view-area .group-image-area img {
+        max-height: 163rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-title-area {
+    text-align: center;
+    padding: 0 35rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-title-area {
+        padding: 0 51rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-title-area h2 {
+    line-height: 130%;
+    letter-spacing: -1.2rem;
+    font-weight: 300;
+    font-size: 60rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-title-area h2 {
+        font-size: 35rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-title-area .text-color {
+    color: #377b8c
+}
+
+#market-page .group-population-area .population-area .group-content-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 80rem 255rem 110rem 255rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area {
+        flex-direction: column;
+        gap: 0;
+        padding: 20rem 44rem 40rem 44rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area {
+        flex-direction: column;
+        gap: 20rem;
+        padding: 32rem 16rem 67rem 16rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area {
+    width: 750rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area {
+        width: 100%
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area {
+        width: 343rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-1 {
+    line-height: 70rem;
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 30rem;
+    color: #272e35
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-1 {
+        font-size: 24rem;
+        line-height: 30rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-2 {
+    line-height: 55rem;
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 55rem;
+    color: #377b8c
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-2 {
+        font-size: 30rem;
+        line-height: normal
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-3 {
+    line-height: 55rem;
+    font-family: "Cina GEO";
+    font-weight: 300;
+    font-size: 55rem;
+    color: #d1aeac
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-3 {
+        font-size: 30rem;
+        line-height: normal
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-4 {
+    margin-top: 10rem;
+    line-height: 34rem;
+    font-weight: 300;
+    font-size: 40rem;
+    color: #555f6d
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .group-text-area .text-4 {
+        margin-top: 0;
+        font-size: 21rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area .description {
+    margin-top: 20rem;
+    text-align: justify
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .description {
+        margin-top: 25rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-left-area .description span {
+    opacity: .8;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #272e35
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .description span {
+        font-size: 26rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-left-area .description span {
+        font-size: 18rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area {
+    width: 556rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area {
+        width: 100%
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area {
+        width: 360rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .title {
+    margin-top: 51rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .title {
+        margin-top: 0
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .title {
+        margin-top: 10rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .title h2 {
+    font-family: "Cina GEO";
+    font-weight: 400;
+    font-size: 143rem;
+    color: #377b8c;
+    line-height: 90%
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .title h2 {
+        font-size: 130rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .title h2 {
+        font-size: 55rem;
+        line-height: normal
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title {
+    margin-top: 8rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title {
+        margin-top: 5rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title {
+        width: 343rem;
+        height: 34rem;
+        margin: 0
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title .text-sub-title {
+    font-weight: 300;
+    font-size: 40rem;
+    color: #555f6d;
+    line-height: 103%
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .sub-title .text-sub-title {
+        font-size: 21rem;
+        line-height: 34rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .description {
+    text-align: justify
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .description span {
+    opacity: .8;
+    font-weight: 300;
+    font-size: 26rem;
+    color: #272e35
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .description span {
+        font-size: 18rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .des-1 {
+    margin-top: 15rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .des-1 {
+        margin-top: 10rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .des-1 {
+        margin-top: 25rem
+    }
+}
+
+#market-page .group-population-area .population-area .group-content-area .box-right-area .des-2 {
+    margin-top: 20rem
+}
+
+@media only screen and (max-width: 1024px)and (min-width: 601px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .des-2 {
+        margin-top: 10rem
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #market-page .group-population-area .population-area .group-content-area .box-right-area .des-2 {
+        margin-top: 10rem
+    }
+}
+
+/*# sourceMappingURL=market-page.css.map */
