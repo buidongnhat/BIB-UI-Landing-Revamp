@@ -231,6 +231,8 @@ extract/
 - `position: sticky` on `.bib-nav` inside 72px `<header>` has no scroll range — use `position: fixed` on `#masthead.site-header` instead
 - **Section shrinking on reload:** `100vh` is unreliable across reloads (browser chrome state). Fixed by using `100dvh` via `@supports`, CSS `:first-child` always-visible rule, and `history.scrollRestoration = 'manual'`
 - **Section transitions:** old arm/disarm scroll system was too sensitive on trackpads. Replaced with two-phase gate (800ms cooldown → then commit). Easing upgraded to expo-out `cubic-bezier(0.16, 1, 0.3, 1)` at 900ms
+- **White gap at section bottom:** Applying `transform: translateY(32px)` on full-viewport section containers pushes them down, leaving a 32px gap where the `body` background shows through. Fix: Only apply entrance transforms to internal elements, not the `100vh` section container itself.
+- **Vercel Routing:** Deployed site returns 404 because files are inside `extract/`. Fixed by adding `vercel.json` with rewrites `/(.*) -> /extract/$1` and redirects `/ -> /home/`.
 
 ---
 
@@ -241,7 +243,16 @@ extract/
 - [ ] Fix LOGO.svg — `fill="currentColor"`, add BestinBrands wordmark SVG
 - [ ] Manually set Cina GEO Test as font family on all 13 text styles in Figma
 - [ ] Redesign remaining About Us sections from Figma: Best in Brands, Initiatives, Talents
-- [ ] Apply section scroll treatment to Home and Market pages
 - [ ] Build remaining page routes (Brands, Expertise, Retail, Contact)
 - [ ] Accessibility pass before handoff
 - [ ] Developer handoff spec
+
+---
+
+## Session Summary (Latest Updates)
+- **Home Hero Banner:** Modernized structure, removed `max-height` restriction to enable full `100vh` display, and added staggered `IntersectionObserver` reveal animations (matching the About Us page).
+- **Navigation:** Converted header to `position: fixed` for persistent top placement across all pages.
+- **About Us Animations:** Implemented scroll-triggered slide-in animations for "Our Vision & Mission" backgrounds.
+- **Animation Replay:** Updated `IntersectionObserver` logic on Home Hero, Our Company, Vision/Mission, and Our Value to dynamically remove active classes when scrolling out of view, allowing animations to cleanly replay upon re-entry.
+- **Layout Bug Fix:** Removed redundant container-level `translateY` entrance animations on About Us sections that were causing a 32px white layout gap at the bottom of the screen.
+- **Deployment:** Created `vercel.json` at project root to handle URL rewrites (`/extract/*`) and root redirects (`/` -> `/home/`) for seamless Vercel hosting.
