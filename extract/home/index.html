@@ -1387,6 +1387,9 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             <style>
                 /* === bib-categories — Product Categories, brand DNA-aligned === */
                 .bib-categories {
+                    position: relative;
+                    isolation: isolate;
+                    /* contain z-index:-1 children inside section */
                     background: #000;
                     /* Brand/Ink token */
                     color: #FAF6F5;
@@ -1396,7 +1399,43 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     font-family: 'Cina GEO', sans-serif;
                 }
 
+                .bib-categories::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background-image: url('img/pattern-categories.png');
+                    background-position: bottom center;
+                    background-repeat: repeat-x;
+                    background-size: 100% auto;
+                    filter: invert(1);
+                    mix-blend-mode: screen;
+                    opacity: 0.15;
+                    pointer-events: none;
+                    z-index: 0;
+                }
+
+                /* Pattern band — pinned to section bottom, 100vw, behind tiles */
+                .bib-categories__pattern {
+                    position: absolute;
+                    left: calc(50% - 50vw);
+                    right: calc(50% - 50vw);
+                    bottom: -238px;
+                    width: 100vw;
+                    line-height: 0;
+                    pointer-events: none;
+                    z-index: -1;
+                }
+
+                .bib-categories__pattern img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    margin: 0;
+                }
+
                 .bib-categories__wrapper {
+                    position: relative;
+                    z-index: 1;
                     max-width: 1440px;
                     margin: 0 auto;
                     padding: 0 48px;
@@ -1871,6 +1910,10 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                     </div>
                 </div>
+
+                <div class="bib-categories__pattern" aria-hidden="true">
+                    <img src="img/pattern.png" alt="" loading="lazy">
+                </div>
             </section>
 
             <script>
@@ -1942,89 +1985,342 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                 </section>
             </section> <!---------- About Us Section --------->
 
-            <!---------- Net Work Section --------->
-            <!-- ---------------------------------------------------------------------------------------------- -->
+            <!---------- Network Section — DNA-aligned: full-bleed dark, network.jpg, evidence-led --------->
+            <style>
+                /* === bib-network — brand DNA-aligned distribution reach === */
+                .bib-network {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    background: #051436;
+                    /* Photo/Midnight */
+                    color: #FAF6F5;
+                    /* Neutral/Canvas */
+                    overflow: hidden;
+                    isolation: isolate;
+                    font-family: 'Cina GEO', sans-serif;
+                    font-style: normal;
+                }
 
-            <section class="group-net-work-area">
-                <section class="net-work-area net-work-area-desktop">
-                    <div class="background-image-area">
-                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/images/home-page-background-network.webp"
-                            alt="NETWORK" loading="lazy" width="10" height="10">
+                .bib-network__bg {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 0;
+                    background-image: url('img/network.jpg');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    opacity: 0.72;
+                    pointer-events: none;
+                }
+
+                /* Diagonal scrim — same gradient as bib-our-company for visual coherence */
+                .bib-network__scrim {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 1;
+                    background-image: linear-gradient(189.66deg,
+                            rgba(0, 0, 0, 0) 11.42%,
+                            rgba(0, 0, 0, 0.35) 54.78%,
+                            rgba(0, 0, 0, 0.88) 90.81%);
+                    pointer-events: none;
+                }
+
+                .bib-network__inner {
+                    position: relative;
+                    z-index: 2;
+                    max-width: 1440px;
+                    height: 100%;
+                    margin: 0 auto;
+                    padding: 120px 48px 72px;
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .bib-network__head {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    max-width: 720px;
+                }
+
+                /* Eyebrow — Label/Section, sunset-amber */
+                .bib-network__eyebrow {
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.18em;
+                    text-transform: uppercase;
+                    color: #C97A3A;
+                    /* Brand/Sunset Amber */
+                    margin: 0 0 24px;
+                }
+
+                /* Display/Hero — Cina GEO Light 80/96, -1px tracking */
+                .bib-network__title {
+                    font-family: 'Cina GEO', sans-serif;
+                    font-weight: 500;
+                    font-size: 56px;
+                    line-height: 64px;
+                    letter-spacing: -1px;
+                    color: #FAF6F5;
+                    /* Neutral/Canvas */
+                    margin: 0;
+                }
+
+                /* Body/LG — Regular 18/28, neutral panel */
+                .bib-network__lede {
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: #DADADA;
+                    margin: 0;
+                    max-width: 540px;
+                }
+
+                /* Stats band — 7 stats with vertical dividers (matches bib-our-company pattern) */
+                .bib-network__stats {
+                    display: grid;
+                    grid-template-columns: repeat(7, minmax(0, 1fr));
+                    gap: 0;
+                    border-top: 1px solid rgba(255, 255, 255, 0.16);
+                    padding-top: 32px;
+                    margin-top: 48px;
+                }
+
+                .bib-network__stat {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    padding: 0 20px;
+                    min-width: 0;
+                }
+
+                .bib-network__stat:first-child {
+                    padding-left: 0;
+                }
+
+                .bib-network__stat:last-child {
+                    padding-right: 0;
+                }
+
+                .bib-network__stat:not(:first-child)::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 4px;
+                    width: 1px;
+                    height: 64px;
+                    background: rgba(255, 255, 255, 0.24);
+                }
+
+                /* Heading/H1 — SemiBold 40/48, -0.5 tracking */
+                .bib-network__stat-number {
+                    font-weight: 600;
+                    font-size: 40px;
+                    line-height: 48px;
+                    letter-spacing: -0.5px;
+                    color: #FAF6F5;
+                    margin: 0;
+                }
+
+                .bib-network__stat-label {
+                    font-weight: 400;
+                    font-size: 13px;
+                    line-height: 18px;
+                    color: #DADADA;
+                    margin: 0;
+                }
+
+                /* Tablet */
+                @media (max-width: 1200px) {
+                    .bib-network__title {
+                        font-size: 64px;
+                        line-height: 72px;
+                    }
+
+                    .bib-network__stats {
+                        grid-template-columns: repeat(4, minmax(0, 1fr));
+                        row-gap: 32px;
+                    }
+
+                    .bib-network__stat:nth-child(5)::before,
+                    .bib-network__stat:nth-child(n+5):not(:first-child)::before {
+                        /* keep dividers on row 2 */
+                    }
+
+                    .bib-network__stat-number {
+                        font-size: 32px;
+                        line-height: 40px;
+                    }
+                }
+
+                /* Mobile */
+                @media (max-width: 640px) {
+                    .bib-network__inner {
+                        padding: 96px 24px 56px;
+                    }
+
+                    .bib-network__title {
+                        font-size: 44px;
+                        line-height: 52px;
+                    }
+
+                    .bib-network__lede {
+                        font-size: 16px;
+                        line-height: 24px;
+                    }
+
+                    .bib-network__stats {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        row-gap: 28px;
+                        column-gap: 0;
+                    }
+
+                    .bib-network__stat {
+                        padding: 0 16px;
+                    }
+
+                    .bib-network__stat:nth-child(odd) {
+                        padding-left: 0;
+                    }
+
+                    .bib-network__stat:nth-child(odd)::before {
+                        display: none;
+                    }
+
+                    .bib-network__stat-number {
+                        font-size: 28px;
+                        line-height: 36px;
+                    }
+                }
+
+                /* Scroll-reveal */
+                @media (prefers-reduced-motion: no-preference) {
+
+                    .bib-network[data-reveal] .bib-network__eyebrow,
+                    .bib-network[data-reveal] .bib-network__title,
+                    .bib-network[data-reveal] .bib-network__lede {
+                        opacity: 0;
+                        transform: translateY(24px);
+                        transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+                            transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    .bib-network[data-reveal] .bib-network__title {
+                        transition-delay: 100ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__lede {
+                        transition-delay: 200ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat {
+                        opacity: 0;
+                        transform: translateY(24px);
+                        transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                            transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(1) {
+                        transition-delay: 350ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(2) {
+                        transition-delay: 410ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(3) {
+                        transition-delay: 470ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(4) {
+                        transition-delay: 530ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(5) {
+                        transition-delay: 590ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(6) {
+                        transition-delay: 650ms;
+                    }
+
+                    .bib-network[data-reveal] .bib-network__stat:nth-child(7) {
+                        transition-delay: 710ms;
+                    }
+
+                    .bib-network.is-in[data-reveal] .bib-network__eyebrow,
+                    .bib-network.is-in[data-reveal] .bib-network__title,
+                    .bib-network.is-in[data-reveal] .bib-network__lede,
+                    .bib-network.is-in[data-reveal] .bib-network__stat {
+                        opacity: 1;
+                        transform: none;
+                    }
+                }
+            </style>
+
+            <section class="bib-network group-net-work-area" data-reveal aria-labelledby="bib-network-title">
+                <div class="bib-network__bg" aria-hidden="true"></div>
+                <div class="bib-network__scrim" aria-hidden="true"></div>
+
+                <div class="bib-network__inner">
+                    <div class="bib-network__head">
+                        <h2 class="bib-network__title" id="bib-network-title">Distribution <br>Network</h2>
                     </div>
-                    <div class="group-title-area" data-aos="slide-right">
-                        <h2 class="title">NETWORK</h2>
-                    </div>
-                    <div class="group-content-area">
-                        <div class="box-content-area box1" data-aos="slide-right">
-                            <h2 class="title">45+</h2>
-                            <span class="sub-title">Corporate partners</span>
+
+                    <dl class="bib-network__stats">
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">45+</dt>
+                            <dd class="bib-network__stat-label">Corporate partners</dd>
                         </div>
-                        <div class="box-content-area box2" data-aos="slide-right">
-                            <h2 class="title">500+</h2>
-                            <span class="sub-title">Doors supermarket</span>
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">500+</dt>
+                            <dd class="bib-network__stat-label">Supermarket doors</dd>
                         </div>
-                        <div class="box-content-area box3" data-aos="slide-right">
-                            <h2 class="title">230</h2>
-                            <span class="sub-title">Doors independent perfumeries</span>
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">230</dt>
+                            <dd class="bib-network__stat-label">Independent perfumery doors</dd>
                         </div>
-                        <div class="box-content-area box4" data-aos="slide-left">
-                            <h2 class="title">5+</h2>
-                            <span class="sub-title">Categories</span>
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">5+</dt>
+                            <dd class="bib-network__stat-label">Categories</dd>
                         </div>
-                        <div class="box-content-area box5" data-aos="slide-left">
-                            <h2 class="title">6+</h2>
-                            <span class="sub-title">Concept Stores</span>
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">6+</dt>
+                            <dd class="bib-network__stat-label">Concept stores</dd>
                         </div>
-                        <div class="box-content-area box6" data-aos="slide-left">
-                            <h2 class="title">35+</h2>
-                            <span class="sub-title">Selective corners</span>
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">35+</dt>
+                            <dd class="bib-network__stat-label">Selective corners</dd>
                         </div>
-                        <div class="box-content-area box7" data-aos="slide-left">
-                            <h2 class="title">5k+</h2>
-                            <span class="sub-title">Doors</span>
+                        <div class="bib-network__stat">
+                            <dt class="bib-network__stat-number">5K+</dt>
+                            <dd class="bib-network__stat-label">Total doors</dd>
                         </div>
-                    </div>
-                </section>
-                <section class="net-work-area net-work-area-mobile">
-                    <div class="background-image-area">
-                        <img src="https://bestinbrands.com/wp-content/themes/bib-website/assets/images/home-page-background-network-mobile.webp"
-                            alt="NETWORK" loading="lazy" width="10" height="10">
-                    </div>
-                    <div class="group-title-area" data-aos="slide-right">
-                        <h2 class="title">NETWORK</h2>
-                    </div>
-                    <div class="group-content-area">
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">45+</h2>
-                            <span class="sub-title">Corporate partners</span>
-                        </div>
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">500+</h2>
-                            <span class="sub-title">Doors supermarket</span>
-                        </div>
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">230</h2>
-                            <span class="sub-title">Doors independent perfumeries</span>
-                        </div>
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">5+</h2>
-                            <span class="sub-title">Categories</span>
-                        </div>
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">6+</h2>
-                            <span class="sub-title">Concept Stores</span>
-                        </div>
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">35+</h2>
-                            <span class="sub-title">Selective corners</span>
-                        </div>
-                        <div class="box-content-area" data-aos="slide-up">
-                            <h2 class="title">5k+</h2>
-                            <span class="sub-title">Doors</span>
-                        </div>
-                    </div>
-                </section>
-            </section> <!---------- Net Work Section --------->
+                    </dl>
+                </div>
+            </section>
+
+            <script>
+                (function () {
+                    var section = document.querySelector('.bib-network[data-reveal]');
+                    if (!section) return;
+                    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    if (reduced) { section.classList.add('is-in'); return; }
+                    var io = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) section.classList.add('is-in');
+                            else section.classList.remove('is-in');
+                        });
+                    }, { threshold: 0.18 });
+                    io.observe(section);
+                })();
+            </script>
+            <!---------- /Network Section --------->
 
             <!---------- Our Strengths Section --------->
             <!-- ---------------------------------------------------------------------------------------------- -->
