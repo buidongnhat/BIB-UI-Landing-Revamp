@@ -785,26 +785,19 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
         <style>
             /* Each top-level section fills the viewport (minus fixed-nav 72px).
-               If its content exceeds that height, the section scrolls internally;
-               JS only advances to the next section when internal scroll hits a boundary. */
+               No internal scroll — sections grow with content; JS engine handles
+               whether to scroll content via translateY or advance to next section. */
             #about-us-page>section,
             .bib-our-company {
                 min-height: calc(100vh - 72px);
-                height: calc(100vh - 72px);
-                max-height: calc(100vh - 72px);
                 scroll-margin-top: 72px;
-                overflow-y: auto;
-                overscroll-behavior: contain;
+                overflow: visible;
             }
 
-            /* Modern browsers: use dynamic viewport height for accuracy */
-            @supports (height: 100dvh) {
-
+            @supports (min-height: 100dvh) {
                 #about-us-page>section,
                 .bib-our-company {
                     min-height: calc(100dvh - 72px);
-                    height: calc(100dvh - 72px);
-                    max-height: calc(100dvh - 72px);
                 }
             }
 
@@ -853,29 +846,27 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
         </style>
         <script>
             (function () {
-                // Force scroll to top on reload to prevent stale scroll position
                 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
                 window.scrollTo(0, 0);
 
                 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-                document.addEventListener('DOMContentLoaded', init);
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
 
                 function init() {
                     const sections = [...document.querySelectorAll('#about-us-page > section')];
                     if (!sections.length) return;
 
-                    // First section is always revealed (CSS ensures it, but also set the class)
                     sections[0].classList.add('is-in');
 
-                    // Reveal other sections as they enter
                     if ('IntersectionObserver' in window && !reduced) {
                         const io = new IntersectionObserver((entries) => {
                             entries.forEach(e => {
-                                if (e.isIntersecting) {
-                                    e.target.classList.add('is-in');
-                                } else {
-                                    e.target.classList.remove('is-in');
-                                }
+                                if (e.isIntersecting) e.target.classList.add('is-in');
+                                else e.target.classList.remove('is-in');
                             });
                         }, { threshold: 0.15 });
                         sections.forEach(s => io.observe(s));
@@ -885,120 +876,112 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                     if (reduced) return;
 
-                    // Take over scrolling: one wheel-tick / swipe / arrow = jump one section.
                     const NAV_OFFSET = 72;
-                    const LOCK_MS = 1100;
+                    const LOCK_MS = 1000;       // section transition animation length
+                    const IDLE_MS = 180;        // gap that counts as "user released wheel"
+                    const OVERFLOW_TOL = 80;    // ignore minor overflows (font/subpixel diffs across OS)
+                    const BOUNDARY_TOL = 8;     // px tolerance for at-edge detection
+
                     let current = 0;
                     let locked = false;
+                    let armedDir = 0;           // direction the boundary is armed for; 0 = not armed
+                    let lastWheelAt = 0;
                     let touchStartY = null;
 
-                    function sectionTop(i) {
-                        const rect = sections[i].getBoundingClientRect();
-                        return rect.top + window.pageYOffset - NAV_OFFSET;
+                    const winView = () => window.innerHeight - NAV_OFFSET;
+                    function sectionTopY(i) {
+                        return sections[i].getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET;
+                    }
+                    function getCurrent() {
+                        const y = window.pageYOffset + NAV_OFFSET + 1;
+                        for (let i = sections.length - 1; i >= 0; i--) {
+                            if (y >= sectionTopY(i)) return i;
+                        }
+                        return 0;
+                    }
+                    function tall(sec) { return sec.offsetHeight > winView() + OVERFLOW_TOL; }
+                    function atSectionTop(i) {
+                        return window.pageYOffset <= sectionTopY(i) + BOUNDARY_TOL;
+                    }
+                    function atSectionBottom(i) {
+                        const sec = sections[i];
+                        const maxScroll = sectionTopY(i) + sec.offsetHeight - winView();
+                        return window.pageYOffset >= maxScroll - BOUNDARY_TOL;
                     }
 
                     function go(delta) {
                         if (locked) return;
-                        const next = Math.max(0, Math.min(sections.length - 1, current + delta));
-                        if (next === current) return;
+                        const idx = getCurrent();
+                        const next = Math.max(0, Math.min(sections.length - 1, idx + delta));
+                        if (next === idx) return;
                         locked = true;
+                        armedDir = 0;
                         current = next;
-                        sections[current].classList.add('is-in');
-                        // Set internal scroll based on direction
-                        if (delta > 0) {
-                            sections[current].scrollTop = 0;
-                        } else {
-                            sections[current].scrollTop = sections[current].scrollHeight - sections[current].clientHeight;
-                        }
-                        window.scrollTo({ top: sectionTop(current), behavior: 'smooth' });
+                        sections[next].classList.add('is-in');
+                        window.scrollTo({ top: sectionTopY(next), behavior: 'smooth' });
                         setTimeout(() => { locked = false; }, LOCK_MS);
                     }
 
-                    // Section's content overflows when scrollHeight > clientHeight
-                    function atTop(sec) { return sec.scrollTop <= 0; }
-                    function atBottom(sec) { return sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 1; }
+                    /* Wheel handler — sections stack naturally; window does the scrolling.
+                       Short section (fits viewport): wheel = jump.
+                       Tall section (taller than viewport):
+                         mid-content → let window scroll natively
+                         at edge     → swallow first gesture; next gesture jumps. */
+                    function onWheel(e) {
+                        if (locked) { e.preventDefault(); return; }
 
-                    /* Two-phase boundary gate:
-                       Phase 1 — scroll hits section top/bottom → STOP. All further
-                                 scroll events in the same direction are swallowed for
-                                 COOLDOWN ms. This is the "hard stop" the user feels.
-                       Phase 2 — after the cooldown expires the gate is "ready". The
-                                 next scroll input in the same direction commits the
-                                 section jump.
-                       If the user scrolls in the opposite direction or stops scrolling
-                       for EXPIRE ms, everything resets. */
-                    const COOLDOWN = 800;   // ms — how long the boundary absorbs scrolls
-                    const EXPIRE = 2000;  // ms — gate resets if user stops scrolling
+                        const norm = e.deltaMode === 1 ? e.deltaY * 40
+                                   : e.deltaMode === 2 ? e.deltaY * 800
+                                   : e.deltaY;
+                        if (Math.abs(norm) < 4) return;
 
-                    let gateDir = 0;      // direction that triggered the gate
-                    let gateReady = false;   // true after cooldown elapsed
-                    let gateCooldownId = null;
-                    let gateExpireId = null;
+                        const idx = getCurrent();
+                        const sec = sections[idx];
+                        const dir = norm > 0 ? 1 : -1;
+                        const now = performance.now();
+                        const idle = (now - lastWheelAt) > IDLE_MS;
+                        lastWheelAt = now;
 
-                    function resetGate() {
-                        gateDir = 0;
-                        gateReady = false;
-                        clearTimeout(gateCooldownId);
-                        clearTimeout(gateExpireId);
-                    }
-
-                    function hitBoundary(dir) {
-                        // Different direction — restart
-                        if (gateDir !== dir) {
-                            resetGate();
-                            gateDir = dir;
-                            // Start cooldown — gate becomes "ready" after COOLDOWN ms
-                            gateCooldownId = setTimeout(() => { gateReady = true; }, COOLDOWN);
-                            // Expire timer — if nothing happens for too long, reset
-                            gateExpireId = setTimeout(resetGate, EXPIRE);
-                            return false;
-                        }
-                        // Same direction — refresh the expire timer
-                        clearTimeout(gateExpireId);
-                        gateExpireId = setTimeout(resetGate, EXPIRE);
-
-                        if (gateReady) {
-                            // Cooldown has passed and user scrolled again — commit!
-                            resetGate();
-                            return true;
-                        }
-                        // Still in cooldown — absorb the event
-                        return false;
-                    }
-
-                    // Wheel — let the active section scroll internally; at the boundary,
-                    // require a pause then a fresh scroll to advance.
-                    window.addEventListener('wheel', (e) => {
-                        if (Math.abs(e.deltaY) < 8) return;
-                        const sec = sections[current];
-                        const goingDown = e.deltaY > 0;
-                        const dir = goingDown ? 1 : -1;
-                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
-                        if (overflows) {
-                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
-                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
+                        if (!tall(sec)) {
                             e.preventDefault();
-                            if (hitBoundary(dir)) {
-                                go(dir);
-                            }
-                        } else {
-                            e.preventDefault();
-                            resetGate();
-                            go(dir);
+                            if (idle) go(dir);
+                            return;
                         }
-                    }, { passive: false });
 
-                    // Keys
+                        const goingDown = dir > 0;
+                        const canScrollInside =
+                            (goingDown && !atSectionBottom(idx)) ||
+                            (!goingDown && !atSectionTop(idx));
+
+                        if (canScrollInside) {
+                            armedDir = 0;
+                            return;                  // let window scroll naturally inside tall section
+                        }
+
+                        e.preventDefault();
+                        if (armedDir !== dir) { armedDir = dir; return; }
+                        if (idle) { go(dir); return; }
+                    }
+                    // Dedupe so multiple listeners (window + document + sections) only run handler once per event.
+                    const _seen = new WeakSet();
+                    const _core = onWheel;
+                    const _wrapped = function (e) {
+                        if (_seen.has(e)) return;
+                        _seen.add(e);
+                        _core(e);
+                    };
+                    // Capture phase + non-passive — intercept before any native overflow scroll fires.
+                    window.addEventListener('wheel', _wrapped, { passive: false, capture: true });
+                    document.addEventListener('wheel', _wrapped, { passive: false, capture: true });
+                    sections.forEach(s => s.addEventListener('wheel', _wrapped, { passive: false, capture: true }));
+
                     window.addEventListener('keydown', (e) => {
-                        const next = ['ArrowDown', 'PageDown', ' '];
-                        const prev = ['ArrowUp', 'PageUp'];
-                        if (next.includes(e.key)) { e.preventDefault(); go(1); }
-                        else if (prev.includes(e.key)) { e.preventDefault(); go(-1); }
+                        if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(1); }
+                        else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
                         else if (e.key === 'Home') { e.preventDefault(); go(-current); }
                         else if (e.key === 'End') { e.preventDefault(); go(sections.length - 1 - current); }
                     });
 
-                    // Touch — same two-phase gate logic as wheel
                     window.addEventListener('touchstart', (e) => {
                         touchStartY = e.touches[0].clientY;
                     }, { passive: true });
@@ -1006,31 +989,19 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         if (touchStartY === null) return;
                         const dy = touchStartY - e.changedTouches[0].clientY;
                         touchStartY = null;
-                        if (Math.abs(dy) <= 40) return;
-                        const sec = sections[current];
-                        const goingDown = dy > 0;
-                        const dir = goingDown ? 1 : -1;
-                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
-                        if (overflows) {
-                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
-                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
-                            if (hitBoundary(dir)) { go(dir); }
-                        } else {
-                            resetGate();
-                            go(dir);
-                        }
+                        if (Math.abs(dy) <= 40 || locked) return;
+
+                        const idx = getCurrent();
+                        const sec = sections[idx];
+                        const dir = dy > 0 ? 1 : -1;
+                        if (!tall(sec)) { go(dir); return; }
+                        if (dir > 0 && atSectionBottom(idx)) { go(1); return; }
+                        if (dir < 0 && atSectionTop(idx)) { go(-1); return; }
                     });
 
-                    // Keep `current` in sync if anchor links jump scroll
                     window.addEventListener('scroll', () => {
                         if (locked) return;
-                        const y = window.pageYOffset + NAV_OFFSET + 1;
-                        let nearest = 0, best = Infinity;
-                        sections.forEach((s, i) => {
-                            const dist = Math.abs(s.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET - y + NAV_OFFSET);
-                            if (dist < best) { best = dist; nearest = i; }
-                        });
-                        current = nearest;
+                        current = getCurrent();
                     }, { passive: true });
                 }
             })();
@@ -1657,9 +1628,13 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     box-sizing: border-box;
                 }
 
-                .bib-value {
+                #about-us-page > section.bib-value {
                     width: 100%;
+                    height: auto;
+                    min-height: 0;
+                    max-height: none;
                     background: #fff;
+                    padding-bottom: 48px;
                     font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
                 }
 
