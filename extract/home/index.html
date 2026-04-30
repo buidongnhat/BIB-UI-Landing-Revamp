@@ -774,7 +774,9 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             }
 
             /* Push page content below the fixed nav */
-            #home-page { padding-top: 72px; }
+            #home-page {
+                padding-top: 72px;
+            }
 
             /* Sections are at least one viewport tall */
             #home-page>section {
@@ -1557,72 +1559,41 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     }
                 }
 
-                /* Scroll-reveal — staggered entrance */
-                @media (prefers-reduced-motion: no-preference) {
+                /* ---- Entrance (CSS keyframes, fired by .is-active from snap engine) ---- */
+                @keyframes bibCatsFadeUp {
+                    from { opacity: 0; transform: translateY(24px); }
+                    to   { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes bibCatsSlideDown {
+                    from { opacity: 0; transform: translateY(-60px); }
+                    to   { opacity: 1; transform: translateY(0); }
+                }
 
-                    .bib-categories[data-reveal] .bib-categories__eyebrow,
-                    .bib-categories[data-reveal] .bib-categories__title,
-                    .bib-categories[data-reveal] .bib-categories__lede {
-                        opacity: 0;
-                        transform: translateY(24px);
-                        transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
-                            transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-                    }
+                /* Initial hidden state */
+                .bib-categories__eyebrow,
+                .bib-categories__title,
+                .bib-categories__lede,
+                .bib-categories__tile { opacity: 0; }
 
-                    .bib-categories[data-reveal] .bib-categories__title {
-                        transition-delay: 100ms;
-                    }
+                .bib-categories.is-active .bib-categories__eyebrow { animation: bibCatsFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 0ms both; }
+                .bib-categories.is-active .bib-categories__title   { animation: bibCatsFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 100ms both; }
+                .bib-categories.is-active .bib-categories__lede    { animation: bibCatsFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both; }
 
-                    .bib-categories[data-reveal] .bib-categories__lede {
-                        transition-delay: 200ms;
-                    }
+                .bib-categories.is-active .bib-categories__tile:nth-child(1) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 320ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(2) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(3) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 480ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(4) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 560ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(5) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 640ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(6) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 720ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(7) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 800ms both; }
+                .bib-categories.is-active .bib-categories__tile:nth-child(8) { animation: bibCatsSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 880ms both; }
 
-                    .bib-categories[data-reveal] .bib-categories__tile {
-                        opacity: 0;
-                        transform: translateY(40px);
-                        transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
-                            transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(1) {
-                        transition-delay: 320ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(2) {
-                        transition-delay: 400ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(3) {
-                        transition-delay: 480ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(4) {
-                        transition-delay: 560ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(5) {
-                        transition-delay: 640ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(6) {
-                        transition-delay: 720ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(7) {
-                        transition-delay: 800ms;
-                    }
-
-                    .bib-categories[data-reveal] .bib-categories__tile:nth-child(8) {
-                        transition-delay: 880ms;
-                    }
-
-                    .bib-categories.is-in[data-reveal] .bib-categories__eyebrow,
-                    .bib-categories.is-in[data-reveal] .bib-categories__title,
-                    .bib-categories.is-in[data-reveal] .bib-categories__lede,
-                    .bib-categories.is-in[data-reveal] .bib-categories__tile {
-                        opacity: 1;
-                        transform: none;
-                    }
+                /* Replay — kill animations to restart on re-entry */
+                .bib-categories.is-replaying .bib-categories__eyebrow,
+                .bib-categories.is-replaying .bib-categories__title,
+                .bib-categories.is-replaying .bib-categories__lede,
+                .bib-categories.is-replaying .bib-categories__tile {
+                    animation: none !important;
                 }
             </style>
 
@@ -1890,61 +1861,33 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     inset: 0;
                     z-index: 1;
                     background-image: linear-gradient(189.66deg,
-                            rgba(0, 0, 0, 0) 11.42%,
+                            rgba(0, 0, 0, 0.12) 11.42%,
                             rgba(0, 0, 0, 0.35) 54.78%,
                             rgba(0, 0, 0, 0.88) 90.81%);
                     pointer-events: none;
                 }
 
-                /* Dotted graphic — centered focal element */
-                .bib-network__dots {
+                /* Dotted Bangladesh map — centered focal element */
+                .bib-network__map {
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                     z-index: 1;
-                    max-width: 70%;
-                    max-height: 70%;
                     width: auto;
-                    height: auto;
+                    height: 78%;
+                    max-width: 60%;
+                    object-fit: contain;
                     pointer-events: none;
                     user-select: none;
                 }
 
-                .bib-network__inner {
-                    position: relative;
-                    z-index: 2;
-                    max-width: 1440px;
-                    height: 100%;
-                    margin: 0 auto;
-                    padding: 120px 48px 72px;
-                    box-sizing: border-box;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .bib-network__head {
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    max-width: 720px;
-                }
-
-                /* Eyebrow — Label/Section, sunset-amber */
-                .bib-network__eyebrow {
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 20px;
-                    letter-spacing: 0.18em;
-                    text-transform: uppercase;
-                    color: #C97A3A;
-                    /* Brand/Sunset Amber */
-                    margin: 0 0 24px;
-                }
-
-                /* Display/Hero — Cina GEO Light 80/96, -1px tracking */
+                /* Title — absolute, upper-left */
                 .bib-network__title {
+                    position: absolute;
+                    top: 56px;
+                    left: 16%;
+                    z-index: 3;
                     font-family: 'Cina GEO', sans-serif;
                     font-weight: 500;
                     font-size: 40px;
@@ -1952,58 +1895,20 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     letter-spacing: -1px;
                     color: #FAF6F5;
                     text-transform: uppercase;
-                    /* Neutral/Canvas */
                     margin: 0;
+                    max-width: 360px;
+                    text-wrap: nowrap;
                 }
 
-                /* Body/LG — Regular 18/28, neutral panel */
-                .bib-network__lede {
-                    font-weight: 400;
-                    font-size: 18px;
-                    line-height: 28px;
-                    color: #DADADA;
-                    margin: 0;
-                    max-width: 540px;
-                }
-
-                /* Stats band — 7 stats with vertical dividers (matches bib-our-company pattern) */
-                .bib-network__stats {
-                    display: grid;
-                    grid-template-columns: repeat(7, minmax(0, 1fr));
-                    gap: 0;
-                    border-top: 1px solid rgba(255, 255, 255, 0.16);
-                    padding-top: 32px;
-                    margin-top: 48px;
-                }
-
+                /* Each stat is absolutely positioned around the map with a dotted leader */
                 .bib-network__stat {
-                    position: relative;
+                    position: absolute;
                     display: flex;
                     flex-direction: column;
-                    gap: 8px;
-                    padding: 0 20px;
-                    min-width: 0;
+                    gap: 4px;
+                    z-index: 3;
                 }
 
-                .bib-network__stat:first-child {
-                    padding-left: 0;
-                }
-
-                .bib-network__stat:last-child {
-                    padding-right: 0;
-                }
-
-                .bib-network__stat:not(:first-child)::before {
-                    content: "";
-                    position: absolute;
-                    left: 0;
-                    top: 4px;
-                    width: 1px;
-                    height: 64px;
-                    background: rgba(255, 255, 255, 0.24);
-                }
-
-                /* Heading/H1 — SemiBold 40/48, -0.5 tracking */
                 .bib-network__stat-number {
                     font-weight: 600;
                     font-size: 40px;
@@ -2014,11 +1919,145 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                 }
 
                 .bib-network__stat-label {
-                    font-weight: 400;
-                    font-size: 13px;
-                    line-height: 18px;
-                    color: #DADADA;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 24px;
+                    letter-spacing: 0.04em;
+                    text-transform: uppercase;
+                    color: #FAF6F5;
                     margin: 0;
+                    white-space: nowrap;
+                }
+
+                /* Stat positioning — left side, top → bottom */
+                .bib-network__stat--corporate {
+                    top: 20%;
+                    left: 20%;
+                }
+
+                .bib-network__stat--supermarket {
+                    top: 46%;
+                    left: 25%;
+                }
+
+                .bib-network__stat--independent {
+                    top: 74%;
+                    left: 24%;
+                }
+
+                /* Stat positioning — right side, top → bottom */
+                .bib-network__stat--categories {
+                    top: 15%;
+                    left: 60%;
+                    transform: translateX(-50%);
+                }
+
+                .bib-network__stat--concept {
+                    top: 29%;
+                    right: 20%;
+                }
+
+                .bib-network__stat--selective {
+                    top: 51%;
+                    right: 20%;
+                }
+
+                .bib-network__stat--total {
+                    top: 69%;
+                    right: 28%;
+                }
+
+                /* ---- Fly-in entrance (triggered when snap engine adds .is-active) ---- */
+                @keyframes networkFlyInLeft {
+                    from {
+                        opacity: 0;
+                        translate: -120px 0;
+                    }
+
+                    to {
+                        opacity: 1;
+                        translate: 0 0;
+                    }
+                }
+
+                @keyframes networkFlyInRight {
+                    from {
+                        opacity: 0;
+                        translate: 120px 0;
+                    }
+
+                    to {
+                        opacity: 1;
+                        translate: 0 0;
+                    }
+                }
+
+                @keyframes networkFlyInTop {
+                    from {
+                        opacity: 0;
+                        translate: 0 -80px;
+                    }
+
+                    to {
+                        opacity: 1;
+                        translate: 0 0;
+                    }
+                }
+
+                @keyframes networkMapReveal {
+                    from {
+                        opacity: 0;
+                        scale: 0.94;
+                    }
+
+                    to {
+                        opacity: 1;
+                        scale: 1;
+                    }
+                }
+
+                /* Hide stats + map until section becomes active */
+                .bib-network__stat,
+                .bib-network__map {
+                    opacity: 0;
+                }
+
+                .bib-network.is-active .bib-network__map {
+                    animation: networkMapReveal 900ms cubic-bezier(0.16, 1, 0.3, 1) 0ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--corporate {
+                    animation: networkFlyInLeft 800ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--categories {
+                    animation: networkFlyInTop 800ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--concept {
+                    animation: networkFlyInRight 800ms cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--supermarket {
+                    animation: networkFlyInLeft 800ms cubic-bezier(0.16, 1, 0.3, 1) 550ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--selective {
+                    animation: networkFlyInRight 800ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--independent {
+                    animation: networkFlyInLeft 800ms cubic-bezier(0.16, 1, 0.3, 1) 750ms both;
+                }
+
+                .bib-network.is-active .bib-network__stat--total {
+                    animation: networkFlyInRight 800ms cubic-bezier(0.16, 1, 0.3, 1) 850ms both;
+                }
+
+                /* Replay — kill animations so they restart on re-entry */
+                .bib-network.is-replaying .bib-network__map,
+                .bib-network.is-replaying .bib-network__stat {
+                    animation: none !important;
                 }
 
                 /* Tablet */
@@ -2038,10 +2077,6 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         /* keep dividers on row 2 */
                     }
 
-                    .bib-network__stat-number {
-                        font-size: 32px;
-                        line-height: 40px;
-                    }
                 }
 
                 /* Mobile */
@@ -2078,10 +2113,6 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         display: none;
                     }
 
-                    .bib-network__stat-number {
-                        font-size: 28px;
-                        line-height: 36px;
-                    }
                 }
 
                 /* Scroll-reveal */
@@ -2152,43 +2183,38 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             <section class="bib-network group-net-work-area" data-reveal aria-labelledby="bib-network-title">
                 <div class="bib-network__bg" aria-hidden="true"></div>
                 <div class="bib-network__scrim" aria-hidden="true"></div>
-                <img class="bib-network__dots" src="img/dotted.png" alt="" aria-hidden="true">
+                <img class="bib-network__map" src="img/dotted.png" alt="Bangladesh distribution map" aria-hidden="true">
 
-                <div class="bib-network__inner">
-                    <div class="bib-network__head">
-                        <h2 class="bib-network__title" id="bib-network-title">Distribution <br>Network</h2>
-                    </div>
+                <h2 class="bib-network__title" id="bib-network-title">Distribution Network</h2>
 
-                    <dl class="bib-network__stats">
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">45+</dt>
-                            <dd class="bib-network__stat-label">Corporate partners</dd>
-                        </div>
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">500+</dt>
-                            <dd class="bib-network__stat-label">Supermarket doors</dd>
-                        </div>
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">230</dt>
-                            <dd class="bib-network__stat-label">Independent perfumery doors</dd>
-                        </div>
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">5+</dt>
-                            <dd class="bib-network__stat-label">Categories</dd>
-                        </div>
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">6+</dt>
-                            <dd class="bib-network__stat-label">Concept stores</dd>
-                        </div>
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">35+</dt>
-                            <dd class="bib-network__stat-label">Selective corners</dd>
-                        </div>
-                        <div class="bib-network__stat">
-                            <dt class="bib-network__stat-number">5K+</dt>
-                            <dd class="bib-network__stat-label">Total doors</dd>
-                        </div>
-                    </dl>
+                <!-- Stats positioned around the map, matching the reference layout -->
+                <div class="bib-network__stat bib-network__stat--corporate">
+                    <p class="bib-network__stat-number">45+</p>
+                    <p class="bib-network__stat-label">Corporate<br>Partners</p>
+                </div>
+                <div class="bib-network__stat bib-network__stat--categories">
+                    <p class="bib-network__stat-number">5+</p>
+                    <p class="bib-network__stat-label">Categories</p>
+                </div>
+                <div class="bib-network__stat bib-network__stat--concept">
+                    <p class="bib-network__stat-number">7+</p>
+                    <p class="bib-network__stat-label">Concept Stores</p>
+                </div>
+                <div class="bib-network__stat bib-network__stat--supermarket">
+                    <p class="bib-network__stat-number">500+</p>
+                    <p class="bib-network__stat-label">Doors<br>Supermarket</p>
+                </div>
+                <div class="bib-network__stat bib-network__stat--selective">
+                    <p class="bib-network__stat-number">35+</p>
+                    <p class="bib-network__stat-label">Selective Corners</p>
+                </div>
+                <div class="bib-network__stat bib-network__stat--independent">
+                    <p class="bib-network__stat-number">230</p>
+                    <p class="bib-network__stat-label">Doors Independent<br>Perfumeries</p>
+                </div>
+                <div class="bib-network__stat bib-network__stat--total">
+                    <p class="bib-network__stat-number">5K+</p>
+                    <p class="bib-network__stat-label">Doors</p>
                 </div>
             </section>
 
