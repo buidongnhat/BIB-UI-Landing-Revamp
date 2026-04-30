@@ -788,49 +788,56 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                scroll-snap-type on <html> controls the *viewport* scroll, not
                an overflow box. Adding overflow-y: scroll creates a separate
                scroll container and breaks snap on nested children.             */
-            html {
-                scroll-snap-type: y mandatory;
-                scroll-padding-top: 72px;
-            }
-
+            html { scroll-padding-top: 72px; }
             body { overflow-x: hidden; }
 
-            /* ── All top-level sections: snap at top, no inner scroll ──────────── */
+            /* Sections fill ≥ 1 viewport so they're easy to scroll into */
             #about-us-page > section {
                 min-height: calc(100vh - 72px);
-                scroll-snap-align: start;
                 overflow: hidden;
             }
-
             @supports (min-height: 100dvh) {
                 #about-us-page > section {
                     min-height: calc(100dvh - 72px);
                 }
             }
 
-            /* ── Short sections (fit 1 viewport): force stop here ──────────────── */
-            .bib-our-company,
-            .bib-vm {
+            /* Short sections lock to exactly 1 viewport */
+            .bib-our-company, .bib-vm {
                 height: calc(100vh - 72px);
                 max-height: calc(100vh - 72px);
-                scroll-snap-stop: always;
             }
-
             @supports (height: 100dvh) {
-                .bib-our-company,
-                .bib-vm {
+                .bib-our-company, .bib-vm {
                     height: calc(100dvh - 72px);
                     max-height: calc(100dvh - 72px);
                 }
             }
 
-            /* ── Long sections (content > 1 viewport): grow freely, no snap-stop ─
-               Browser snaps only when next section's top reaches viewport top.     */
+            /* Long sections grow with their content */
             #about-us-page > section.bib-value,
             #about-us-page > section.group-initiatives-area,
             #about-us-page > section.bib-footer-wrapper {
                 height: auto;
                 max-height: none;
+            }
+
+            /* ── Section entrance — content slides up + fades on snap-in ──
+               Applied to non-hero sections (hero has its own keyframe choreography).
+               Targets the section's primary content wrapper so the section's own
+               background/scrim stay locked in place.                              */
+            @keyframes bibSectionSlideUp {
+                from { opacity: 0; transform: translateY(60px); }
+                to   { opacity: 1; transform: translateY(0); }
+            }
+
+            #about-us-page > section.is-active.group-initiatives-area > *,
+            #about-us-page > section.is-active.bib-footer-wrapper > * {
+                animation: bibSectionSlideUp 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+            }
+            #about-us-page > section.is-replaying.group-initiatives-area > *,
+            #about-us-page > section.is-replaying.bib-footer-wrapper > * {
+                animation: none !important;
             }
         </style>
         <section id="about-us-page">
@@ -1714,59 +1721,43 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     }
                 }
 
-                /* ---- Scroll-reveal entrance animations ---- */
-                .bib-value__head {
-                    opacity: 0;
-                    transform: translateY(32px);
-                    transition:
-                        opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                        transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+                /* ---- Entrance animations (CSS keyframes — fired by .is-active) ---- */
+                @keyframes bibValueFadeUp {
+                    from { opacity: 0; transform: translateY(32px); }
+                    to   { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes bibValueSlideDown {
+                    from { opacity: 0; transform: translateY(-80px); }
+                    to   { opacity: 1; transform: translateY(0); }
                 }
 
-                .bib-value__head.is-revealed {
-                    opacity: 1;
-                    transform: none;
+                /* Active state runs the animations */
+                .bib-value.is-active .bib-value__head {
+                    animation: bibValueFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 0ms both;
+                }
+                .bib-value.is-active .bib-value__bento > .bib-value__tile:nth-of-type(1) {
+                    animation: bibValueSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+                }
+                .bib-value.is-active .bib-value__bento > .bib-value__tile:nth-of-type(2) {
+                    animation: bibValueSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
+                }
+                .bib-value.is-active .bib-value__tile--emp {
+                    animation: bibValueSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
+                }
+                .bib-value.is-active .bib-value__tile--eth {
+                    animation: bibValueSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 550ms both;
+                }
+                .bib-value.is-active .bib-value__tile--team {
+                    animation: bibValueSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 700ms both;
+                }
+                .bib-value.is-active .bib-value__tile--resp {
+                    animation: bibValueSlideDown 700ms cubic-bezier(0.16, 1, 0.3, 1) 800ms both;
                 }
 
-                /* Tile entrance — default hidden state */
-                .bib-value__tile[data-reveal] {
-                    opacity: 0;
-                    transition:
-                        opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                        transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
-                }
-
-                /* Direction-specific offsets */
-                .bib-value__tile[data-reveal="left"] {
-                    transform: translateX(-80px);
-                }
-
-                .bib-value__tile[data-reveal="right"] {
-                    transform: translateX(80px);
-                }
-
-                .bib-value__tile[data-reveal="top"] {
-                    transform: translateY(-80px);
-                }
-
-                .bib-value__tile[data-reveal="bottom"] {
-                    transform: translateY(80px);
-                }
-
-                /* Revealed state — all directions resolve to the same place */
-                .bib-value__tile[data-reveal].is-revealed {
-                    opacity: 1;
-                    transform: none;
-                }
-
-                @media (prefers-reduced-motion: reduce) {
-
-                    .bib-value__head,
-                    .bib-value__tile[data-reveal] {
-                        opacity: 1;
-                        transform: none;
-                        transition: none;
-                    }
+                /* Replay support: kill animations during .is-replaying so they restart */
+                .bib-value.is-replaying .bib-value__head,
+                .bib-value.is-replaying .bib-value__tile {
+                    animation: none !important;
                 }
             </style>
 
@@ -1782,7 +1773,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                     <div class="bib-value__bento">
                         <!-- Row 1 -->
-                        <div class="bib-value__tile" data-reveal="left" data-reveal-delay="100">
+                        <div class="bib-value__tile" data-reveal="top" data-reveal-delay="100">
                             <img class="bib-value__tile-img" src="img/value-authenticity.png" alt="" aria-hidden="true">
                             <div class="bib-value__tile-content">
                                 <p class="bib-value__tile-label">AUTHENTICITY</p>
@@ -1790,7 +1781,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                                     and our relationship with stakeholders and customers.</p>
                             </div>
                         </div>
-                        <div class="bib-value__tile" data-reveal="right" data-reveal-delay="250">
+                        <div class="bib-value__tile" data-reveal="top" data-reveal-delay="200">
                             <img class="bib-value__tile-img" src="img/value-diversity.png" alt="" aria-hidden="true">
                             <div class="bib-value__tile-content">
                                 <p class="bib-value__tile-label">DIVERSITY</p>
@@ -1801,8 +1792,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                         <!-- Row 2: left column -->
                         <div class="bib-value__col">
-                            <div class="bib-value__tile bib-value__tile--emp" data-reveal="bottom"
-                                data-reveal-delay="400">
+                            <div class="bib-value__tile bib-value__tile--emp" data-reveal="top"
+                                data-reveal-delay="350">
                                 <img class="bib-value__tile-img" src="img/value-empowerment.png" alt=""
                                     aria-hidden="true">
                                 <div class="bib-value__tile-content">
@@ -1811,8 +1802,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                                         continuously supporting their professional and personal growth.</p>
                                 </div>
                             </div>
-                            <div class="bib-value__tile bib-value__tile--team" data-reveal="left"
-                                data-reveal-delay="800">
+                            <div class="bib-value__tile bib-value__tile--team" data-reveal="top"
+                                data-reveal-delay="600">
                                 <img class="bib-value__tile-img" src="img/value-team-spirit.png" alt=""
                                     aria-hidden="true">
                                 <div class="bib-value__tile-content">
@@ -1824,8 +1815,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                         </div>
                         <!-- Row 2: right column -->
                         <div class="bib-value__col">
-                            <div class="bib-value__tile bib-value__tile--eth" data-reveal="right"
-                                data-reveal-delay="550">
+                            <div class="bib-value__tile bib-value__tile--eth" data-reveal="top"
+                                data-reveal-delay="450">
                                 <img class="bib-value__tile-img" src="img/value-ethicality.png" alt=""
                                     aria-hidden="true">
                                 <div class="bib-value__tile-content">
@@ -1847,41 +1838,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     </div>
                 </div>
             </section>
-            <!-- Our Value scroll-reveal observer -->
-            <script>
-                (function () {
-                    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-                    // Reveal the header when section enters viewport
-                    const valueSection = document.querySelector('.bib-value');
-                    if (!valueSection) return;
-
-                    const header = valueSection.querySelector('.bib-value__head');
-                    const tiles = valueSection.querySelectorAll('.bib-value__tile[data-reveal]');
-                    let timeouts = [];
-
-                    const io = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                // Header fades in first
-                                if (header) header.classList.add('is-revealed');
-                                // Tiles animate with staggered delays
-                                tiles.forEach(tile => {
-                                    const delay = parseInt(tile.dataset.revealDelay || '0', 10);
-                                    timeouts.push(setTimeout(() => tile.classList.add('is-revealed'), delay));
-                                });
-                            } else {
-                                if (header) header.classList.remove('is-revealed');
-                                timeouts.forEach(clearTimeout);
-                                timeouts = [];
-                                tiles.forEach(tile => tile.classList.remove('is-revealed'));
-                            }
-                        });
-                    }, { threshold: 0.15 });
-
-                    io.observe(valueSection);
-                })();
-            </script>
+            <!-- Our Value entrance is now CSS-only, triggered by .is-active -->
             <!-- ===== /Section / Our Value ===== -->
             <!---------- Initiatives Section --------->
             <!-- ------------------------------------------------------------------- -->
@@ -2275,6 +2232,162 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
     <script data-wpmeteor-after="REORDER" type="javascript/blocked" data-wpmeteor-type="text/javascript"
         data-wpmeteor-src='https://bestinbrands.com/wp-content/themes/bib-website/assets/js/website/about-us-page/about-us-page.js?ver=1.0.0'
         id='bib-website-about-us-js-js'></script>
+
+    <!-- ===== Section snap engine: short = always snap; long = free scroll, snap when its bottom hits viewport bottom ===== -->
+    <script>
+    (function () {
+        var page = document.getElementById('about-us-page');
+        if (!page) return;
+
+        var NAV = 72;                   // fixed nav height (offset for snap targets)
+        var DURATION = 900;             // slide animation length (ms)
+        var EDGE_TOL  = 24;             // px tolerance for "near boundary"
+        var WHEEL_TH  = 6;              // ignore tiny trackpad noise
+
+        // Ease-out expo — fast start, long gentle settle (matches CLAUDE.md spec)
+        function easeOutExpo(t) {
+            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        }
+
+        var rafId = null;
+        function animateScroll(target, onDone) {
+            if (rafId) cancelAnimationFrame(rafId);
+            var start = window.pageYOffset;
+            var dist  = target - start;
+            var t0 = performance.now();
+            (function tick(now) {
+                var p = Math.min(1, (now - t0) / DURATION);
+                var e = easeOutExpo(p);
+                window.scrollTo(0, start + dist * e);
+                if (p < 1) rafId = requestAnimationFrame(tick);
+                else { rafId = null; locked = false; pendingDir = 0; if (onDone) onDone(); }
+            })(t0);
+        }
+
+        var sections = Array.prototype.slice.call(page.querySelectorAll(':scope > section'));
+        var locked = false;
+        var lastDir = 0;
+        var pendingDir = 0;             // direction queued at boundary, awaiting commit
+
+        function vh() { return window.innerHeight; }
+
+        // Find which section currently owns the viewport center
+        function activeIdx() {
+            var probeY = NAV + 1;
+            for (var i = 0; i < sections.length; i++) {
+                var r = sections[i].getBoundingClientRect();
+                if (r.top <= probeY && r.bottom > probeY) return i;
+            }
+            return -1;
+        }
+
+        function setActive(i) {
+            sections.forEach(function (s, k) {
+                if (k === i) {
+                    // Replay-trick: kill animation, reflow, restore
+                    s.classList.add('is-replaying');
+                    void s.offsetWidth;
+                    s.classList.remove('is-replaying');
+                    s.classList.add('is-active');
+                } else {
+                    s.classList.remove('is-active');
+                }
+            });
+        }
+
+        function snapTo(i, fromDir) {
+            if (i < 0 || i >= sections.length) return false;
+            var sec = sections[i];
+            var rect = sec.getBoundingClientRect();
+            var top;
+            if (fromDir === -1 && isLong(sec)) {
+                // Scrolling UP into a tall section: show its bottom first
+                top = rect.bottom + window.pageYOffset - vh();
+            } else {
+                // Default: pin the section's top under the nav
+                top = rect.top + window.pageYOffset - NAV;
+            }
+            locked = true;
+            sections.forEach(function (s, k) { if (k !== i) s.classList.remove('is-active'); });
+            animateScroll(top, function () { setActive(i); });
+            return true;
+        }
+
+        // First section starts active
+        setActive(0);
+
+        function isLong(sec) {
+            return sec.getBoundingClientRect().height > vh() - NAV + 8;
+        }
+
+        function atTop(sec) {
+            return Math.abs(sec.getBoundingClientRect().top - NAV) <= EDGE_TOL;
+        }
+        function atBottom(sec) {
+            return Math.abs(sec.getBoundingClientRect().bottom - vh()) <= EDGE_TOL;
+        }
+
+        window.addEventListener('wheel', function (e) {
+            if (locked) { e.preventDefault(); return; }
+
+            // Normalize delta — Windows mice fire deltaMode 1 (lines)
+            var dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
+            if (Math.abs(dy) < WHEEL_TH) return;
+            var dir = dy > 0 ? 1 : -1;
+
+            var i = activeIdx();
+            if (i < 0) return;
+            var cur = sections[i];
+
+            if (isLong(cur)) {
+                var rect = cur.getBoundingClientRect();
+                if (dir > 0) {
+                    var pxBelow = rect.bottom - vh();
+                    if (pxBelow <= Math.max(EDGE_TOL, dy)) {
+                        e.preventDefault();
+                        snapTo(i + 1, 1);
+                        return;
+                    }
+                    return;
+                }
+                if (dir < 0) {
+                    var pxAbove = NAV - rect.top;
+                    if (pxAbove <= Math.max(EDGE_TOL, -dy)) {
+                        e.preventDefault();
+                        snapTo(i - 1, -1);
+                        return;
+                    }
+                    return;
+                }
+            }
+
+            // Short: always snap to neighbor on first wheel tick
+            e.preventDefault();
+            snapTo(i + dir, dir);
+        }, { passive: false });
+
+        // Keyboard: arrows / pgup / pgdown / space jump full sections
+        window.addEventListener('keydown', function (e) {
+            if (locked) return;
+            var dir = 0;
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') dir = 1;
+            else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
+            else return;
+            var i = activeIdx();
+            if (i < 0) return;
+            var cur = sections[i];
+            if (isLong(cur)) {
+                if (dir > 0 && !atBottom(cur)) return;
+                if (dir < 0 && !atTop(cur)) return;
+            }
+            e.preventDefault();
+            snapTo(i + dir, dir);
+        });
+
+        // Reset state on resize
+        window.addEventListener('resize', function () { pendingDir = 0; });
+    })();
+    </script>
 
 </body>
 

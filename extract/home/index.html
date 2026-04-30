@@ -765,211 +765,59 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
         <link rel="stylesheet" href="css/home-page.css">
 
         <style>
-            /* Each top-level section fills the viewport.
-               If its content exceeds that height, the section scrolls internally;
-               JS only advances to the next section when internal scroll hits a boundary. */
-            #home-page>section {
-                min-height: 100vh;
-                height: 100vh;
-                max-height: 100vh;
-                overflow-y: auto;
-                overscroll-behavior: contain;
-                box-sizing: border-box;
+            html {
+                scroll-padding-top: 72px;
             }
 
-            /* Modern browsers: use dynamic viewport height for accuracy */
-            @supports (height: 100dvh) {
-                #home-page>section {
-                    min-height: 100dvh;
-                    height: 100dvh;
-                    max-height: 100dvh;
-                }
-            }
-
-            /* ---------- Section-by-section: JS-driven full-page snap + slide-in ---------- */
-            html,
             body {
                 overflow-x: hidden;
             }
 
-            html.bib-snap-locked,
-            html.bib-snap-locked body {
-                overflow: hidden;
-                height: 100%;
-            }
+            /* Push page content below the fixed nav */
+            #home-page { padding-top: 72px; }
 
+            /* Sections are at least one viewport tall */
             #home-page>section {
-                opacity: 1;
-                transform: none;
+                min-height: calc(100vh - 72px);
+                overflow: hidden;
             }
 
-            @media (prefers-reduced-motion: reduce) {
+            @supports (min-height: 100dvh) {
                 #home-page>section {
-                    opacity: 1;
-                    transform: none;
-                    transition: none;
+                    min-height: calc(100dvh - 72px);
                 }
+            }
+
+            /* Short sections lock to exactly one viewport */
+            .bib-hero,
+            .group-about-us-area,
+            .group-our-strengths-area {
+                height: calc(100vh - 72px);
+                max-height: calc(100vh - 72px);
+            }
+
+            @supports (height: 100dvh) {
+
+                .bib-hero,
+                .group-about-us-area,
+                .group-our-strengths-area {
+                    height: calc(100dvh - 72px);
+                    max-height: calc(100dvh - 72px);
+                }
+            }
+
+            /* Long sections grow with content */
+            #home-page>section.bib-categories,
+            #home-page>section.bib-network,
+            #home-page>section.bib-footer-wrapper {
+                height: auto;
+                max-height: none;
             }
         </style>
         <script>
-            (function () {
-                // Force scroll to top on reload to prevent stale scroll position
-                if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-                window.scrollTo(0, 0);
-
-                const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-                document.addEventListener('DOMContentLoaded', init);
-
-                function init() {
-                    const sections = [...document.querySelectorAll('#home-page > section')];
-                    if (!sections.length) return;
-
-                    sections[0].classList.add('is-in');
-
-                    if ('IntersectionObserver' in window && !reduced) {
-                        const io = new IntersectionObserver((entries) => {
-                            entries.forEach(e => {
-                                if (e.isIntersecting) {
-                                    e.target.classList.add('is-in');
-                                } else {
-                                    e.target.classList.remove('is-in');
-                                }
-                            });
-                        }, { threshold: 0.15 });
-                        sections.forEach(s => io.observe(s));
-                    } else {
-                        sections.forEach(s => s.classList.add('is-in'));
-                    }
-
-                    if (reduced) return;
-
-                    // Take over scrolling: one wheel-tick / swipe / arrow = jump one section.
-                    const NAV_OFFSET = 0;
-                    const LOCK_MS = 1100;
-                    let current = 0;
-                    let locked = false;
-                    let touchStartY = null;
-
-                    function sectionTop(i) {
-                        const rect = sections[i].getBoundingClientRect();
-                        return rect.top + window.pageYOffset - NAV_OFFSET;
-                    }
-
-                    function go(delta) {
-                        if (locked) return;
-                        const next = Math.max(0, Math.min(sections.length - 1, current + delta));
-                        if (next === current) return;
-                        locked = true;
-                        current = next;
-                        sections[current].classList.add('is-in');
-                        if (delta > 0) {
-                            sections[current].scrollTop = 0;
-                        } else {
-                            sections[current].scrollTop = sections[current].scrollHeight - sections[current].clientHeight;
-                        }
-                        window.scrollTo({ top: sectionTop(current), behavior: 'smooth' });
-                        setTimeout(() => { locked = false; }, LOCK_MS);
-                    }
-
-                    function atTop(sec) { return sec.scrollTop <= 0; }
-                    function atBottom(sec) { return Math.ceil(sec.scrollTop + sec.clientHeight) >= sec.scrollHeight - 1; }
-
-                    const COOLDOWN = 800;
-                    const EXPIRE = 2000;
-
-                    let gateDir = 0;
-                    let gateReady = false;
-                    let gateCooldownId = null;
-                    let gateExpireId = null;
-
-                    function resetGate() {
-                        gateDir = 0;
-                        gateReady = false;
-                        clearTimeout(gateCooldownId);
-                        clearTimeout(gateExpireId);
-                    }
-
-                    function hitBoundary(dir) {
-                        if (gateDir !== dir) {
-                            resetGate();
-                            gateDir = dir;
-                            gateCooldownId = setTimeout(() => { gateReady = true; }, COOLDOWN);
-                            gateExpireId = setTimeout(resetGate, EXPIRE);
-                            return false;
-                        }
-                        clearTimeout(gateExpireId);
-                        gateExpireId = setTimeout(resetGate, EXPIRE);
-
-                        if (gateReady) {
-                            resetGate();
-                            return true;
-                        }
-                        return false;
-                    }
-
-                    window.addEventListener('wheel', (e) => {
-                        if (Math.abs(e.deltaY) < 8) return;
-                        const sec = sections[current];
-                        const goingDown = e.deltaY > 0;
-                        const dir = goingDown ? 1 : -1;
-                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
-                        if (overflows) {
-                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
-                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
-                            e.preventDefault();
-                            if (hitBoundary(dir)) {
-                                go(dir);
-                            }
-                        } else {
-                            e.preventDefault();
-                            resetGate();
-                            go(dir);
-                        }
-                    }, { passive: false });
-
-                    window.addEventListener('keydown', (e) => {
-                        const next = ['ArrowDown', 'PageDown', ' '];
-                        const prev = ['ArrowUp', 'PageUp'];
-                        if (next.includes(e.key)) { e.preventDefault(); go(1); }
-                        else if (prev.includes(e.key)) { e.preventDefault(); go(-1); }
-                        else if (e.key === 'Home') { e.preventDefault(); go(-current); }
-                        else if (e.key === 'End') { e.preventDefault(); go(sections.length - 1 - current); }
-                    });
-
-                    window.addEventListener('touchstart', (e) => {
-                        touchStartY = e.touches[0].clientY;
-                    }, { passive: true });
-                    window.addEventListener('touchend', (e) => {
-                        if (touchStartY === null) return;
-                        const dy = touchStartY - e.changedTouches[0].clientY;
-                        touchStartY = null;
-                        if (Math.abs(dy) <= 40) return;
-                        const sec = sections[current];
-                        const goingDown = dy > 0;
-                        const dir = goingDown ? 1 : -1;
-                        const overflows = sec.scrollHeight > sec.clientHeight + 1;
-                        if (overflows) {
-                            if (goingDown && !atBottom(sec)) { resetGate(); return; }
-                            if (!goingDown && !atTop(sec)) { resetGate(); return; }
-                            if (hitBoundary(dir)) { go(dir); }
-                        } else {
-                            resetGate();
-                            go(dir);
-                        }
-                    });
-
-                    window.addEventListener('scroll', () => {
-                        if (locked) return;
-                        const y = window.pageYOffset + NAV_OFFSET + 1;
-                        let nearest = 0, best = Infinity;
-                        sections.forEach((s, i) => {
-                            const dist = Math.abs(s.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET - y + NAV_OFFSET);
-                            if (dist < best) { best = dist; nearest = i; }
-                        });
-                        current = nearest;
-                    }, { passive: true });
-                }
-            })();
+            // Force scroll to top on reload to prevent stale scroll position
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            window.scrollTo(0, 0);
         </script>
 
         <section id="home-page">
@@ -985,8 +833,8 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                 .bib-hero {
                     position: relative;
                     width: 100%;
-                    height: 100vh;
-                    min-height: 600px;
+                    height: calc(100vh - 72px);
+                    min-height: 0;
                     overflow: hidden;
                     background: #051436;
                     /* Photo/Midnight */
@@ -996,7 +844,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
 
                 @supports (height: 100dvh) {
                     .bib-hero {
-                        height: 100dvh;
+                        height: calc(100dvh - 72px);
                     }
                 }
 
@@ -1073,6 +921,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     /* -1% of 80 */
                     color: #fff;
                     text-wrap: nowrap;
+                    text-transform: uppercase;
                 }
 
                 /* Sub-headline — Body/LG */
@@ -1257,16 +1106,93 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     }
                 }
 
-                /* ---- Hero sequence: JS sets these inline, CSS just defines transitions ---- */
-                @media (prefers-reduced-motion: no-preference) {
-                    .bib-hero__bg {
-                        transition: opacity 900ms cubic-bezier(0.4, 0, 0.2, 1);
+                /* ---- Hero entrance (pure CSS keyframes — fires automatically on load) ---- */
+                @keyframes bibHomeBgFade {
+                    from {
+                        opacity: 0;
                     }
 
-                    .bib-hero-rev {
-                        transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
-                            transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+                    to {
+                        opacity: 1;
                     }
+                }
+
+                @keyframes bibHomeFadeUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(14px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                @keyframes bibHomeSlideDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-40px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .bib-hero__bg {
+                    opacity: 0;
+                    animation: bibHomeBgFade 900ms cubic-bezier(0.16, 1, 0.3, 1) 0ms both;
+                }
+
+                .bib-hero__eyebrow,
+                .bib-hero__title,
+                .bib-hero__sub,
+                .bib-hero__actions {
+                    opacity: 0;
+                }
+
+                .bib-hero__eyebrow {
+                    animation: bibHomeFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 380ms both;
+                }
+
+                .bib-hero__title {
+                    animation: bibHomeFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 480ms both;
+                }
+
+                .bib-hero__sub {
+                    animation: bibHomeFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 580ms both;
+                }
+
+                .bib-hero__actions {
+                    animation: bibHomeFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) 680ms both;
+                }
+
+                .bib-hero__stat {
+                    opacity: 0;
+                }
+
+                .bib-hero__stat:nth-of-type(1) {
+                    animation: bibHomeSlideDown 600ms cubic-bezier(0.16, 1, 0.3, 1) 880ms both;
+                }
+
+                .bib-hero__stat:nth-of-type(2) {
+                    animation: bibHomeSlideDown 600ms cubic-bezier(0.16, 1, 0.3, 1) 1030ms both;
+                }
+
+                .bib-hero__stat:nth-of-type(3) {
+                    animation: bibHomeSlideDown 600ms cubic-bezier(0.16, 1, 0.3, 1) 1180ms both;
+                }
+
+                /* Replay support — scrolling back retriggers via .is-replaying */
+                .bib-hero.is-replaying .bib-hero__bg,
+                .bib-hero.is-replaying .bib-hero__eyebrow,
+                .bib-hero.is-replaying .bib-hero__title,
+                .bib-hero.is-replaying .bib-hero__sub,
+                .bib-hero.is-replaying .bib-hero__actions,
+                .bib-hero.is-replaying .bib-hero__stat {
+                    animation: none !important;
                 }
             </style>
 
@@ -1305,80 +1231,23 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             </section>
 
             <script>
+                // Replay hero animation when scrolling back into view
                 (function () {
-                    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     var section = document.querySelector('.bib-hero');
-                    if (!section || reduced) return;
-
-                    var bg = section.querySelector('.bib-hero__bg');
-                    var eyebrow = section.querySelector('.bib-hero__eyebrow');
-                    var title = section.querySelector('.bib-hero__title');
-                    var sub = section.querySelector('.bib-hero__sub');
-                    var actions = section.querySelector('.bib-hero__actions');
-                    var stats = Array.from(section.querySelectorAll('.bib-hero__stat'));
-                    var revEls = [eyebrow, title, sub, actions].concat(stats);
-                    var timers = [];
-
-                    revEls.forEach(function (el) { if (el) el.classList.add('bib-hero-rev'); });
-
-                    function reset() {
-                        timers.forEach(clearTimeout);
-                        timers = [];
-                        bg.style.transition = 'none';
-                        revEls.forEach(function (el) { if (el) el.style.transition = 'none'; });
-                        bg.style.opacity = '0';
-                        revEls.forEach(function (el) {
-                            if (el) {
-                                el.style.opacity = '0';
-                                el.style.transform = 'translateY(14px)';
-                            }
-                        });
-                    }
-
-                    function show(el, delay, dur) {
-                        if (!el) return;
-                        var t = setTimeout(function () {
-                            if (el === bg) {
-                                el.style.transition = 'opacity ' + dur + 'ms cubic-bezier(0.4,0,0.2,1)';
-                                el.style.opacity = '1';
-                            } else {
-                                el.style.transition = 'opacity ' + dur + 'ms cubic-bezier(0.4,0,0.2,1), transform ' + dur + 'ms cubic-bezier(0.4,0,0.2,1)';
-                                el.style.opacity = '1';
-                                el.style.transform = 'translateY(0)';
-                            }
-                        }, delay);
-                        timers.push(t);
-                    }
-
-                    function playHero() {
-                        reset();
-                        requestAnimationFrame(function () {
-                            requestAnimationFrame(function () {
-                                show(bg, 0, 900);
-                                show(eyebrow, 380, 600);
-                                show(title, 480, 600);
-                                show(sub, 580, 600);
-                                show(actions, 680, 600);
-                                var t = 880;
-                                stats.forEach(function (stat) {
-                                    show(stat, t, 500);
-                                    t += 150;
-                                });
-                            });
-                        });
-                    }
-
-                    var io = new IntersectionObserver(function (entries) {
+                    if (!section) return;
+                    var wasOut = false;
+                    new IntersectionObserver(function (entries) {
                         entries.forEach(function (entry) {
-                            if (entry.isIntersecting) {
-                                playHero();
-                            } else {
-                                reset();
+                            if (!entry.isIntersecting) {
+                                wasOut = true;
+                            } else if (wasOut) {
+                                wasOut = false;
+                                section.classList.add('is-replaying');
+                                void section.offsetWidth;
+                                section.classList.remove('is-replaying');
                             }
                         });
-                    }, { threshold: 0.15 });
-
-                    io.observe(section);
+                    }, { threshold: 0.2 }).observe(section);
                 })();
             </script>
             <!-- ===== /Hero Banner ===== -->
@@ -2027,6 +1896,21 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     pointer-events: none;
                 }
 
+                /* Dotted graphic — centered focal element */
+                .bib-network__dots {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 1;
+                    max-width: 70%;
+                    max-height: 70%;
+                    width: auto;
+                    height: auto;
+                    pointer-events: none;
+                    user-select: none;
+                }
+
                 .bib-network__inner {
                     position: relative;
                     z-index: 2;
@@ -2268,6 +2152,7 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             <section class="bib-network group-net-work-area" data-reveal aria-labelledby="bib-network-title">
                 <div class="bib-network__bg" aria-hidden="true"></div>
                 <div class="bib-network__scrim" aria-hidden="true"></div>
+                <img class="bib-network__dots" src="img/dotted.png" alt="" aria-hidden="true">
 
                 <div class="bib-network__inner">
                     <div class="bib-network__head">
@@ -2735,6 +2620,140 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
     <script data-wpmeteor-after="REORDER" type="javascript/blocked" data-wpmeteor-type="text/javascript"
         data-wpmeteor-src='https://bestinbrands.com/wp-content/themes/bib-website/assets/lib/swiper/swiper-bundle.min.js?ver=1.0.0'
         id='bib-website-swiper-js-js'></script>
+
+    <!-- ===== Section snap engine: short = always snap; long = free scroll, snap at edges ===== -->
+    <script>
+        (function () {
+            var page = document.getElementById('home-page');
+            if (!page) return;
+
+            var NAV = 72;
+            var DURATION = 900;
+            var EDGE_TOL = 24;
+            var WHEEL_TH = 6;
+
+            function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+            var rafId = null;
+            function animateScroll(target, onDone) {
+                if (rafId) cancelAnimationFrame(rafId);
+                var start = window.pageYOffset;
+                var dist = target - start;
+                var t0 = performance.now();
+                (function tick(now) {
+                    var p = Math.min(1, (now - t0) / DURATION);
+                    var e = easeOutExpo(p);
+                    window.scrollTo(0, start + dist * e);
+                    if (p < 1) rafId = requestAnimationFrame(tick);
+                    else { rafId = null; locked = false; if (onDone) onDone(); }
+                })(t0);
+            }
+
+            var sections = Array.prototype.slice.call(page.querySelectorAll(':scope > section'));
+            var locked = false;
+
+            function vh() { return window.innerHeight; }
+
+            function activeIdx() {
+                var probeY = NAV + 1;
+                for (var i = 0; i < sections.length; i++) {
+                    var r = sections[i].getBoundingClientRect();
+                    if (r.top <= probeY && r.bottom > probeY) return i;
+                }
+                return -1;
+            }
+
+            function setActive(i) {
+                sections.forEach(function (s, k) {
+                    if (k === i) {
+                        s.classList.add('is-replaying');
+                        void s.offsetWidth;
+                        s.classList.remove('is-replaying');
+                        s.classList.add('is-active');
+                    } else {
+                        s.classList.remove('is-active');
+                    }
+                });
+            }
+
+            function isLong(sec) {
+                return sec.getBoundingClientRect().height > vh() - NAV + 8;
+            }
+
+            function snapTo(i, fromDir) {
+                if (i < 0 || i >= sections.length) return false;
+                var sec = sections[i];
+                var rect = sec.getBoundingClientRect();
+                var top;
+                if (fromDir === -1 && isLong(sec)) {
+                    top = rect.bottom + window.pageYOffset - vh();
+                } else {
+                    top = rect.top + window.pageYOffset - NAV;
+                }
+                locked = true;
+                sections.forEach(function (s, k) { if (k !== i) s.classList.remove('is-active'); });
+                animateScroll(top, function () { setActive(i); });
+                return true;
+            }
+
+            setActive(0);
+
+            window.addEventListener('wheel', function (e) {
+                if (locked) { e.preventDefault(); return; }
+
+                var dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
+                if (Math.abs(dy) < WHEEL_TH) return;
+                var dir = dy > 0 ? 1 : -1;
+
+                var i = activeIdx();
+                if (i < 0) return;
+                var cur = sections[i];
+
+                if (isLong(cur)) {
+                    var rect = cur.getBoundingClientRect();
+                    if (dir > 0) {
+                        var pxBelow = rect.bottom - vh();
+                        if (pxBelow <= Math.max(EDGE_TOL, dy)) {
+                            e.preventDefault();
+                            snapTo(i + 1, 1);
+                            return;
+                        }
+                        return;
+                    }
+                    if (dir < 0) {
+                        var pxAbove = NAV - rect.top;
+                        if (pxAbove <= Math.max(EDGE_TOL, -dy)) {
+                            e.preventDefault();
+                            snapTo(i - 1, -1);
+                            return;
+                        }
+                        return;
+                    }
+                }
+
+                e.preventDefault();
+                snapTo(i + dir, dir);
+            }, { passive: false });
+
+            window.addEventListener('keydown', function (e) {
+                if (locked) return;
+                var dir = 0;
+                if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') dir = 1;
+                else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
+                else return;
+                var i = activeIdx();
+                if (i < 0) return;
+                var cur = sections[i];
+                if (isLong(cur)) {
+                    var rect = cur.getBoundingClientRect();
+                    if (dir > 0 && rect.bottom - vh() > EDGE_TOL) return;
+                    if (dir < 0 && NAV - rect.top > EDGE_TOL) return;
+                }
+                e.preventDefault();
+                snapTo(i + dir, dir);
+            });
+        })();
+    </script>
 
 </body>
 
