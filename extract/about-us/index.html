@@ -784,228 +784,55 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
         <link rel="stylesheet" href="css/about-us-page.css">
 
         <style>
-            /* Each top-level section fills the viewport (minus fixed-nav 72px).
-               No internal scroll — sections grow with content; JS engine handles
-               whether to scroll content via translateY or advance to next section. */
-            #about-us-page>section,
-            .bib-our-company {
+            /* ── Scroll snap on viewport (no overflow-y needed on html) ──────────
+               scroll-snap-type on <html> controls the *viewport* scroll, not
+               an overflow box. Adding overflow-y: scroll creates a separate
+               scroll container and breaks snap on nested children.             */
+            html {
+                scroll-snap-type: y mandatory;
+                scroll-padding-top: 72px;
+            }
+
+            body { overflow-x: hidden; }
+
+            /* ── All top-level sections: snap at top, no inner scroll ──────────── */
+            #about-us-page > section {
                 min-height: calc(100vh - 72px);
-                scroll-margin-top: 72px;
-                overflow: visible;
+                scroll-snap-align: start;
+                overflow: hidden;
             }
 
             @supports (min-height: 100dvh) {
-                #about-us-page>section,
-                .bib-our-company {
+                #about-us-page > section {
                     min-height: calc(100dvh - 72px);
                 }
             }
 
-            #about-us-page>section>section {
-                min-height: 100%;
-                height: 100%;
+            /* ── Short sections (fit 1 viewport): force stop here ──────────────── */
+            .bib-our-company,
+            .bib-vm {
+                height: calc(100vh - 72px);
+                max-height: calc(100vh - 72px);
+                scroll-snap-stop: always;
             }
 
-            /* ---------- Section-by-section: JS-driven full-page snap + slide-in ---------- */
-            html,
-            body {
-                overflow-x: hidden;
-            }
-
-            html.bib-snap-locked,
-            html.bib-snap-locked body {
-                overflow: hidden;
-                height: 100%;
-            }
-
-            #about-us-page>section {
-                /* Container level transitions removed to prevent 32px layout gaps. 
-                   Internal elements handle their own reveal animations. */
-                opacity: 1;
-                transform: none;
-            }
-
-            /* First section is ALWAYS visible on load — no animation delay */
-            #about-us-page>section:first-child {
-                opacity: 1;
-                transform: none;
-            }
-
-            #about-us-page>section.is-in {
-                opacity: 1;
-                transform: none;
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-                #about-us-page>section {
-                    opacity: 1;
-                    transform: none;
-                    transition: none;
+            @supports (height: 100dvh) {
+                .bib-our-company,
+                .bib-vm {
+                    height: calc(100dvh - 72px);
+                    max-height: calc(100dvh - 72px);
                 }
+            }
+
+            /* ── Long sections (content > 1 viewport): grow freely, no snap-stop ─
+               Browser snaps only when next section's top reaches viewport top.     */
+            #about-us-page > section.bib-value,
+            #about-us-page > section.group-initiatives-area,
+            #about-us-page > section.bib-footer-wrapper {
+                height: auto;
+                max-height: none;
             }
         </style>
-        <script>
-            (function () {
-                if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-                window.scrollTo(0, 0);
-
-                const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', init);
-                } else {
-                    init();
-                }
-
-                function init() {
-                    const sections = [...document.querySelectorAll('#about-us-page > section')];
-                    if (!sections.length) return;
-
-                    sections[0].classList.add('is-in');
-
-                    if ('IntersectionObserver' in window && !reduced) {
-                        const io = new IntersectionObserver((entries) => {
-                            entries.forEach(e => {
-                                if (e.isIntersecting) e.target.classList.add('is-in');
-                                else e.target.classList.remove('is-in');
-                            });
-                        }, { threshold: 0.15 });
-                        sections.forEach(s => io.observe(s));
-                    } else {
-                        sections.forEach(s => s.classList.add('is-in'));
-                    }
-
-                    if (reduced) return;
-
-                    const NAV_OFFSET = 72;
-                    const LOCK_MS = 1000;       // section transition animation length
-                    const IDLE_MS = 180;        // gap that counts as "user released wheel"
-                    const OVERFLOW_TOL = 80;    // ignore minor overflows (font/subpixel diffs across OS)
-                    const BOUNDARY_TOL = 8;     // px tolerance for at-edge detection
-
-                    let current = 0;
-                    let locked = false;
-                    let armedDir = 0;           // direction the boundary is armed for; 0 = not armed
-                    let lastWheelAt = 0;
-                    let touchStartY = null;
-
-                    const winView = () => window.innerHeight - NAV_OFFSET;
-                    function sectionTopY(i) {
-                        return sections[i].getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET;
-                    }
-                    function getCurrent() {
-                        const y = window.pageYOffset + NAV_OFFSET + 1;
-                        for (let i = sections.length - 1; i >= 0; i--) {
-                            if (y >= sectionTopY(i)) return i;
-                        }
-                        return 0;
-                    }
-                    function tall(sec) { return sec.offsetHeight > winView() + OVERFLOW_TOL; }
-                    function atSectionTop(i) {
-                        return window.pageYOffset <= sectionTopY(i) + BOUNDARY_TOL;
-                    }
-                    function atSectionBottom(i) {
-                        const sec = sections[i];
-                        const maxScroll = sectionTopY(i) + sec.offsetHeight - winView();
-                        return window.pageYOffset >= maxScroll - BOUNDARY_TOL;
-                    }
-
-                    function go(delta) {
-                        if (locked) return;
-                        const idx = getCurrent();
-                        const next = Math.max(0, Math.min(sections.length - 1, idx + delta));
-                        if (next === idx) return;
-                        locked = true;
-                        armedDir = 0;
-                        current = next;
-                        sections[next].classList.add('is-in');
-                        window.scrollTo({ top: sectionTopY(next), behavior: 'smooth' });
-                        setTimeout(() => { locked = false; }, LOCK_MS);
-                    }
-
-                    /* Wheel handler — sections stack naturally; window does the scrolling.
-                       Short section (fits viewport): wheel = jump.
-                       Tall section (taller than viewport):
-                         mid-content → let window scroll natively
-                         at edge     → swallow first gesture; next gesture jumps. */
-                    function onWheel(e) {
-                        if (locked) { e.preventDefault(); return; }
-
-                        const norm = e.deltaMode === 1 ? e.deltaY * 40
-                                   : e.deltaMode === 2 ? e.deltaY * 800
-                                   : e.deltaY;
-                        if (Math.abs(norm) < 4) return;
-
-                        const idx = getCurrent();
-                        const sec = sections[idx];
-                        const dir = norm > 0 ? 1 : -1;
-                        const now = performance.now();
-                        const idle = (now - lastWheelAt) > IDLE_MS;
-                        lastWheelAt = now;
-
-                        if (!tall(sec)) {
-                            e.preventDefault();
-                            if (idle) go(dir);
-                            return;
-                        }
-
-                        const goingDown = dir > 0;
-                        const canScrollInside =
-                            (goingDown && !atSectionBottom(idx)) ||
-                            (!goingDown && !atSectionTop(idx));
-
-                        if (canScrollInside) {
-                            armedDir = 0;
-                            return;                  // let window scroll naturally inside tall section
-                        }
-
-                        e.preventDefault();
-                        if (armedDir !== dir) { armedDir = dir; return; }
-                        if (idle) { go(dir); return; }
-                    }
-                    // Dedupe so multiple listeners (window + document + sections) only run handler once per event.
-                    const _seen = new WeakSet();
-                    const _core = onWheel;
-                    const _wrapped = function (e) {
-                        if (_seen.has(e)) return;
-                        _seen.add(e);
-                        _core(e);
-                    };
-                    // Capture phase + non-passive — intercept before any native overflow scroll fires.
-                    window.addEventListener('wheel', _wrapped, { passive: false, capture: true });
-                    document.addEventListener('wheel', _wrapped, { passive: false, capture: true });
-                    sections.forEach(s => s.addEventListener('wheel', _wrapped, { passive: false, capture: true }));
-
-                    window.addEventListener('keydown', (e) => {
-                        if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(1); }
-                        else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
-                        else if (e.key === 'Home') { e.preventDefault(); go(-current); }
-                        else if (e.key === 'End') { e.preventDefault(); go(sections.length - 1 - current); }
-                    });
-
-                    window.addEventListener('touchstart', (e) => {
-                        touchStartY = e.touches[0].clientY;
-                    }, { passive: true });
-                    window.addEventListener('touchend', (e) => {
-                        if (touchStartY === null) return;
-                        const dy = touchStartY - e.changedTouches[0].clientY;
-                        touchStartY = null;
-                        if (Math.abs(dy) <= 40 || locked) return;
-
-                        const idx = getCurrent();
-                        const sec = sections[idx];
-                        const dir = dy > 0 ? 1 : -1;
-                        if (!tall(sec)) { go(dir); return; }
-                        if (dir > 0 && atSectionBottom(idx)) { go(1); return; }
-                        if (dir < 0 && atSectionTop(idx)) { go(-1); return; }
-                    });
-
-                    window.addEventListener('scroll', () => {
-                        if (locked) return;
-                        current = getCurrent();
-                    }, { passive: true });
-                }
-            })();
-        </script>
         <section id="about-us-page">
             <!-- ===== Section / Our Company (Figma node 103:502, About us page) ===== -->
             <style>
@@ -1246,16 +1073,58 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
                     }
                 }
 
-                /* ---- Hero sequence: JS sets these inline, CSS just defines transitions ---- */
-                @media (prefers-reduced-motion: no-preference) {
-                    .bib-our-company__bg {
-                        transition: opacity 900ms cubic-bezier(0.4, 0, 0.2, 1);
-                    }
+                /* ---- Hero entrance (pure CSS keyframes — fires automatically on load) ---- */
+                @keyframes bibHeroBgFade {
+                    from { opacity: 0; }
+                    to   { opacity: 0.72; }
+                }
+                @keyframes bibHeroFadeUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to   { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes bibHeroSlideLeft {
+                    from { opacity: 0; transform: translateX(-28px); }
+                    to   { opacity: 1; transform: translateX(0); }
+                }
 
-                    .bib-oc-rev {
-                        transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
-                            transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
-                    }
+                /* Override the natural opacity of the bg, then animate it back up */
+                .bib-our-company__bg {
+                    opacity: 0;
+                    animation: bibHeroBgFade 900ms cubic-bezier(0.4,0,0.2,1) 0ms both;
+                }
+                .bib-our-company__header,
+                .bib-our-company__lede {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                .bib-our-company__header {
+                    animation: bibHeroFadeUp 700ms cubic-bezier(0.4,0,0.2,1) 200ms both;
+                }
+                .bib-our-company__lede {
+                    animation: bibHeroFadeUp 700ms cubic-bezier(0.4,0,0.2,1) 500ms both;
+                }
+                .bib-our-company__stat,
+                .bib-our-company__divider {
+                    opacity: 0;
+                    transform: translateX(-28px);
+                }
+                .bib-our-company__stat:nth-of-type(1) { animation: bibHeroSlideLeft 500ms cubic-bezier(0.4,0,0.2,1) 1300ms both; }
+                .bib-our-company__stat:nth-of-type(2) { animation: bibHeroSlideLeft 500ms cubic-bezier(0.4,0,0.2,1) 1480ms both; }
+                .bib-our-company__stat:nth-of-type(3) { animation: bibHeroSlideLeft 500ms cubic-bezier(0.4,0,0.2,1) 1660ms both; }
+                .bib-our-company__stat:nth-of-type(4) { animation: bibHeroSlideLeft 500ms cubic-bezier(0.4,0,0.2,1) 1840ms both; }
+                .bib-our-company__stat:nth-of-type(5) { animation: bibHeroSlideLeft 500ms cubic-bezier(0.4,0,0.2,1) 2020ms both; }
+                .bib-our-company__divider:nth-of-type(1) { animation: bibHeroSlideLeft 400ms cubic-bezier(0.4,0,0.2,1) 1380ms both; }
+                .bib-our-company__divider:nth-of-type(2) { animation: bibHeroSlideLeft 400ms cubic-bezier(0.4,0,0.2,1) 1560ms both; }
+                .bib-our-company__divider:nth-of-type(3) { animation: bibHeroSlideLeft 400ms cubic-bezier(0.4,0,0.2,1) 1740ms both; }
+                .bib-our-company__divider:nth-of-type(4) { animation: bibHeroSlideLeft 400ms cubic-bezier(0.4,0,0.2,1) 1920ms both; }
+
+                /* Replay support: removing & re-adding .is-replaying restarts animations */
+                .bib-our-company.is-replaying .bib-our-company__bg,
+                .bib-our-company.is-replaying .bib-our-company__header,
+                .bib-our-company.is-replaying .bib-our-company__lede,
+                .bib-our-company.is-replaying .bib-our-company__stat,
+                .bib-our-company.is-replaying .bib-our-company__divider {
+                    animation: none;
                 }
             </style>
 
@@ -1311,73 +1180,24 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             </section>
             <script>
                 (function () {
-                    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     var section = document.querySelector('.bib-our-company');
-                    if (!section || reduced) return;
+                    if (!section) return;
 
-                    var bg = section.querySelector('.bib-our-company__bg');
-                    var header = section.querySelector('.bib-our-company__header');
-                    var lede = section.querySelector('.bib-our-company__lede');
-                    var stats = Array.from(section.querySelectorAll('.bib-our-company__stat'));
-                    var divs = Array.from(section.querySelectorAll('.bib-our-company__divider'));
-                    var revEls = [header, lede].concat(stats).concat(divs);
-                    var timers = [];
-
-                    revEls.forEach(function (el) { el.classList.add('bib-oc-rev'); });
-
-                    function reset() {
-                        timers.forEach(clearTimeout);
-                        timers = [];
-                        bg.style.transition = 'none';
-                        revEls.forEach(function (el) { el.style.transition = 'none'; });
-                        bg.style.opacity = '0';
-                        revEls.forEach(function (el) {
-                            el.style.opacity = '0';
-                            el.style.transform = 'translateY(14px)';
-                        });
-                    }
-
-                    function show(el, delay, dur) {
-                        var t = setTimeout(function () {
-                            if (el === bg) {
-                                el.style.transition = 'opacity ' + dur + 'ms cubic-bezier(0.4,0,0.2,1)';
-                                el.style.opacity = '0.72';
-                            } else {
-                                el.style.transition = 'opacity ' + dur + 'ms cubic-bezier(0.4,0,0.2,1), transform ' + dur + 'ms cubic-bezier(0.4,0,0.2,1)';
-                                el.style.opacity = '1';
-                                el.style.transform = 'translateY(0)';
+                    // Replay on re-entry: kill animations, force reflow, restore
+                    var wasOut = false;
+                    new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (!entry.isIntersecting) {
+                                wasOut = true;
+                                section.classList.add('is-replaying');
+                            } else if (wasOut) {
+                                wasOut = false;
+                                section.classList.add('is-replaying');
+                                void section.offsetWidth;
+                                section.classList.remove('is-replaying');
                             }
-                        }, delay);
-                        timers.push(t);
-                    }
-
-                    function playHero() {
-                        reset();
-                        /* double rAF ensures hidden state is painted before animating */
-                        requestAnimationFrame(function () {
-                            requestAnimationFrame(function () {
-                                show(bg, 0, 900);
-                                show(header, 380, 600);
-                                show(lede, 680, 600);
-                                var t = 980;
-                                stats.forEach(function (stat, i) {
-                                    show(stat, t, 500);
-                                    if (divs[i]) show(divs[i], t + 60, 400);
-                                    t += 150;
-                                });
-                            });
                         });
-                    }
-
-                    /* Keep observer alive — replay every time section re-enters */
-                    var wasIn = section.classList.contains('is-in');
-                    if (wasIn) playHero();
-
-                    new MutationObserver(function () {
-                        var isIn = section.classList.contains('is-in');
-                        if (isIn && !wasIn) { wasIn = true; playHero(); }
-                        if (!isIn && wasIn) { wasIn = false; reset(); }
-                    }).observe(section, { attributes: true, attributeFilter: ['class'] });
+                    }, { threshold: 0.2 }).observe(section);
                 })();
             </script>
             <!-- ===== /Section / Our Company ===== -->
