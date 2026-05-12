@@ -1781,50 +1781,205 @@ var GET_PATH = {"ADMIN_AJAX":"https:\/\/bestinbrands.com\/wp-admin\/admin-ajax.p
             <!---------- /Category Section --------->
 
             <!---------- About Us Section --------->
-            <!-- ---------------------------------------------------------------------------------------------- -->
+            <style>
+                .bib-home-about {
+                    position: relative;
+                    width: 100%;
+                    height: calc(100vh - 72px);
+                    overflow: hidden;
+                    isolation: isolate;
+                    background: #051436;
+                    font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                    color: #fff;
+                    display: flex;
+                    align-items: center;
+                }
 
-            <section class="group-about-us-area"
-                style="background-image: url(https://bestinbrands.com/wp-content/themes/bib-website/assets/images/homepage-about-us-2.webp)">
-                <section class="about-us-area">
-                    <div class="box-content-about-us">
-                        <div class="group-content-area group-content-about-us-animate">
-                            <div class="box-title-area section">
-                                <h2>
-                                    About <span>
-                                        uS </span>
-                                </h2>
-                            </div>
-                            <div class="box-content-area">
-                                <p>Bestinbrands has been present in the Bangladesh market since the early 2000s. We
-                                    specialize in distributing, marketing, and developing international brands. We have
-                                    a proven track record of introducing new brands to Bangladesh and have built strong
-                                    partnerships with local retailers and key governmental institutions.</p>
-                            </div>
-                            <div class="box-button-area">
-                                <a href="https://bestinbrands.com/about-us/" class="transform-scale">
-                                    <img class="bg"
-                                        src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/cirle-bg.svg"
-                                        alt="icon arrow" width="10" height="10" loading="lazy" />
-                                    <img class="arrow"
-                                        src="https://bestinbrands.com/wp-content/themes/bib-website/assets/icon/arrow-no-bg.svg"
-                                        alt="img ABOUTUS" loading="lazy">
-                                    <span> LEARN MORE </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="group-image-area group-image-about-us-animate">
-                            <div class="box-image-area">
-                                <img src="https://bestinbrands.com/wp-content/uploads/2023/09/home-page-about-us-image-1.png"
-                                    alt="DISTRIBUTION" loading="lazy" width="100" height="100">
-                            </div>
-                        </div>
+                @supports (height: 100dvh) {
+                    .bib-home-about {
+                        height: calc(100dvh - 72px);
+                    }
+                }
+
+                .bib-home-about__bg {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    z-index: -2;
+                    transform: translateX(-100%);
+                    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+                }
+
+                .bib-home-about.is-visible .bib-home-about__bg {
+                    transform: translateX(0);
+                }
+
+                .bib-home-about::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: -1;
+                    background: linear-gradient(to right, #000 0%, rgba(5, 20, 54, 0) 100%);
+                    pointer-events: none;
+                }
+
+                .bib-home-about__wrapper {
+                    position: relative;
+                    width: 100%;
+                    max-width: 1440px;
+                    margin: 0 auto;
+                    padding: 0 48px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    align-items: center;
+                    height: 100%;
+                }
+
+                .bib-home-about__col {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    gap: 16px;
+                    height: 100%;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 1s ease, transform 1s ease;
+                    transition-delay: 1.2s;
+                }
+
+                .bib-home-about.is-visible .bib-home-about__col {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .bib-home-about__title {
+                    margin: 0;
+                    font-weight: 600;
+                    font-size: 40px;
+                    line-height: 48px;
+                    letter-spacing: -0.5px;
+                    color: #fff;
+                }
+
+                .bib-home-about__body {
+                    margin: 0;
+                    font-weight: 400;
+                    font-size: 20px;
+                    line-height: 28px;
+                    color: #FAF6F5;
+                }
+
+                .bib-home-about__cta {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 12px;
+                    text-decoration: none;
+                    margin-top: 8px;
+                    cursor: pointer;
+                }
+
+                .bib-home-about__cta-icon {
+                    position: relative;
+                    width: 101px;
+                    height: 54px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .bib-home-about__cta-icon img.arrow {
+                    position: relative;
+                    z-index: 2;
+                    width: 101px;
+                    height: 54px;
+                }
+
+                .bib-home-about__cta-icon img.bg {
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 54px;
+                    height: 54px;
+                    z-index: 3;
+                    transition: transform 500ms ease-in-out;
+                    transform-origin: center center;
+                }
+
+                .bib-home-about__cta:hover .bib-home-about__cta-icon img.bg {
+                    transform: translateY(-50%) scale(1.3);
+                }
+
+                .bib-home-about__cta-label {
+                    font-family: "Cina GEO", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 24px;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    color: #fff;
+                }
+
+                @media (max-width: 1024px) {
+                    .bib-home-about__wrapper {
+                        padding: 0 32px;
+                    }
+
+                    .bib-home-about__title {
+                        font-size: 32px;
+                        line-height: 40px;
+                    }
+
+                    .bib-home-about__body {
+                        font-size: 16px;
+                        line-height: 22px;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .bib-home-about__wrapper {
+                        grid-template-columns: 1fr;
+                        padding: 0 20px;
+                    }
+                }
+            </style>
+
+            <section class="bib-home-about" aria-label="About Us">
+                <img class="bib-home-about__bg" src="img/background.jpeg" alt="" aria-hidden="true">
+                <div class="bib-home-about__wrapper">
+                    <div class="bib-home-about__col">
+                        <h2 class="bib-home-about__title">ABOUT US</h2>
+                        <p class="bib-home-about__body">Bestinbrands has been present in the Bangladesh market since the early 2000s. We specialize in distributing, marketing, and developing international brands. We have a proven track record of introducing new brands to Bangladesh and have built strong partnerships with local retailers and key governmental institutions.</p>
+                        <a class="bib-home-about__cta" href="/about-us/" aria-label="Know more about us">
+                            <span class="bib-home-about__cta-icon" aria-hidden="true">
+                                <img class="arrow" src="img/arrow-no-bg.svg" alt="">
+                                <img class="bg" src="img/cirle-bg.svg" alt="">
+                            </span>
+                            <span class="bib-home-about__cta-label">Know More About Us</span>
+                        </a>
                     </div>
-                    <div class="box-title-area" data-aos="slide-left">
-                        <h2>
-                            DISTRIBUTION </h2>
-                    </div>
-                </section>
-            </section> <!---------- About Us Section --------->
+                </div>
+            </section>
+            <script>
+                (function () {
+                    var section = document.querySelector('.bib-home-about');
+                    if (!section) return;
+                    new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                            } else {
+                                entry.target.classList.remove('is-visible');
+                            }
+                        });
+                    }, { threshold: 0.3 }).observe(section);
+                })();
+            </script>
+            <!---------- /About Us Section --------->
 
             <!---------- Network Section — DNA-aligned: full-bleed dark, network.jpg, evidence-led --------->
             <style>
